@@ -5,6 +5,23 @@ const Hero: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  const speakName = () => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance("Hi, I am Vinod. Saivinod Kotipalli.");
+      utterance.rate = 0.9;
+      utterance.pitch = 1.0;
+      utterance.lang = 'en-US';
+
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+
+      window.speechSynthesis.speak(utterance);
+    }
+  };
 
   const toggleVideo = () => {
     if (videoRef.current) {
@@ -132,9 +149,27 @@ const Hero: React.FC = () => {
             </a>
           </div>
 
-          {/* Greeting Badge */}
-          <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-mono font-bold tracking-widest text-[#ff2a2a] uppercase mb-4 backdrop-blur-md">
-            Welcome to my portfolio
+          {/* Greeting Badge & Audio Pronunciation */}
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-mono font-bold tracking-widest text-[#ff2a2a] uppercase backdrop-blur-md">
+              Welcome to my portfolio
+            </div>
+
+            <button
+              onClick={speakName}
+              type="button"
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-mono font-bold transition-all duration-300 ${
+                isSpeaking
+                  ? 'bg-[#ff2a2a] text-white border-red-500 shadow-[0_0_20px_rgba(255,42,42,0.6)] animate-pulse'
+                  : 'bg-white/10 text-white/90 border-white/20 hover:bg-white hover:text-black'
+              }`}
+              title="Click to hear name pronunciation: Vinod"
+            >
+              <svg className={`w-3.5 h-3.5 ${isSpeaking ? 'animate-bounce' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+              </svg>
+              <span>{isSpeaking ? 'Speaking Vinod...' : '🔊 Listen: Vinod'}</span>
+            </button>
           </div>
 
           {/* Heading */}
