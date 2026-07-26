@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "PortfolioData": {
+      "title": "PortfolioData",
+      "description": "Full portfolio data including personal info, projects, skills, experience, and certificates.",
+      "type": "object",
+      "properties": {
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last modification"
+        },
+        "updatedBy": {
+          "type": "string",
+          "description": "UID or Email of administrator who modified the data"
+        }
+      }
+    },
+    "AdminSettings": {
+      "title": "AdminSettings",
+      "description": "Admin email and phone security configuration",
+      "type": "object",
+      "properties": {
+        "adminEmail": {
+          "type": "string",
+          "description": "Primary administrator email address"
+        },
+        "adminPhone": {
+          "type": "string",
+          "description": "Primary administrator mobile phone number"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of update"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/portfolio/main": {
+      "schema": { "$ref": "#/entities/PortfolioData" },
+      "description": "Main portfolio content storage document"
+    },
+    "/admin/config": {
+      "schema": { "$ref": "#/entities/AdminSettings" },
+      "description": "Admin authentication credentials configuration document"
+    }
+  }
+}

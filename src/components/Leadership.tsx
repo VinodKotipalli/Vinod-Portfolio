@@ -1,5 +1,6 @@
 import React from 'react';
-import { leadershipList, LeadershipItemData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
+import { LeadershipItemData } from '../data/portfolioData';
 
 const LeadershipItem: React.FC<{ item: LeadershipItemData; index: number }> = ({ item, index }) => {
   const isEven = index % 2 === 0;
@@ -44,6 +45,8 @@ const LeadershipItem: React.FC<{ item: LeadershipItemData; index: number }> = ({
 };
 
 const Leadership: React.FC = () => {
+  const { data } = usePortfolio();
+  const leadershipItems = data.leadershipList;
   return (
     <section className="bg-[#0a0a0a] pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:80px_80px]">
       {/* Top torn paper divider */}
@@ -72,8 +75,8 @@ const Leadership: React.FC = () => {
           <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-2 bottom-2 w-[2px] bg-gradient-to-b from-[#ff2a2a] via-red-500/50 to-white/10" />
 
           <div className="w-full">
-            {leadershipList.map((item, index) => (
-              <LeadershipItem key={item.title} item={item} index={index} />
+            {leadershipItems.map((item, index) => (
+              <LeadershipItem key={item.title + index} item={item} index={index} />
             ))}
           </div>
         </div>

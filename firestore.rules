@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'saivinodkotipalli2003@gmail.com' ||
+        (exists(/databases/$(database)/documents/admin/config) &&
+         get(/databases/$(database)/documents/admin/config).data.adminEmail == request.auth.token.email)
+      );
+    }
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Portfolio Content document
+    match /portfolio/main {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Admin Config document
+    match /admin/config {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

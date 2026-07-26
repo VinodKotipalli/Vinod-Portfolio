@@ -1,5 +1,6 @@
 import React from 'react';
-import { contentCreation, socialLinks, ContentCategory } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
+import { ContentCategory } from '../data/portfolioData';
 
 const CreatorCard: React.FC<{ category: ContentCategory; index: number }> = ({ category, index }) => (
   <div
@@ -33,6 +34,8 @@ const CreatorCard: React.FC<{ category: ContentCategory; index: number }> = ({ c
 );
 
 const ContentCreator: React.FC = () => {
+  const { data } = usePortfolio();
+  const { contentCreation, socialLinks } = data;
   return (
     <section
       id="creator"

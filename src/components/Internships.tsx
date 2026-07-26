@@ -1,5 +1,6 @@
 import React from 'react';
-import { internshipsList, InternshipItem } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
+import { InternshipItem } from '../data/portfolioData';
 
 const InternshipCard: React.FC<{ intern: InternshipItem; index: number }> = ({ intern, index }) => (
   <div
@@ -54,6 +55,8 @@ const InternshipCard: React.FC<{ intern: InternshipItem; index: number }> = ({ i
 );
 
 const Internships: React.FC = () => {
+  const { data } = usePortfolio();
+  const internships = data.internshipsList;
   return (
     <section id="experience" className="bg-[#ff2a2a] pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans">
       {/* Torn paper divider at top */}
@@ -76,8 +79,8 @@ const Internships: React.FC = () => {
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-          {internshipsList.map((intern, index) => (
-            <InternshipCard key={intern.organization} intern={intern} index={index} />
+          {internships.map((intern, index) => (
+            <InternshipCard key={intern.organization + index} intern={intern} index={index} />
           ))}
         </div>
       </div>

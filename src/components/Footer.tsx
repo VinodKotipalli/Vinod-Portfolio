@@ -1,7 +1,9 @@
 import React from 'react';
-import { personalInfo, socialLinks, footerContent } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Footer: React.FC = () => {
+  const { data } = usePortfolio();
+  const { personalInfo, socialLinks, footerContent } = data;
   return (
     <footer className="bg-[#111111] text-[#d4d4d4] py-16 px-6 md:px-12 w-full font-mono text-[10px] md:text-xs tracking-widest flex flex-col justify-between min-h-[50vh]">
       {/* Top Row */}

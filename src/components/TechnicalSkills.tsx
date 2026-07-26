@@ -1,5 +1,5 @@
 import React from 'react';
-import { technicalSkills } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 
 interface Skill {
   name: string;
@@ -46,6 +46,8 @@ const SkillCategoryCard: React.FC<{ category: SkillCategory; index: number }> = 
 );
 
 const TechnicalSkills: React.FC = () => {
+  const { data } = usePortfolio();
+  const categories = data.technicalSkills.categories;
   return (
     <section
       id="skills"
@@ -70,7 +72,7 @@ const TechnicalSkills: React.FC = () => {
 
         {/* Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {technicalSkills.categories.map((category, index) => (
+          {categories.map((category, index) => (
             <SkillCategoryCard key={category.title} category={category} index={index} />
           ))}
         </div>

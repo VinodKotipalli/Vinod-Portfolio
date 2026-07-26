@@ -1,5 +1,6 @@
 import React from 'react';
-import { certificates, CertificateItem } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
+import { CertificateItem } from '../data/portfolioData';
 
 const CertificateCard: React.FC<{ cert: CertificateItem; aosDelay: string }> = ({ cert, aosDelay }) => (
   <div
@@ -22,6 +23,8 @@ const CertificateCard: React.FC<{ cert: CertificateItem; aosDelay: string }> = (
 );
 
 const Certificates: React.FC = () => {
+  const { data } = usePortfolio();
+  const certs = data.certificates;
   return (
     <section
       id="certificates"
@@ -43,9 +46,9 @@ const Certificates: React.FC = () => {
 
         {/* Certificate Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
-          {certificates.featured.map((cert, index) => (
+          {certs.featured.map((cert, index) => (
             <CertificateCard
-              key={cert.name}
+              key={cert.name + index}
               cert={cert}
               aosDelay={String((index + 1) * 100)}
             />
@@ -55,7 +58,7 @@ const Certificates: React.FC = () => {
         {/* View All Certificates CTA */}
         <div data-aos="fade-up" data-aos-delay="700" className="flex justify-center">
           <a
-            href={certificates.viewAllUrl}
+            href={certs.viewAllUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 px-8 py-3.5 rounded-full bg-black text-white font-bold text-base hover:bg-[#ff2a2a] hover:scale-105 hover:shadow-[0_10px_30px_rgba(255,42,42,0.3)] transition-all duration-300 group"

@@ -1,5 +1,6 @@
 import React from 'react';
-import { projects, Project } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
+import { Project } from '../data/portfolioData';
 
 const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => (
   <div
@@ -77,8 +78,10 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 );
 
 const Projects: React.FC = () => {
-  const flagship = projects.find((p) => p.isFlagship) || projects[0];
-  const regularProjects = projects.filter((p) => !p.isFlagship);
+  const { data } = usePortfolio();
+  const projectsList = data.projects;
+  const flagship = projectsList.find((p) => p.isFlagship) || projectsList[0];
+  const regularProjects = projectsList.filter((p) => !p.isFlagship);
 
   return (
     <section

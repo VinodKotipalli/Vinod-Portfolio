@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import emailjs from '@emailjs/browser';
-import { personalInfo, socialLinks, emailjsConfig } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Contact: React.FC = () => {
+  const { data } = usePortfolio();
+  const { personalInfo, socialLinks, emailjsConfig } = data;
   const formRef = useRef<HTMLFormElement | null>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 

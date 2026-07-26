@@ -1,5 +1,6 @@
 import React from 'react';
-import { softSkillsList, SoftSkillItem } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
+import { SoftSkillItem } from '../data/portfolioData';
 
 const SoftSkillCard: React.FC<{ skill: SoftSkillItem; index: number }> = ({ skill, index }) => (
   <div
@@ -22,6 +23,8 @@ const SoftSkillCard: React.FC<{ skill: SoftSkillItem; index: number }> = ({ skil
 );
 
 const SoftSkills: React.FC = () => {
+  const { data } = usePortfolio();
+  const softSkills = data.softSkillsList;
   return (
     <section className="bg-white pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans bg-[linear-gradient(to_right,#80808006_1px,transparent_1px),linear-gradient(to_bottom,#80808006_1px,transparent_1px)] bg-[size:60px_60px]">
       {/* Top paper divider */}
@@ -47,8 +50,8 @@ const SoftSkills: React.FC = () => {
 
         {/* Soft Skills Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {softSkillsList.map((skill, index) => (
-            <SoftSkillCard key={skill.name} skill={skill} index={index} />
+          {softSkills.map((skill, index) => (
+            <SoftSkillCard key={skill.name + index} skill={skill} index={index} />
           ))}
         </div>
       </div>

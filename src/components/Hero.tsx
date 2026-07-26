@@ -1,64 +1,16 @@
-import React, { useRef, useState } from 'react';
-import { heroContent, socialLinks } from '../data/portfolioData';
+import React from 'react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const Hero: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-
-  const speakName = () => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance("Hi, I am Vinod. Saivinod Kotipalli.");
-      utterance.rate = 0.9;
-      utterance.pitch = 1.0;
-      utterance.lang = 'en-US';
-
-      utterance.onstart = () => setIsSpeaking(true);
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
-
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
-  const toggleVideo = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play();
-        setIsPlaying(true);
-      }
-    }
-  };
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
+  const { data } = usePortfolio();
+  const { heroContent, socialLinks } = data;
   return (
     <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between pt-24 pb-12">
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted={isMuted}
-          playsInline
-          className="w-full h-full object-cover opacity-40 filter brightness-75 contrast-125 scale-105"
-        >
-          <source src={heroContent.heroVideoUrl} type="video/mp4" />
-        </video>
-        {/* Dark Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/80 z-10" />
+      {/* Subtle Background Mesh/Gradients */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-red-600/10 rounded-full blur-[128px]" />
+        <div className="absolute top-1/3 -right-40 w-96 h-96 bg-red-900/10 rounded-full blur-[128px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950 to-black z-10" />
       </div>
 
       {/* Social Sidebar (Desktop) */}
@@ -149,27 +101,9 @@ const Hero: React.FC = () => {
             </a>
           </div>
 
-          {/* Greeting Badge & Audio Pronunciation */}
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-mono font-bold tracking-widest text-[#ff2a2a] uppercase backdrop-blur-md">
-              Welcome to my portfolio
-            </div>
-
-            <button
-              onClick={speakName}
-              type="button"
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-mono font-bold transition-all duration-300 ${
-                isSpeaking
-                  ? 'bg-[#ff2a2a] text-white border-red-500 shadow-[0_0_20px_rgba(255,42,42,0.6)] animate-pulse'
-                  : 'bg-white/10 text-white/90 border-white/20 hover:bg-white hover:text-black'
-              }`}
-              title="Click to hear name pronunciation: Vinod"
-            >
-              <svg className={`w-3.5 h-3.5 ${isSpeaking ? 'animate-bounce' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-              </svg>
-              <span>{isSpeaking ? 'Speaking Vinod...' : '🔊 Listen: Vinod'}</span>
-            </button>
+          {/* Greeting Badge */}
+          <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-mono font-bold tracking-widest text-[#ff2a2a] uppercase mb-4 backdrop-blur-md">
+            Welcome to my portfolio
           </div>
 
           {/* Heading */}
@@ -217,52 +151,6 @@ const Hero: React.FC = () => {
               {heroContent.ctaResume.text}
             </a>
           </div>
-        </div>
-
-        {/* Right Side: Play/Mute Reel Controls */}
-        <div className="mt-8 md:mt-0 flex flex-col md:flex-row items-center gap-4 self-start md:self-auto">
-          <div
-            className="flex items-center gap-3 cursor-pointer group"
-            onClick={toggleVideo}
-          >
-            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/30 bg-black/40 backdrop-blur-md flex justify-center items-center group-hover:scale-110 group-hover:bg-[#ff2a2a] transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_40px_rgba(255,42,42,0.6)]">
-              {!isPlaying ? (
-                <svg className="w-5 h-5 md:w-7 md:h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5 md:w-7 md:h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-                </svg>
-              )}
-            </div>
-            <span className="text-white text-[10px] md:text-xs font-mono font-bold tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity">
-              {!isPlaying ? 'Play Reel' : 'Pause Reel'}
-            </span>
-          </div>
-
-          <button
-            onClick={toggleMute}
-            className="p-3 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white/70 hover:text-white hover:border-white transition-all text-xs flex items-center gap-2"
-            aria-label="Toggle Mute"
-          >
-            {isMuted ? (
-              <>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                </svg>
-                <span className="hidden sm:inline font-mono">Unmute Audio</span>
-              </>
-            ) : (
-              <>
-                <svg className="w-4 h-4 text-[#ff2a2a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                </svg>
-                <span className="hidden sm:inline font-mono text-[#ff2a2a]">Audio On</span>
-              </>
-            )}
-          </button>
         </div>
       </div>
 

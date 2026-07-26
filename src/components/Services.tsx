@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useMotionValueEvent, MotionValue } from 'motion/react';
-import { skillsContent } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 
 interface TagCardProps {
   number: string;
@@ -97,6 +97,8 @@ const TagCard: React.FC<TagCardProps> = ({
 };
 
 const Services: React.FC = () => {
+  const { data } = usePortfolio();
+  const skillsContent = data.skillsContent;
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const { scrollYProgress } = useScroll({

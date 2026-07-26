@@ -1,24 +1,9 @@
-import React, { useState } from 'react';
-import { aboutContent, education } from '../data/portfolioData';
+import React from 'react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const About: React.FC = () => {
-  const [isSpeaking, setIsSpeaking] = useState(false);
-
-  const speakName = () => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance("Hi, I am Vinod. Saivinod Kotipalli.");
-      utterance.rate = 0.9;
-      utterance.pitch = 1.0;
-      utterance.lang = 'en-US';
-
-      utterance.onstart = () => setIsSpeaking(true);
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
-
-      window.speechSynthesis.speak(utterance);
-    }
-  };
+  const { data } = usePortfolio();
+  const { aboutContent, education } = data;
   return (
     <section
       id="about"
@@ -27,26 +12,8 @@ const About: React.FC = () => {
       <div className="max-w-6xl mx-auto relative z-20">
         {/* Section Header */}
         <div data-aos="fade-up" className="mb-16">
-          <div className="flex flex-wrap items-center gap-3 mb-6">
-            <div className="inline-block border border-gray-300 rounded-full px-5 py-1.5 text-sm text-gray-700 font-bold shadow-sm bg-gray-50">
-              About Me
-            </div>
-
-            <button
-              onClick={speakName}
-              type="button"
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-mono font-bold transition-all duration-300 ${
-                isSpeaking
-                  ? 'bg-[#ff2a2a] text-white border-red-500 shadow-md animate-pulse'
-                  : 'bg-black text-white border-black hover:bg-gray-800'
-              }`}
-              title="Click to listen to name pronunciation"
-            >
-              <svg className={`w-3.5 h-3.5 ${isSpeaking ? 'animate-bounce' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-              </svg>
-              <span>{isSpeaking ? 'Speaking Vinod...' : '🔊 Listen: Vinod'}</span>
-            </button>
+          <div className="inline-block border border-gray-300 rounded-full px-5 py-1.5 text-sm text-gray-700 font-bold mb-6 shadow-sm bg-gray-50">
+            About Me
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight mb-6 uppercase">
             {aboutContent.heading}

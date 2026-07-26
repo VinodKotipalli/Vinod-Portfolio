@@ -59,7 +59,7 @@ export const personalInfo = {
   name: "Saivinod Kotipalli",
   firstName: "Saivinod",
   brandName: "Saivinod Kotipalli",
-  title: "Full Stack & Software Developer",
+  title: "AWS DevOps Engineer",
   location: "India",
   phone: "+91 98765 43210",
   emails: {
@@ -67,7 +67,7 @@ export const personalInfo = {
     secondary: "saivinod.kotipalli@gmail.com",
   },
   summary:
-    "Passionate software engineer and Computer Science graduate specializing in modern Full Stack web applications, scalable REST APIs, React, TypeScript, Python, Node.js, and Java. Driven by crafting clean UI/UX and high-performance backend systems.",
+    "Passionate AWS DevOps Engineer and Computer Science graduate specializing in AWS cloud infrastructure, CI/CD pipelines, Docker, Kubernetes, Terraform, and scalable backend architecture. Driven by automating deployments and building high-availability systems.",
   resumeUrl: "/Saivinod_Kotipalli_Resume.pdf",
 };
 
@@ -79,9 +79,9 @@ export const socialLinks = {
 
 export const heroContent = {
   greeting: "Hi, I'm Saivinod Kotipalli",
-  titleHighlight: "Full Stack & Software Developer",
+  titleHighlight: "AWS DevOps Engineer",
   subtitle:
-    "I build fast, responsive, and scalable web applications using React, Node.js, TypeScript, Python, and modern Cloud engineering.",
+    "I design, automate, and scale resilient cloud infrastructure using AWS, Docker, Kubernetes, Terraform, CI/CD pipelines, and modern DevOps practices.",
   ctaPrimary: { text: "View My Work", href: "#projects" },
   ctaSecondary: {
     text: "Contact Me",
@@ -403,9 +403,9 @@ export const education = {
 
 export const footerContent = {
   taglines: [
-    "Software Engineering & Web Development",
-    "React · TypeScript · Node.js · Python",
-    "Scalable Full Stack Applications",
+    "AWS DevOps & Cloud Engineering",
+    "AWS · Docker · Kubernetes · Terraform · CI/CD",
+    "Scalable Cloud & DevOps Solutions",
   ],
   credential: "B.Tech CSE · CGPA 8.8",
   copyright: `© ${new Date().getFullYear()} Saivinod Kotipalli | Built with React & Tailwind CSS`,
