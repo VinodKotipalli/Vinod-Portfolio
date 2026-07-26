@@ -59,12 +59,12 @@ export const personalInfo = {
   name: "Saivinod Kotipalli",
   firstName: "Saivinod",
   brandName: "Saivinod Kotipalli",
-  title: "Full Stack & Software Developer",
+  title: "AWS DevOps Engineer",
   location: "India",
-  phone: "+91 98765 43210",
+  phone: "+91 85208 99337",
   emails: {
     primary: "saivinodkotipalli2003@gmail.com",
-    secondary: "saivinod.kotipalli@gmail.com",
+    secondary: "saivinod.kotipalli2026@gmail.com",
   },
   summary:
     "Passionate software engineer and Computer Science graduate specializing in modern Full Stack web applications, scalable REST APIs, React, TypeScript, Python, Node.js, and Java. Driven by crafting clean UI/UX and high-performance backend systems.",
@@ -79,7 +79,7 @@ export const socialLinks = {
 
 export const heroContent = {
   greeting: "Hi, I'm Saivinod Kotipalli",
-  titleHighlight: "Full Stack & Software Developer",
+  titleHighlight: "AWS DevOps Engineer",
   subtitle:
     "I build fast, responsive, and scalable web applications using React, Node.js, TypeScript, Python, and modern Cloud engineering.",
   ctaPrimary: { text: "View My Work", href: "#projects" },
