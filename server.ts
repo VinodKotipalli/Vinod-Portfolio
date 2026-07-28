@@ -8,7 +8,6 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand, GetCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
 import jwt from "jsonwebtoken";
 import axios from "axios";
-import twilio from "twilio";
 
 const JWT_SECRET = process.env.JWT_SECRET || "admin-security-jwt-secret-key-2026-portfolio";
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
