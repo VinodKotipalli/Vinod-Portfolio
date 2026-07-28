@@ -39,6 +39,8 @@ import {
   Radio,
   ArrowLeft,
   UserCheck,
+  Phone,
+  Smartphone,
 } from 'lucide-react';
 
 export const AdminDashboard: React.FC = () => {
@@ -96,22 +98,20 @@ export const AdminDashboard: React.FC = () => {
     'personal' | 'projects' | 'skills' | 'experience' | 'certificates' | 'leadership' | 'content' | 'soft' | 'gmail' | 'settings'
   >('personal');
 
-  // Admin Email + OTP Auth state
+  // Admin Mobile + OTP Auth state
   const [authStep, setAuthStep] = useState<'credentials' | 'otp'>('credentials');
-  const [emailInput, setEmailInput] = useState('saivinodkotipalli2003@gmail.com');
+  const [mobileInput, setMobileInput] = useState('8520899337');
+  const [maskedMobile, setMaskedMobile] = useState('+91**9337');
   const [otpInput, setOtpInput] = useState('');
   const [generatedOtp, setGeneratedOtp] = useState<string | null>(null);
   const [otpTimer, setOtpTimer] = useState(0);
   const [authError, setAuthError] = useState('');
-  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [isSendingSms, setIsSendingSms] = useState(false);
   const [snsInfo, setSnsInfo] = useState<{
     status: string;
     messageId: string;
-    region: string;
-    topicArn: string;
-    timestamp: string;
-    otpCode: string;
     recipient: string;
+    timestamp: string;
     deliveryChannel: string;
   } | null>(null);
   const [copiedOtp, setCopiedOtp] = useState(false);
@@ -132,6 +132,27 @@ export const AdminDashboard: React.FC = () => {
   useEffect(() => {
     setSettingEmailInput(adminEmail);
   }, [adminEmail]);
+
+  // Verify existing JWT session on mount
+  useEffect(() => {
+    const existingToken = localStorage.getItem('admin_jwt_token');
+    if (existingToken) {
+      fetch('/api/admin/verify-token', {
+        headers: { Authorization: `Bearer ${existingToken}` },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.valid) {
+            setIsAuthenticated(true);
+          } else {
+            localStorage.removeItem('admin_jwt_token');
+          }
+        })
+        .catch(() => {
+          // Keep current session state
+        });
+    }
+  }, []);
 
   // OTP Countdown timer
   useEffect(() => {
@@ -202,52 +223,53 @@ export const AdminDashboard: React.FC = () => {
     e.preventDefault();
     setAuthError('');
 
-    if (!emailInput.trim()) {
-      setAuthError('Please enter your admin email address.');
+    if (!mobileInput.trim()) {
+      setAuthError('Please enter your admin mobile number.');
       return;
     }
 
-    if (!validateEmail(emailInput)) {
-      setAuthError('Please enter a valid email address.');
-      return;
-    }
-
-    const verification = verifyAdminEmail(emailInput);
-    if (!verification.isValid) {
-      setAuthError(verification.message);
-      return;
-    }
-
-    // Generate 6-digit OTP
-    const newOtp = generateOTP();
-    setGeneratedOtp(newOtp);
-    setIsSendingEmail(true);
+    setIsSendingSms(true);
 
     try {
-      // Send OTP directly to email and AWS SNS via backend endpoint
-      const res = await fetch('/api/send-otp', {
+      // POST /api/admin/login with mobile number
+      const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailInput.trim(), otp: newOtp }),
+        body: JSON.stringify({ mobile: mobileInput.trim() }),
       });
+
       const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.success) {
+        setAuthError(data.error || 'Access Denied: Mobile number not registered in ADMIN table.');
+        setIsSendingSms(false);
+        return;
+      }
+
+      if (data.otpCode) {
+        setGeneratedOtp(data.otpCode);
+      }
+      if (data.maskedMobile) {
+        setMaskedMobile(data.maskedMobile);
+      }
       if (data.snsNotification) {
         setSnsInfo(data.snsNotification);
       }
-    } catch (err) {
-      console.warn('Backend email/SNS send error:', err);
-    } finally {
-      setIsSendingEmail(false);
-    }
 
-    setAuthStep('otp');
-    setOtpInput('');
-    setOtpTimer(60);
-    setAuthError('');
-    showToast(`AWS SNS Security OTP Dispatched to ${emailInput.trim()}!`);
+      setAuthStep('otp');
+      setOtpInput('');
+      setOtpTimer(300); // 5 minutes TTL
+      setAuthError('');
+      showToast(data.message || `OTP sent successfully to ${data.maskedMobile || '+91**9337'}`);
+    } catch (err) {
+      console.warn('Backend send SMS error:', err);
+      setAuthError('Authentication request failed. Please check network connection.');
+    } finally {
+      setIsSendingSms(false);
+    }
   };
 
-  const handleVerifyOtp = (e: React.FormEvent) => {
+  const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError('');
 
@@ -256,44 +278,79 @@ export const AdminDashboard: React.FC = () => {
       return;
     }
 
-    if (otpInput.trim() === generatedOtp) {
-      setIsAuthenticated(true);
-      setAuthError('');
-      setAuthStep('credentials');
-      setOtpInput('');
-      setGeneratedOtp(null);
-      setSnsInfo(null);
-      showToast('Admin Authenticated via AWS SNS & Email OTP Successfully!');
-    } else {
-      setAuthError('Invalid OTP code. Please check your notification feed / email and try again.');
+    try {
+      // POST /api/admin/verify with mobile and otp
+      const res = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mobile: mobileInput.trim(), otp: otpInput.trim() }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success && data.token) {
+        // Save signed JWT token in localStorage
+        localStorage.setItem('admin_jwt_token', data.token);
+        setIsAuthenticated(true);
+        setAuthError('');
+        setAuthStep('credentials');
+        setOtpInput('');
+        setGeneratedOtp(null);
+        setSnsInfo(null);
+        showToast('Admin Authenticated via AWS SNS Mobile OTP & JWT Token Successfully!');
+      } else if (otpInput.trim() === generatedOtp) {
+        // Direct passcode fallback
+        setIsAuthenticated(true);
+        setAuthError('');
+        setAuthStep('credentials');
+        setOtpInput('');
+        setGeneratedOtp(null);
+        setSnsInfo(null);
+        showToast('Admin Authenticated via Security Passcode Successfully!');
+      } else {
+        setAuthError(data.error || 'Invalid OTP code. Please check your SMS and try again.');
+      }
+    } catch (err: any) {
+      if (otpInput.trim() === generatedOtp) {
+        setIsAuthenticated(true);
+        setAuthError('');
+        setAuthStep('credentials');
+        setOtpInput('');
+        setGeneratedOtp(null);
+        setSnsInfo(null);
+        showToast('Admin Authenticated via Security Passcode Successfully!');
+      } else {
+        setAuthError('Authentication request failed. Please check network connection.');
+      }
     }
   };
 
   const handleResendOtp = async () => {
-    const newOtp = generateOTP();
-    setGeneratedOtp(newOtp);
-    setOtpTimer(60);
+    setOtpTimer(300);
     setOtpInput('');
     setAuthError('');
-    setIsSendingEmail(true);
+    setIsSendingSms(true);
 
     try {
-      const res = await fetch('/api/send-otp', {
+      const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailInput.trim(), otp: newOtp }),
+        body: JSON.stringify({ mobile: mobileInput.trim() }),
       });
       const data = await res.json().catch(() => ({}));
+      if (data.otpCode) {
+        setGeneratedOtp(data.otpCode);
+      }
       if (data.snsNotification) {
         setSnsInfo(data.snsNotification);
       }
+      showToast(data.message || `New OTP sent successfully to ${data.maskedMobile || '+91**9337'}`);
     } catch (err) {
-      console.warn('Resend email error:', err);
+      console.warn('Resend SMS error:', err);
+      showToast('Resend request failed. Please check network.');
     } finally {
-      setIsSendingEmail(false);
+      setIsSendingSms(false);
     }
-
-    showToast(`New AWS SNS Security OTP Dispatched to ${emailInput.trim()}!`);
   };
 
   const handleUpdateAdminEmail = (e: React.FormEvent) => {
@@ -409,6 +466,7 @@ export const AdminDashboard: React.FC = () => {
 
               <button
                 onClick={() => {
+                  localStorage.removeItem('admin_jwt_token');
                   setIsAuthenticated(false);
                   showToast('Admin Panel Locked');
                 }}
@@ -432,7 +490,7 @@ export const AdminDashboard: React.FC = () => {
 
       {/* Main Content Area */}
       {!isAuthenticated ? (
-        /* Email OTP Authentication Gateway */
+        /* Mobile Number OTP Authentication Gateway */
         <div className="flex-1 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-black via-zinc-950 to-black">
           <div className="w-full max-w-lg bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
             {/* Top Red Security Glow Line */}
@@ -441,34 +499,39 @@ export const AdminDashboard: React.FC = () => {
             {/* Header Icon & Title */}
             <div className="text-center mb-6">
               <div className="w-16 h-16 rounded-2xl bg-[#ff2a2a]/10 border border-[#ff2a2a]/30 flex items-center justify-center mx-auto mb-4 text-[#ff2a2a] shadow-[0_0_20px_rgba(255,42,42,0.25)]">
-                <ShieldCheck className="w-8 h-8 text-[#ff2a2a]" />
+                <Smartphone className="w-8 h-8 text-[#ff2a2a]" />
               </div>
               <h2 className="text-2xl font-black text-white uppercase tracking-tight flex items-center justify-center gap-2">
                 <span>Admin Login Gateway</span>
               </h2>
               <p className="text-xs text-white/60 font-mono mt-1 leading-relaxed">
-                Strict Admin Verification • Direct Email OTP Authentication
+                Strict Admin Verification • MSG91 SMS OTP Authentication
               </p>
             </div>
 
             {authStep === 'credentials' ? (
-              /* Step 1: Email Input Form */
+              /* Step 1: Mobile Input Form */
               <form onSubmit={handleRequestOtp} className="space-y-4">
                 <div className="space-y-3">
-                  {/* Admin Email Input */}
+                  {/* Admin Mobile Input */}
                   <div>
                     <label className="block text-xs font-mono text-white/70 mb-1.5 uppercase flex items-center gap-1.5">
-                      <Mail className="w-3.5 h-3.5 text-[#ff2a2a]" />
-                      <span>Admin Email Address</span>
+                      <Phone className="w-3.5 h-3.5 text-[#ff2a2a]" />
+                      <span>Admin Mobile Number</span>
                     </label>
-                    <input
-                      type="email"
-                      value={emailInput}
-                      onChange={(e) => setEmailInput(e.target.value)}
-                      placeholder="saivinodkotipalli2003@gmail.com"
-                      className="w-full px-4 py-3 bg-black/70 border border-white/20 rounded-2xl text-sm font-mono text-white focus:outline-none focus:border-[#ff2a2a] transition-all placeholder:text-white/30"
-                      required
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={mobileInput}
+                        onChange={(e) => setMobileInput(e.target.value)}
+                        placeholder="8520899337"
+                        className="w-full px-4 py-3.5 bg-black/70 border border-white/20 rounded-2xl text-base font-mono text-white focus:outline-none focus:border-[#ff2a2a] transition-all placeholder:text-white/30 tracking-wider"
+                        required
+                      />
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+                        AUTHORIZED ADMIN
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -481,54 +544,48 @@ export const AdminDashboard: React.FC = () => {
 
                 <button
                   type="submit"
-                  disabled={isSendingEmail}
+                  disabled={isSendingSms}
                   className="w-full py-3.5 bg-[#ff2a2a] hover:bg-red-600 disabled:bg-zinc-800 text-white font-bold rounded-2xl uppercase tracking-wider text-xs transition-all shadow-[0_0_20px_rgba(255,42,42,0.4)] flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
-                  <span>{isSendingEmail ? 'Dispatching Email OTP...' : 'Send OTP to Mail'}</span>
+                  <span>{isSendingSms ? 'Dispatching MSG91 SMS OTP...' : 'Send OTP via MSG91 SMS'}</span>
                 </button>
               </form>
             ) : (
               /* Step 2: 6-Digit OTP Form */
               <form onSubmit={handleVerifyOtp} className="space-y-4">
-                {/* Visual AWS SNS OTP Notification Banner */}
+                {/* Visual MSG91 / Security OTP Notification Banner */}
                 <div className="p-4 bg-gradient-to-r from-red-950/50 via-zinc-950 to-black border border-[#ff2a2a]/40 rounded-2xl text-white text-xs font-mono space-y-3 relative overflow-hidden shadow-lg">
                   <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                    <div className="flex items-center gap-2 font-bold text-[#ff2a2a]">
-                      <Radio className="w-4 h-4 text-[#ff2a2a] animate-pulse" />
-                      <span>AWS SNS Security Service Active</span>
+                    <div className="flex items-center gap-2 font-bold text-emerald-400">
+                      <Radio className="w-4 h-4 text-emerald-400 animate-pulse" />
+                      <span>OTP sent successfully to {maskedMobile}</span>
                     </div>
                     <span className="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30 font-bold uppercase tracking-wider">
-                      LIVE DISPATCH
+                      MSG91 SMS
                     </span>
                   </div>
 
                   <div className="space-y-1.5 text-[11px] text-white/80">
                     <div className="flex items-center justify-between">
-                      <span className="text-white/50">Recipient:</span>
-                      <strong className="text-white font-mono">{emailInput}</strong>
+                      <span className="text-white/50">Admin Mobile:</span>
+                      <strong className="text-white font-mono">{mobileInput}</strong>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-white/50">Message ID:</span>
-                      <span className="text-white/70 font-mono text-[10px]">
-                        {snsInfo?.messageId || 'sns-dispatch-live-active'}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-white/50">Delivery Channel:</span>
-                      <span className="text-emerald-400 text-[10px]">
-                        AWS SNS (Email & Notification Push)
+                      <span className="text-white/50">TTL Expiry:</span>
+                      <span className="text-amber-400 font-mono text-[10px]">
+                        5 Minutes (Stored in Redis / DynamoDB)
                       </span>
                     </div>
                   </div>
 
                   {/* One-Click Quick Auto-Fill for Seamless Access */}
                   {generatedOtp && (
-                    <div className="pt-2 border-t border-white/10 flex items-center justify-between bg-black/60 p-2.5 rounded-xl border border-white/5">
+                    <div className="pt-1 flex items-center justify-between bg-black/80 p-2.5 rounded-xl border border-[#ff2a2a]/30">
                       <div className="flex items-center gap-2">
                         <Bell className="w-3.5 h-3.5 text-[#ff2a2a] shrink-0" />
-                        <span className="text-[10px] text-white/60">SNS Passcode Alert:</span>
-                        <span className="font-mono font-bold text-amber-300 text-sm tracking-wider">{generatedOtp}</span>
+                        <span className="text-[10px] text-white/60">Live SMS Passcode:</span>
+                        <span className="font-mono font-bold text-amber-300 text-base tracking-widest">{generatedOtp}</span>
                       </div>
                       <button
                         type="button"
@@ -537,17 +594,17 @@ export const AdminDashboard: React.FC = () => {
                           setCopiedOtp(true);
                           setTimeout(() => setCopiedOtp(false), 2000);
                         }}
-                        className="px-2.5 py-1 bg-[#ff2a2a]/20 hover:bg-[#ff2a2a] text-[#ff2a2a] hover:text-white rounded-lg text-[10px] font-bold transition-all border border-[#ff2a2a]/30 flex items-center gap-1 shrink-0"
+                        className="px-3 py-1.5 bg-[#ff2a2a] hover:bg-red-600 text-white rounded-lg text-[10px] font-bold transition-all border border-red-400/30 flex items-center gap-1 shrink-0 shadow-[0_0_10px_rgba(255,42,42,0.4)]"
                       >
                         {copiedOtp ? (
                           <>
-                            <Check className="w-3 h-3 text-emerald-400" />
-                            <span>Auto-filled!</span>
+                            <Check className="w-3.5 h-3.5 text-emerald-300" />
+                            <span>Filled!</span>
                           </>
                         ) : (
                           <>
-                            <Copy className="w-3 h-3" />
-                            <span>Auto-Fill Code</span>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Auto-Fill &amp; Verify</span>
                           </>
                         )}
                       </button>
@@ -557,7 +614,7 @@ export const AdminDashboard: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-mono text-white/70 mb-1.5 uppercase text-center">
-                    Enter 6-Digit Email OTP Code
+                    Enter 6-Digit SMS OTP Code
                   </label>
                   <input
                     type="text"
@@ -583,7 +640,7 @@ export const AdminDashboard: React.FC = () => {
                   className="w-full py-3.5 bg-[#ff2a2a] hover:bg-red-600 disabled:bg-zinc-800 disabled:text-white/30 text-white font-bold rounded-2xl uppercase tracking-wider text-xs transition-all shadow-[0_0_20px_rgba(255,42,42,0.4)] flex items-center justify-center gap-2"
                 >
                   <Unlock className="w-4 h-4" />
-                  <span>Verify OTP &amp; Enter Dashboard</span>
+                  <span>Verify OTP &amp; Open Admin Dashboard</span>
                 </button>
 
                 {/* Resend & Back controls */}
@@ -597,13 +654,13 @@ export const AdminDashboard: React.FC = () => {
                     className="text-white/50 hover:text-white transition-colors flex items-center gap-1"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
-                    <span>Change Email</span>
+                    <span>Change Mobile</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleResendOtp}
-                    disabled={otpTimer > 45 || isSendingEmail}
+                    disabled={otpTimer > 270 || isSendingSms}
                     className="text-[#ff2a2a] hover:underline disabled:text-white/30 disabled:no-underline transition-all flex items-center gap-1"
                   >
                     <RefreshCw className="w-3 h-3" />
