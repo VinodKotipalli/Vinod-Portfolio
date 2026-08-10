@@ -4,6 +4,7 @@ import { usePortfolio } from '../context/PortfolioContext';
 const About: React.FC = () => {
   const { data } = usePortfolio();
   const { aboutContent, education } = data;
+
   return (
     <section
       id="about"
