@@ -3,25 +3,23 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import { PortfolioProvider } from './context/PortfolioContext';
+import { AuthProvider } from './context/AuthContext';
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
+import AboutMe from './components/AboutMe';
 import TechnicalSkills from './components/TechnicalSkills';
-import Services from './components/Services';
-import Projects from './components/Projects';
-import ContentCreator from './components/ContentCreator';
-import Internships from './components/Internships';
-import Leadership from './components/Leadership';
+import Experience from './components/Experience';
 import Certificates from './components/Certificates';
-import SoftSkills from './components/SoftSkills';
+import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import GeminiChatbot from './components/GeminiChatbot';
 
 function MainLayout() {
   useEffect(() => {
     AOS.init({
-      duration: 800,
+      duration: 700,
       once: true,
       easing: 'ease-out-cubic',
     });
@@ -32,25 +30,24 @@ function MainLayout() {
       <Preloader />
       <Navbar />
       <Hero />
-      <About />
+      <AboutMe />
       <TechnicalSkills />
-      <Services />
-      <Projects />
-      <ContentCreator />
-      <Internships />
-      <Leadership />
+      <Experience />
       <Certificates />
-      <SoftSkills />
+      <Education />
       <Contact />
       <Footer />
+      <GeminiChatbot />
     </div>
   );
 }
 
 export default function App() {
   return (
-    <PortfolioProvider>
-      <MainLayout />
-    </PortfolioProvider>
+    <AuthProvider>
+      <PortfolioProvider>
+        <MainLayout />
+      </PortfolioProvider>
+    </AuthProvider>
   );
 }

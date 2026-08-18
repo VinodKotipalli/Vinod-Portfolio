@@ -9,13 +9,8 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 40);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -24,30 +19,34 @@ const Navbar: React.FC = () => {
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
-    { name: 'Certificates', href: '#certificates' },
+    { name: 'Achievements', href: '#achievements' },
+    { name: 'Certifications', href: '#certifications' },
+    { name: 'Education', href: '#education' },
     { name: 'Contact', href: '#contact' },
   ];
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-black/80 backdrop-blur-md py-4 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-b border-white/10'
-          : 'bg-transparent py-6'
+          ? 'bg-black/90 backdrop-blur-md py-3.5 border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+          : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-        {/* Logo */}
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 flex items-center justify-between">
+        {/* Brand Name */}
         <a
           href="#"
-          className="text-white text-xl md:text-2xl font-black tracking-wider uppercase group flex items-center gap-1"
+          className="text-white text-lg sm:text-xl font-black tracking-wider uppercase flex items-center gap-1.5 group"
         >
-          <span>{personalInfo.firstName}</span>
-          <span className="text-[#ff2a2a] group-hover:scale-150 transition-transform">.</span>
+          <span className="bg-[#ff2a2a] text-white w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs">
+            SK
+          </span>
+          <span className="font-['Kanit',sans-serif] tracking-tight">{personalInfo.name}</span>
         </a>
 
         {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-8 bg-white/5 border border-white/10 rounded-full px-6 py-2 backdrop-blur-md">
+        <div className="hidden lg:flex items-center gap-6 bg-white/5 border border-white/10 rounded-full px-6 py-2 backdrop-blur-md">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -59,14 +58,25 @@ const Navbar: React.FC = () => {
           ))}
         </div>
 
-        {/* Action Button */}
+        {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
+          <a
+            href={socialLinks.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/70 hover:text-[#0077b5] transition-colors"
+            aria-label="LinkedIn Profile"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+          </a>
           <a
             href={socialLinks.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/70 hover:text-white transition-colors"
-            aria-label="GitHub"
+            aria-label="GitHub Profile"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path
@@ -77,28 +87,17 @@ const Navbar: React.FC = () => {
             </svg>
           </a>
           <a
-            href={socialLinks.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/70 hover:text-[#0077b5] hover:scale-110 transition-all duration-300"
-            aria-label="LinkedIn Profile"
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-            </svg>
-          </a>
-          <a
             href="#contact"
             className="px-5 py-2 rounded-full bg-[#ff2a2a] hover:bg-red-600 text-white font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-[0_0_20px_rgba(255,42,42,0.4)]"
           >
-            Hire Me
+            Get In Touch
           </a>
         </div>
 
-        {/* Mobile Hamburger Toggle */}
+        {/* Mobile Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-white p-2 focus:outline-none"
+          className="lg:hidden text-white p-2 focus:outline-none"
           aria-label="Toggle Menu"
         >
           {mobileMenuOpen ? (
@@ -113,28 +112,26 @@ const Navbar: React.FC = () => {
         </button>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-black/95 border-b border-white/10 px-6 py-8 flex flex-col gap-6 backdrop-blur-xl animate-in slide-in-from-top duration-300">
-          <div className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white/80 hover:text-[#ff2a2a] text-lg font-bold uppercase tracking-wider transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
+        <div className="lg:hidden bg-black/95 border-b border-white/10 px-6 py-6 flex flex-col gap-4 backdrop-blur-xl animate-in slide-in-from-top duration-300">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-white/80 hover:text-[#ff2a2a] text-base font-bold uppercase tracking-wider py-1 transition-colors"
+            >
+              {link.name}
+            </a>
+          ))}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between">
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="px-6 py-2.5 rounded-full bg-[#ff2a2a] text-white font-bold text-sm tracking-wider uppercase text-center w-full"
             >
-              Hire Me
+              Get In Touch
             </a>
           </div>
         </div>

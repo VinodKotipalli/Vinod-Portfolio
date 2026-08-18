@@ -1,79 +1,84 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 
-interface Skill {
-  name: string;
-  level: number;
-}
-
-interface SkillCategory {
-  title: string;
-  skills: Skill[];
-}
-
-const SkillCategoryCard: React.FC<{ category: SkillCategory; index: number }> = ({ category, index }) => (
-  <div
-    data-aos="fade-up"
-    data-aos-delay={index * 100}
-    className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 hover:border-[#ff2a2a]/40 hover:shadow-[0_20px_50px_rgba(255,42,42,0.1)] transition-all duration-500 group"
-  >
-    <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
-      <h3 className="text-white text-xl font-black tracking-tight group-hover:text-[#ff2a2a] transition-colors">
-        {category.title}
-      </h3>
-      <span className="text-xs font-mono font-bold text-white/40 uppercase tracking-wider">
-        0{index + 1}
-      </span>
-    </div>
-
-    <div className="space-y-5">
-      {category.skills.map((skill) => (
-        <div key={skill.name}>
-          <div className="flex justify-between items-center mb-1.5 text-xs font-bold">
-            <span className="text-white/90">{skill.name}</span>
-            <span className="text-white/50 font-mono">{skill.level}%</span>
-          </div>
-          <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5">
-            <div
-              className="h-full bg-gradient-to-r from-red-600 to-[#ff2a2a] rounded-full transition-all duration-1000 ease-out group-hover:brightness-125"
-              style={{ width: `${skill.level}%` }}
-            />
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-);
+const categoryIcons: Record<string, string> = {
+  'Programming Languages': '💻',
+  'Cloud Platforms (AWS – Compute & Storage)': '☁️',
+  'AWS Networking': '🌐',
+  'AWS Security': '🛡️',
+  'Containerization & Orchestration': '📦',
+  'Infrastructure as Code (IaC)': '🏗️',
+  'Monitoring & Observability': '📊',
+  'Configuration Management': '⚙️',
+  'Version Control & CI/CD': '🔄',
+  'Databases': '🗄️',
+  'Operating Systems': '🐧',
+  'Methodologies': '🚀',
+};
 
 const TechnicalSkills: React.FC = () => {
   const { data } = usePortfolio();
-  const categories = data.technicalSkills.categories;
+  const categories = data.technicalSkills;
+
   return (
     <section
       id="skills"
-      className="bg-[#0a0a0a] pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:80px_80px]"
+      className="bg-[#050505] pt-24 pb-32 px-5 sm:px-8 md:px-12 w-full relative overflow-hidden font-sans border-t border-white/10"
     >
-      {/* Background Ambient Glow */}
+      {/* Background Ambient Glows */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-orange-600/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div data-aos="fade-up" className="mb-16 md:mb-20 text-center md:text-left">
-          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-sm text-white/60 font-bold mb-6 shadow-sm bg-white/5 backdrop-blur-sm">
-            Technical Stack
+          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/70 font-bold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-widest">
+            Skills & Competencies
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6 tracking-tight uppercase">
-            Languages, Frameworks & Tools
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight uppercase font-['Kanit',sans-serif]">
+            TECHNICAL SKILLS
           </h2>
-          <p className="text-white/60 text-base md:text-lg max-w-xl font-medium leading-relaxed">
-            A comprehensive set of modern full-stack development skills engineered for production-ready web applications.
+          <p className="text-white/60 text-sm sm:text-base md:text-lg max-w-2xl font-light leading-relaxed">
+            Enterprise cloud operations, automated CI/CD pipelines, container orchestration, and comprehensive AWS infrastructure tools.
           </p>
         </div>
 
-        {/* Skills Grid */}
+        {/* 12 Categorized Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category, index) => (
-            <SkillCategoryCard key={category.title} category={category} index={index} />
+            <div
+              key={category.title}
+              data-aos="fade-up"
+              data-aos-delay={index * 50}
+              className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:border-[#ff2a2a]/50 hover:bg-white/[0.07] hover:shadow-[0_15px_35px_rgba(255,42,42,0.1)] transition-all duration-300 group flex flex-col justify-between"
+            >
+              <div>
+                {/* Category Header */}
+                <div className="flex items-start justify-between gap-3 mb-5 pb-3 border-b border-white/10">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-2xl">{categoryIcons[category.title] || '⚡'}</span>
+                    <h3 className="text-white font-bold text-base md:text-lg tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug">
+                      {category.title}
+                    </h3>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-white/30 shrink-0">
+                    #{index + 1 < 10 ? `0${index + 1}` : index + 1}
+                  </span>
+                </div>
+
+                {/* Skill Pills */}
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1 rounded-lg text-xs font-medium bg-black/60 border border-white/10 text-white/90 group-hover:border-white/20 transition-colors"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

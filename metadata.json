@@ -1,6 +1,6 @@
 {
   "name": "Saivinod Kotipalli Portfolio",
-  "description": "Official personal portfolio website of Saivinod Kotipalli built with React, Tailwind CSS, Framer Motion, and AOS animations.",
+  "description": "Official portfolio of Saivinod Kotipalli – AWS Cloud Operations Engineer specializing in AWS, Terraform, Prometheus, Grafana, Jenkins, and Kubernetes.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

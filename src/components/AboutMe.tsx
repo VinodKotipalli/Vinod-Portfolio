@@ -1,50 +1,68 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const AboutMe: React.FC = () => {
+  const { data } = usePortfolio();
+  const { personalInfo } = data;
+
   return (
-    <section id="about" className="relative w-full min-h-screen flex flex-col justify-center items-center py-20 px-5 sm:px-8 md:px-10 bg-[#0C0C0C]">
-      {/* Decorative Floating Images */}
-      {/* Top-left Moon */}
-      <motion.img
-        src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png"
-        alt="Moon Icon"
-        className="absolute top-[4%] left-[1%] sm:left-[2%] md:left-[4%] w-[120px] sm:w-[160px] md:w-[210px] h-auto z-0"
-        initial={{ x: -80, y: 0, opacity: 0 }}
-        whileInView={{ x: 0, y: 0, opacity: 1 }}
+    <section id="about" className="relative w-full min-h-screen flex flex-col justify-center items-center py-24 px-5 sm:px-8 md:px-12 bg-[#0C0C0C] overflow-hidden">
+      {/* Decorative Ambient Tech Vectors & Glows */}
+      <motion.div
+        className="absolute top-[8%] left-[3%] sm:left-[5%] w-28 sm:w-36 h-28 sm:h-36 rounded-full border border-red-500/20 bg-red-500/5 backdrop-blur-sm flex items-center justify-center pointer-events-none z-0"
+        initial={{ scale: 0.8, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 0.8 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.1, duration: 0.9 }}
-      />
-      {/* Bottom-left 3D Object */}
-      <motion.img
-        src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/3d_object_2.a1db8e5a.png"
-        alt="3D Object"
-        className="absolute bottom-[2%] left-[1%] sm:left-[2%] md:left-[4%] w-[80px] sm:w-[110px] md:w-[150px] h-auto z-0"
-        initial={{ x: -60, y: 30, opacity: 0 }}
-        whileInView={{ x: 0, y: 0, opacity: 1 }}
+        transition={{ delay: 0.1, duration: 0.8 }}
+      >
+        <div className="w-16 h-16 rounded-full border border-dashed border-red-500/30 animate-spin" style={{ animationDuration: '20s' }} />
+        <span className="absolute text-xl opacity-80">☁️</span>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-[8%] left-[4%] sm:left-[6%] w-24 sm:w-32 h-24 sm:h-32 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center pointer-events-none z-0 rotate-12"
+        initial={{ x: -40, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 0.8 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.3, duration: 0.9 }}
-      />
-      {/* Top-right Sun */}
-      <motion.img
-        src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/sun_icon.e644b415.png"
-        alt="Sun Icon"
-        className="absolute top-[5%] right-[2%] sm:right-[3%] md:right-[5%] w-[100px] sm:w-[130px] md:w-[170px] h-auto z-0"
-        initial={{ x: 60, y: -20, opacity: 0 }}
-        whileInView={{ x: 0, y: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+      >
+        <div className="text-center font-mono text-[10px] text-white/50">
+          <span className="text-[#ff2a2a] block font-bold text-sm">99.9%</span>
+          UPTIME
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="absolute top-[10%] right-[3%] sm:right-[5%] w-28 sm:w-36 h-28 sm:h-36 rounded-full border border-orange-500/20 bg-orange-500/5 backdrop-blur-sm flex items-center justify-center pointer-events-none z-0"
+        initial={{ scale: 0.8, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 0.8 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.9 }}
-      />
-      {/* Bottom-right 3D Object */}
-      <motion.img
-        src="https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/3d_object_1.cfad73a3.png"
-        alt="3D Object"
-        className="absolute bottom-[4%] right-[1%] sm:right-[2%] md:right-[4%] w-[130px] sm:w-[180px] md:w-[240px] h-auto z-0"
-        initial={{ x: 80, y: 40, opacity: 0 }}
-        whileInView={{ x: 0, y: 0, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+      >
+        <div className="w-20 h-20 rounded-full border border-dotted border-orange-500/40 animate-spin" style={{ animationDuration: '25s' }} />
+        <span className="absolute text-xl opacity-80">⚡</span>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-[6%] right-[4%] sm:right-[6%] w-28 sm:w-40 h-24 sm:h-28 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col justify-center p-3 pointer-events-none z-0 -rotate-6"
+        initial={{ x: 40, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 0.8 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.4, duration: 0.9 }}
-      />
+        transition={{ delay: 0.4, duration: 0.8 }}
+      >
+        <div className="flex items-center gap-1.5 mb-1.5">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="font-mono text-[10px] text-white/60">OBSERVABILITY</span>
+        </div>
+        <div className="flex gap-1 items-end h-6">
+          <div className="w-2 h-3 bg-[#ff2a2a]/60 rounded-t" />
+          <div className="w-2 h-5 bg-[#ff2a2a] rounded-t" />
+          <div className="w-2 h-4 bg-[#ff2a2a]/80 rounded-t" />
+          <div className="w-2 h-6 bg-white/80 rounded-t" />
+          <div className="w-2 h-5 bg-[#ff2a2a] rounded-t" />
+        </div>
+      </motion.div>
 
       {/* Main Content Container */}
       <motion.div
@@ -54,37 +72,68 @@ const AboutMe: React.FC = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-[100px] font-black leading-tight tracking-tight mb-8">
+        <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/70 font-bold mb-6 shadow-sm bg-white/5 backdrop-blur-md uppercase tracking-widest">
+          Professional Summary
+        </div>
+
+        <h2 className="text-white text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-tight tracking-tight mb-8">
           ABOUT ME
         </h2>
-        
-        <p className="text-white text-lg sm:text-xl md:text-2xl font-light leading-relaxed max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16">
-          I am a dedicated AWS Cloud Operations Engineer / Site Reliability & DevOps professional. I specialize in cloud infrastructure, automation, and continuous delivery, always striving to build resilient and scalable systems.
+
+        {/* Word-for-word Summary from Resume */}
+        <p className="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto mb-10 text-justify sm:text-center">
+          {personalInfo.summary}
         </p>
-        
+
+        {/* Core Competencies Badges */}
+        <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto mb-12">
+          {[
+            'AWS Cloud Infrastructure',
+            'Terraform IaC',
+            'Prometheus & Grafana',
+            'Jenkins CI/CD',
+            'Node Exporter & PromQL',
+            'Alertmanager & SRE',
+            'AWS Well-Architected Framework',
+            'Incident Response & MTTD Reduction',
+          ].map((badge) => (
+            <span
+              key={badge}
+              className="px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/90 text-xs md:text-sm font-medium backdrop-blur-md hover:border-[#ff2a2a] transition-colors"
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
+
         {/* Buttons Row */}
-        <div className="flex flex-row justify-center items-center gap-6 md:gap-10">
+        <div className="flex flex-row justify-center items-center gap-4 sm:gap-8">
           <motion.a
             href="#experience"
-            className="flex items-center gap-3 px-8 py-3 rounded-[30px] bg-white text-black font-semibold text-lg md:text-xl hover:scale-105 transition-transform"
+            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] bg-white text-black font-semibold text-base md:text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold">
+            <span className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center font-bold text-xs">
               →
             </span>
             Experience
           </motion.a>
-          
+
           <motion.a
-            href="/resume.pdf"
+            href={personalInfo.resumeUrl}
             download
-            className="flex items-center gap-3 px-8 py-3 rounded-[30px] border border-white text-white font-semibold text-lg md:text-xl hover:bg-white hover:text-black transition-colors"
+            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] border border-white text-white font-semibold text-base md:text-lg hover:bg-white hover:text-black transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
             </svg>
             Resume
           </motion.a>
