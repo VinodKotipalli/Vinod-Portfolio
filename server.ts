@@ -9,11 +9,21 @@ import { DynamoDBDocumentClient, PutCommand, GetCommand, DeleteCommand } from "@
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { GoogleGenAI, ThinkingLevel } from "@google/genai";
+import { Resend } from "resend";
 
 const JWT_SECRET = process.env.JWT_SECRET || "admin-security-jwt-secret-key-2026-portfolio";
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 const DYNAMODB_TABLE = process.env.AWS_DYNAMODB_TABLE_NAME || "AdminOtpTokens";
 const SES_SENDER = process.env.AWS_SES_SENDER_EMAIL || "security@admin-portfolio.com";
+
+// Lazy Resend Client Initialization
+let resendClient: Resend | null = null;
+function getResendClient(): Resend | null {
+  if (!resendClient && process.env.RESEND_API_KEY) {
+    resendClient = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resendClient;
+}
 
 // Lazy Gemini AI Client Initialization
 let genAIClient: GoogleGenAI | null = null;
@@ -358,29 +368,71 @@ async function startServer() {
     }
   });
 
-  // API 4: Contact Form Dispatch via AWS SES
+  // API 4: Contact Form Dispatch (Resend + AWS SES + Fallback)
   app.post("/api/contact", async (req, res) => {
     try {
-      const { first_name, last_name, user_email, message } = req.body;
-      if (!first_name || !user_email || !message) {
+      const { first_name, last_name, user_email, name, email, message } = req.body;
+      const effectiveName = (name || `${first_name || ""} ${last_name || ""}`).trim();
+      const effectiveEmail = (email || user_email || "").trim();
+
+      if (!effectiveName || !effectiveEmail || !message) {
         return res.status(400).json({
           success: false,
-          error: "First name, email address, and message are required fields.",
+          error: "Name, email address, and message are required fields.",
         });
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(user_email)) {
+      if (!emailRegex.test(effectiveEmail)) {
         return res.status(400).json({
           success: false,
           error: "Please provide a valid email address.",
         });
       }
 
-      const senderEmail = process.env.AWS_SES_SENDER_EMAIL || "security@admin-portfolio.com";
       const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || "saivinodkotipalli2003@gmail.com";
-      const fullName = `${first_name} ${last_name || ""}`.trim();
-      const subject = `[Portfolio Contact] New message from ${fullName}`;
+      const subject = `Portfolio Contact - ${effectiveName}`;
+
+      // 1. Primary: Dispatch via Resend
+      if (process.env.RESEND_API_KEY) {
+        try {
+          const resend = getResendClient();
+          if (resend) {
+            const { data, error } = await resend.emails.send({
+              from: process.env.RESEND_FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
+              to: [recipientEmail],
+              replyTo: effectiveEmail,
+              subject: `Portfolio Contact - ${effectiveName}`,
+              html: `
+                <h2>New Portfolio Message</h2>
+                <p><strong>Name:</strong> ${effectiveName}</p>
+                <p><strong>Email:</strong> ${effectiveEmail}</p>
+                <p><strong>Message:</strong></p>
+                <p>${message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+              `,
+            });
+
+            if (error) {
+              console.warn("[RESEND WARNING]", error.message);
+              return res.status(500).json({ success: false, error: error.message });
+            }
+
+            console.log(`[RESEND SUCCESS] Dispatched contact message to ${recipientEmail}`);
+            return res.json({
+              success: true,
+              provider: "RESEND",
+              data,
+              message: `Message sent directly to ${recipientEmail} via Resend!`,
+            });
+          }
+        } catch (resendErr: any) {
+          console.warn("[RESEND ERROR]", resendErr?.message);
+        }
+      }
+
+      const senderEmail = process.env.AWS_SES_SENDER_EMAIL || "security@admin-portfolio.com";
+      const fullName = effectiveName;
+      const sesSubject = `[Portfolio Contact] New message from ${fullName}`;
 
       const htmlBody = `
 <!DOCTYPE html>
@@ -441,7 +493,7 @@ async function startServer() {
             Destination: {
               ToAddresses: [recipientEmail],
             },
-            ReplyToAddresses: [user_email],
+            ReplyToAddresses: [effectiveEmail],
             Message: {
               Subject: {
                 Data: subject,
