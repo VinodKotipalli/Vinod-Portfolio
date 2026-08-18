@@ -7,34 +7,52 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#080808] text-[#d4d4d4] py-16 px-6 md:px-12 w-full font-mono text-[10px] md:text-xs tracking-widest flex flex-col justify-between min-h-[45vh] border-t border-white/10">
-      {/* Top Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 w-full font-medium max-w-7xl mx-auto">
-        <div className="flex flex-col gap-1.5">
-          {footerContent.taglines.map((line, i) => (
-            <p key={i} className="text-white/70">{line}</p>
-          ))}
+      {/* Top Row - Future & Motivational Captions */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 w-full font-mono max-w-7xl mx-auto">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2 text-[#ff2a2a] text-[11px] font-bold tracking-wider">
+            <span>✦</span>
+            <span className="uppercase">Architecting Tomorrow</span>
+          </div>
+          <p className="text-white/80 leading-relaxed text-[11px] md:text-xs">
+            "The best way to predict the future is to engineer it with precision and resilience."
+          </p>
+          <p className="text-white/50 text-[10px]">
+            Transforming bold visions into scalable, autonomous cloud systems.
+          </p>
         </div>
 
-        <div className="flex flex-col gap-1.5 md:items-center">
-          <p className="text-white/80">{footerContent.credential}</p>
-          <a
-            href="#experience"
-            className="underline hover:text-white transition-colors mt-1 underline-offset-4 decoration-1 font-bold text-white/90"
-          >
-            View Experience
-          </a>
+        <div className="flex flex-col gap-2 md:items-center md:text-center">
+          <div className="flex items-center gap-2 text-[#ff2a2a] text-[11px] font-bold tracking-wider">
+            <span>✦</span>
+            <span className="uppercase">Limitless Innovation</span>
+          </div>
+          <p className="text-white/80 leading-relaxed text-[11px] md:text-xs">
+            "Driven by curiosity, fueled by relentless learning."
+          </p>
+          <p className="text-white/50 text-[10px]">
+            Every deployment is a step toward a smarter, more connected future.
+          </p>
         </div>
 
-        <div className="flex flex-col gap-1.5 md:items-end">
-          <p className="text-white/80">Available for AWS & DevOps Roles</p>
-          <p className="text-white/60">{new Date().getFullYear()} • Srikakulam, AP</p>
+        <div className="flex flex-col gap-2 md:items-end md:text-right">
+          <div className="flex items-center gap-2 text-[#ff2a2a] text-[11px] font-bold tracking-wider">
+            <span>✦</span>
+            <span className="uppercase">Building The Future</span>
+          </div>
+          <p className="text-white/80 leading-relaxed text-[11px] md:text-xs">
+            "The future belongs to those who build with purpose and passion."
+          </p>
+          <p className="text-white/50 text-[10px]">
+            Ready to shape what's next • {new Date().getFullYear()} & Beyond
+          </p>
         </div>
       </div>
 
-      {/* Middle Giant Typography */}
-      <div className="w-full flex justify-center items-center py-12 md:py-16 overflow-hidden">
-        <h2 className="text-[12vw] md:text-[10vw] leading-none font-['Syne',sans-serif] font-black tracking-tighter uppercase select-none text-[#181818] hover:text-[#282828] transition-colors w-full text-center whitespace-nowrap">
-          {personalInfo.name}
+      {/* Middle Typography */}
+      <div className="w-full flex justify-center items-center py-10 md:py-14 px-4">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5vw] font-['Syne',sans-serif] font-black tracking-tight uppercase select-none text-[#222222] hover:text-[#383838] transition-colors duration-300 text-center leading-none max-w-7xl">
+          Saivinod Kotipalli
         </h2>
       </div>
 

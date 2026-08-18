@@ -40,7 +40,7 @@ const defaultFullData: PortfolioFullData = {
   socialLinks: initialSocialLinks,
 };
 
-const STORAGE_KEY = 'saivinod_portfolio_data_v4';
+const STORAGE_KEY = 'saivinod_portfolio_data_v6';
 
 interface PortfolioContextType {
   data: PortfolioFullData;

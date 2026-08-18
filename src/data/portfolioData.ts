@@ -234,12 +234,26 @@ export const educationData: EducationItem = {
 };
 
 export const footerContent = {
-  taglines: [
-    "AWS Cloud Operations Engineer",
-    "Terraform · Prometheus · Grafana · Jenkins · Docker · Kubernetes",
-    "Reliable, Scalable & Secure Cloud Infrastructure",
+  futureQuotes: [
+    {
+      heading: "Architecting Tomorrow",
+      caption: "The best way to predict the future is to engineer it with precision and resilience.",
+    },
+    {
+      heading: "Limitless Scalability",
+      caption: "Driven by curiosity, building high-availability cloud platforms for the next generation.",
+    },
+    {
+      heading: "Continuous Evolution",
+      caption: "Always learning, automating, and deploying solutions that empower tomorrow.",
+    },
   ],
-  credential: "B.Sc. Computer Science · 77.40%",
+  taglines: [
+    "Architecting the Cloud of Tomorrow",
+    "Turning bold visions into resilient, automated systems.",
+    "Engineered for scale · Built for the future",
+  ],
+  credential: "The future belongs to those who build with purpose.",
   copyright: `© ${new Date().getFullYear()} Saivinod Kotipalli | AWS Cloud Operations Engineer`,
 };
 
