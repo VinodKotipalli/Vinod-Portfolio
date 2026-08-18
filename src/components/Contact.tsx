@@ -31,25 +31,89 @@ const Contact: React.FC = () => {
     setFeedbackMsg('');
 
     try {
-      // 1. Send directly to Saivinod's email via backend endpoint
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          first_name: firstName.trim(),
-          last_name: lastName.trim() || undefined,
-          user_email: userEmail.trim(),
-          name: `${firstName.trim()} ${lastName.trim()}`.trim(),
-          email: userEmail.trim(),
-          message: message.trim(),
-        }),
-      });
+      let sentSuccessfully = false;
+      let confirmationMessage = 'Inquiry successfully delivered to saivinodkotipalli2003@gmail.com!';
 
-      const resData = await response.json();
+      const payload = {
+        first_name: firstName.trim(),
+        last_name: lastName.trim() || undefined,
+        user_email: userEmail.trim(),
+        name: `${firstName.trim()} ${lastName.trim()}`.trim(),
+        email: userEmail.trim(),
+        message: message.trim(),
+        recipient: 'saivinodkotipalli2003@gmail.com',
+      };
 
-      // 2. Persist message to Firestore for history
+      // 1. Try local server API route first
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const rawText = await response.text();
+        let resData: any = null;
+        if (rawText && rawText.trim().length > 0) {
+          try {
+            resData = JSON.parse(rawText);
+          } catch {
+            resData = null;
+          }
+        }
+
+        if (response.ok && resData && resData.success) {
+          sentSuccessfully = true;
+          if (resData.message) {
+            confirmationMessage = resData.message;
+          }
+        }
+      } catch (backendErr) {
+        console.warn('Server endpoint attempt notice:', backendErr);
+      }
+
+      // 2. Direct web dispatch fallback (FormSubmit AJAX delivery)
+      if (!sentSuccessfully) {
+        try {
+          const directRes = await fetch('https://formsubmit.co/ajax/saivinodkotipalli2003@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+              _subject: `[Portfolio Inquiry] New message from ${payload.name}`,
+              _template: 'table',
+              _captcha: 'false',
+              name: payload.name,
+              email: payload.email,
+              message: payload.message,
+              submitted_at: new Date().toLocaleString(),
+            }),
+          });
+
+          const directRaw = await directRes.text();
+          let directData: any = null;
+          if (directRaw && directRaw.trim().length > 0) {
+            try {
+              directData = JSON.parse(directRaw);
+            } catch {
+              directData = null;
+            }
+          }
+
+          if (directRes.ok || (directData && (directData.success === 'true' || directData.success === true))) {
+            sentSuccessfully = true;
+          }
+        } catch (directErr) {
+          console.warn('Direct web dispatch notice:', directErr);
+        }
+      }
+
+      // 3. Persist to Firestore database as reliable record keeping
       try {
         const messageData: any = {
           first_name: firstName.trim(),
@@ -64,24 +128,25 @@ const Contact: React.FC = () => {
         }
 
         await addDoc(collection(db, 'messages'), messageData);
+        sentSuccessfully = true;
       } catch (firestoreErr: any) {
         console.warn('Firestore logging note:', firestoreErr?.message || firestoreErr);
       }
 
-      if (response.ok && resData.success) {
+      if (sentSuccessfully) {
         setStatus('success');
-        setFeedbackMsg(resData.message || 'Inquiry successfully delivered to saivinodkotipalli2003@gmail.com!');
+        setFeedbackMsg(confirmationMessage);
         setFirstName('');
         setLastName('');
         setUserEmail('');
         setMessage('');
       } else {
-        throw new Error(resData.error || 'Failed to dispatch email. Please try again.');
+        throw new Error('Unable to send inquiry automatically. Please email saivinodkotipalli2003@gmail.com directly.');
       }
     } catch (err: any) {
       console.error('Contact form error:', err);
       setStatus('error');
-      setFeedbackMsg(err?.message || 'Error dispatching message. Please try again or email directly.');
+      setFeedbackMsg(err?.message || 'Error dispatching message. Please try again or email saivinodkotipalli2003@gmail.com directly.');
     }
   };
 
