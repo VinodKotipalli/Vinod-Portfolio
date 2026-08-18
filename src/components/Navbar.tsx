@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { Shield } from 'lucide-react';
 
 const Navbar: React.FC = () => {
-  const { data, setIsAdminOpen } = usePortfolio();
+  const { data } = usePortfolio();
   const { personalInfo, socialLinks } = data;
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,8 +23,6 @@ const Navbar: React.FC = () => {
   const navLinks = [
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
-    { name: 'Process', href: '#process' },
-    { name: 'Projects', href: '#projects' },
     { name: 'Experience', href: '#experience' },
     { name: 'Certificates', href: '#certificates' },
     { name: 'Contact', href: '#contact' },
@@ -90,14 +87,6 @@ const Navbar: React.FC = () => {
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
             </svg>
           </a>
-          <button
-            onClick={() => setIsAdminOpen(true)}
-            className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-[#ff2a2a] border border-white/20 text-white font-mono font-bold text-xs tracking-wider uppercase transition-all duration-300 flex items-center gap-1.5"
-            title="Open Admin Control Center"
-          >
-            <Shield className="w-3.5 h-3.5 text-[#ff2a2a] group-hover:text-white" />
-            <span>Admin</span>
-          </button>
           <a
             href="#contact"
             className="px-5 py-2 rounded-full bg-[#ff2a2a] hover:bg-red-600 text-white font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-[0_0_20px_rgba(255,42,42,0.4)]"

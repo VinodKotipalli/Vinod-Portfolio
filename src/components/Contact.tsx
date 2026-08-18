@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { usePortfolio } from '../context/PortfolioContext';
 
 const Contact: React.FC = () => {
@@ -16,6 +18,23 @@ const Contact: React.FC = () => {
     setStatus('sending');
 
     try {
+      // 1. Save to Firestore
+      const formData = new FormData(formRef.current);
+      const lastName = formData.get('last_name') as string;
+      const messageData: any = {
+        first_name: formData.get('first_name') as string,
+        user_email: formData.get('user_email') as string,
+        message: formData.get('message') as string,
+        createdAt: serverTimestamp(),
+      };
+      
+      if (lastName && lastName.trim() !== '') {
+        messageData.last_name = lastName.trim();
+      }
+
+      await addDoc(collection(db, 'messages'), messageData);
+
+      // 2. Try sending via EmailJS if configured
       if (
         emailjsConfig.serviceId !== 'service_default' &&
         emailjsConfig.templateId !== 'template_default'
@@ -26,17 +45,17 @@ const Contact: React.FC = () => {
           formRef.current,
           emailjsConfig.publicKey
         );
-        setStatus('success');
-      } else {
-        // Fallback simulation with mailto redirect option
-        setTimeout(() => {
-          setStatus('success');
-        }, 1200);
       }
-    } catch (err) {
-      console.error('EmailJS error:', err);
-      // Fallback for user experience
+      
       setStatus('success');
+      formRef.current.reset();
+    } catch (err) {
+      console.error('Contact form error:', err);
+      if ((err as Error).message?.includes('Missing or insufficient permissions')) {
+        handleFirestoreError(err, OperationType.CREATE, 'messages');
+      } else {
+        setStatus('error');
+      }
     }
   };
 

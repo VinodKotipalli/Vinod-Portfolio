@@ -1,48 +1,23 @@
 {
   "entities": {
-    "PortfolioData": {
-      "title": "PortfolioData",
-      "description": "Full portfolio data including personal info, projects, skills, experience, and certificates.",
+    "Message": {
+      "title": "Contact Message",
+      "description": "A message submitted through the contact form.",
       "type": "object",
       "properties": {
-        "updatedAt": {
-          "type": "string",
-          "description": "ISO timestamp of last modification"
-        },
-        "updatedBy": {
-          "type": "string",
-          "description": "UID or Email of administrator who modified the data"
-        }
-      }
-    },
-    "AdminSettings": {
-      "title": "AdminSettings",
-      "description": "Admin email and phone security configuration",
-      "type": "object",
-      "properties": {
-        "adminEmail": {
-          "type": "string",
-          "description": "Primary administrator email address"
-        },
-        "adminPhone": {
-          "type": "string",
-          "description": "Primary administrator mobile phone number"
-        },
-        "updatedAt": {
-          "type": "string",
-          "description": "Timestamp of update"
-        }
-      }
+        "first_name": { "type": "string", "maxLength": 100 },
+        "last_name": { "type": "string", "maxLength": 100 },
+        "user_email": { "type": "string", "maxLength": 200, "format": "email" },
+        "message": { "type": "string", "maxLength": 2000 },
+        "createdAt": { "type": "timestamp", "description": "The time the message was created" }
+      },
+      "required": ["first_name", "user_email", "message", "createdAt"]
     }
   },
   "firestore": {
-    "/portfolio/main": {
-      "schema": { "$ref": "#/entities/PortfolioData" },
-      "description": "Main portfolio content storage document"
-    },
-    "/admin/config": {
-      "schema": { "$ref": "#/entities/AdminSettings" },
-      "description": "Admin authentication credentials configuration document"
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Stores contact messages from visitors."
     }
   }
 }

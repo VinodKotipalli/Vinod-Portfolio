@@ -59,20 +59,9 @@ const defaultFullData: PortfolioFullData = {
 };
 
 const STORAGE_KEY = 'saivinod_portfolio_admin_data_v3';
-const ADMIN_EMAIL_KEY = 'saivinod_portfolio_admin_email_v1';
-
-export const DEFAULT_ADMIN_EMAIL = 'saivinodkotipalli2003@gmail.com';
 
 interface PortfolioContextType {
   data: PortfolioFullData;
-  isAdminOpen: boolean;
-  setIsAdminOpen: (open: boolean) => void;
-  isAuthenticated: boolean;
-  setIsAuthenticated: (auth: boolean) => void;
-
-  adminEmail: string;
-  updateAdminEmail: (newEmail: string) => { success: boolean; message: string };
-  verifyAdminEmail: (email: string) => { isValid: boolean; message: string };
 
   // Personal & Hero
   updatePersonalInfo: (data: Partial<typeof initialPersonalInfo>) => void;
@@ -149,13 +138,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return defaultFullData;
   });
 
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const [adminEmail, setAdminEmail] = useState<string>(() => {
-    return localStorage.getItem(ADMIN_EMAIL_KEY) || DEFAULT_ADMIN_EMAIL;
-  });
-
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -190,32 +172,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     );
     return () => unsubscribe();
   }, []);
-
-  const verifyAdminEmail = (email: string): { isValid: boolean; message: string } => {
-    const trimmedEmail = email.trim().toLowerCase();
-
-    if (trimmedEmail !== adminEmail.toLowerCase()) {
-      return {
-        isValid: false,
-        message: `Access Denied: Unregistered email address (${email}). Only the designated administrator (${adminEmail}) has access.`,
-      };
-    }
-
-    return { isValid: true, message: 'Admin verified successfully. OTP code dispatched to email.' };
-  };
-
-  const updateAdminEmail = (newEmail: string): { success: boolean; message: string } => {
-    const trimmedEmail = newEmail.trim().toLowerCase();
-
-    if (!trimmedEmail || !trimmedEmail.includes('@')) {
-      return { success: false, message: 'Invalid admin email address format.' };
-    }
-
-    setAdminEmail(trimmedEmail);
-    localStorage.setItem(ADMIN_EMAIL_KEY, trimmedEmail);
-
-    return { success: true, message: 'Administrator Email updated successfully.' };
-  };
 
   // Updaters
   const updatePersonalInfo = (info: Partial<typeof initialPersonalInfo>) => {
@@ -527,13 +483,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     <PortfolioContext.Provider
       value={{
         data,
-        isAdminOpen,
-        setIsAdminOpen,
-        isAuthenticated,
-        setIsAuthenticated,
-        adminEmail,
-        updateAdminEmail,
-        verifyAdminEmail,
         updatePersonalInfo,
         updateHeroContent,
         updateAboutContent,
