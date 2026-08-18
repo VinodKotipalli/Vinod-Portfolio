@@ -66,22 +66,22 @@ const AboutMe: React.FC = () => {
 
       {/* Main Content Container */}
       <motion.div
-        className="relative z-10 w-full max-w-4xl text-center font-['Kanit',sans-serif]"
+        className="relative z-10 w-full max-w-4xl text-center"
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/70 font-bold mb-6 shadow-sm bg-white/5 backdrop-blur-md uppercase tracking-widest">
-          Professional Summary
+        <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/80 font-['JetBrains_Mono',monospace] font-semibold mb-6 shadow-sm bg-white/5 backdrop-blur-md uppercase tracking-[0.25em]">
+          ✦ Professional Summary
         </div>
 
-        <h2 className="text-white text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-tight tracking-tight mb-8">
+        <h2 className="text-white text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-tight tracking-tight mb-8 font-['Syne',sans-serif] uppercase">
           ABOUT ME
         </h2>
 
         {/* Word-for-word Summary from Resume */}
-        <p className="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto mb-10 text-justify sm:text-center">
+        <p className="text-white/90 text-base sm:text-lg md:text-xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed max-w-3xl mx-auto mb-10 text-justify sm:text-center">
           {personalInfo.summary}
         </p>
 
@@ -99,7 +99,7 @@ const AboutMe: React.FC = () => {
           ].map((badge) => (
             <span
               key={badge}
-              className="px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/90 text-xs md:text-sm font-medium backdrop-blur-md hover:border-[#ff2a2a] transition-colors"
+              className="px-4 py-1.5 rounded-full bg-white/5 border border-white/15 text-white/90 text-xs md:text-sm font-['Space_Grotesk',sans-serif] font-medium backdrop-blur-md hover:border-[#ff2a2a] hover:text-[#ff8a8a] transition-all duration-300"
             >
               {badge}
             </span>
@@ -107,10 +107,10 @@ const AboutMe: React.FC = () => {
         </div>
 
         {/* Buttons Row */}
-        <div className="flex flex-row justify-center items-center gap-4 sm:gap-8">
+        <div className="flex flex-row justify-center items-center gap-4 sm:gap-8 font-['Outfit',sans-serif]">
           <motion.a
             href="#experience"
-            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] bg-white text-black font-semibold text-base md:text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] bg-white text-black font-bold text-base md:text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -123,7 +123,7 @@ const AboutMe: React.FC = () => {
           <motion.a
             href={personalInfo.resumeUrl}
             download
-            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] border border-white text-white font-semibold text-base md:text-lg hover:bg-white hover:text-black transition-colors"
+            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] border border-white/30 bg-black/40 text-white font-bold text-base md:text-lg hover:bg-white hover:text-black transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

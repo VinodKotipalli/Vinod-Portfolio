@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
           <span className="bg-[#ff2a2a] text-white w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs">
             SK
           </span>
-          <span className="font-['Kanit',sans-serif] tracking-tight">{personalInfo.name}</span>
+          <span className="font-['Syne',sans-serif] font-bold tracking-tight">{personalInfo.name}</span>
         </a>
 
         {/* Desktop Nav Links */}
@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
             <a
               key={link.name}
               href={link.href}
-              className="text-white/70 hover:text-white text-xs font-mono font-bold tracking-widest uppercase transition-colors"
+              className="text-white/70 hover:text-white text-xs font-['JetBrains_Mono',monospace] font-semibold tracking-wider uppercase transition-colors"
             >
               {link.name}
             </a>
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4 font-['Outfit',sans-serif]">
           <a
             href={socialLinks.linkedin}
             target="_blank"

@@ -1,5 +1,10 @@
 @import "tailwindcss";
 @theme {
+  --font-syne: 'Syne', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
   --animate-float: float 6s ease-in-out infinite;
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -14,7 +19,7 @@ body {
   padding: 0;
   background-color: #000;
   color: #fff;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 /* AOS Animation Custom Class */

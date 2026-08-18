@@ -16,13 +16,13 @@ const Experience: React.FC = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div data-aos="fade-up" className="mb-16 text-center md:text-left">
-          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/70 font-bold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-widest">
-            Career History
+          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/80 font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-[0.25em]">
+            ✦ Career History
           </div>
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight uppercase font-['Kanit',sans-serif]">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight uppercase font-['Syne',sans-serif]">
             PROFESSIONAL EXPERIENCE
           </h2>
-          <p className="text-white/60 text-sm sm:text-base md:text-lg max-w-2xl font-light leading-relaxed">
+          <p className="text-white/70 text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed">
             Enterprise cloud operations experience building high-availability monitoring platforms and automated pipelines.
           </p>
         </div>
@@ -35,24 +35,24 @@ const Experience: React.FC = () => {
           {/* Company & Role Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-white/10 gap-4">
             <div>
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-[#ff2a2a]/20 text-[#ff2a2a] border border-[#ff2a2a]/30 text-xs font-mono font-bold uppercase tracking-wider">
+              <div className="flex flex-wrap items-center gap-3 mb-3">
+                <span className="px-3.5 py-1 rounded-full bg-[#ff2a2a]/20 text-[#ff2a2a] border border-[#ff2a2a]/30 text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider">
                   Full-Time Role
                 </span>
-                <span className="text-xs font-mono text-white/60">
+                <span className="text-xs font-['JetBrains_Mono',monospace] text-white/60">
                   📍 {experience.location}
                 </span>
               </div>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight font-['Kanit',sans-serif]">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight font-['Outfit',sans-serif]">
                 {experience.role}
               </h3>
-              <p className="text-lg sm:text-xl font-medium text-white/80 mt-1">
+              <p className="text-lg sm:text-xl font-bold text-white/90 mt-1 font-['Space_Grotesk',sans-serif]">
                 {experience.company}
               </p>
             </div>
 
             <div className="md:text-right shrink-0">
-              <span className="inline-block bg-white/10 border border-white/20 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-bold text-white tracking-wide">
+              <span className="inline-block bg-white/10 border border-white/20 px-4 py-2 rounded-xl text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-bold text-white tracking-wide">
                 🗓️ {experience.duration}
               </span>
             </div>
@@ -60,7 +60,7 @@ const Experience: React.FC = () => {
 
           {/* 10 Responsibilities and Achievements Points */}
           <div className="space-y-4">
-            <h4 className="text-sm font-mono font-bold uppercase tracking-widest text-[#ff2a2a] mb-4">
+            <h4 className="text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-[0.2em] text-[#ff5858] mb-4">
               Key Responsibilities & Deliverables:
             </h4>
             <div className="grid grid-cols-1 gap-3.5">
@@ -69,10 +69,10 @@ const Experience: React.FC = () => {
                   key={index}
                   className="flex items-start gap-3.5 p-3.5 rounded-xl bg-black/40 border border-white/5 hover:border-white/15 transition-all group"
                 >
-                  <span className="text-xs font-mono font-bold bg-[#ff2a2a] text-white w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="text-xs font-['JetBrains_Mono',monospace] font-bold bg-[#ff2a2a] text-white w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
                     {index + 1}
                   </span>
-                  <p className="text-white/85 text-xs sm:text-sm md:text-base font-light leading-relaxed group-hover:text-white transition-colors">
+                  <p className="text-white/85 text-xs sm:text-sm md:text-base font-normal font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed group-hover:text-white transition-colors">
                     {point}
                   </p>
                 </div>
@@ -84,10 +84,10 @@ const Experience: React.FC = () => {
         {/* Key Achievements Sub-Section */}
         <div id="achievements" className="pt-8">
           <div data-aos="fade-up" className="mb-12 text-center md:text-left">
-            <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/70 font-bold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-widest">
-              Impact & Metrics
+            <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/80 font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-[0.25em]">
+              ✦ Impact & Metrics
             </div>
-            <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight uppercase font-['Kanit',sans-serif]">
+            <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight uppercase font-['Syne',sans-serif]">
               KEY ACHIEVEMENTS
             </h3>
           </div>
@@ -101,18 +101,18 @@ const Experience: React.FC = () => {
                 className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:border-[#ff2a2a]/50 hover:bg-white/[0.08] transition-all duration-300 group"
               >
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-red-200 to-[#ff2a2a] mb-3 font-mono">
+                  <div className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-red-200 to-[#ff2a2a] mb-3 font-['Outfit',sans-serif]">
                     {item.metric}
                   </div>
-                  <h4 className="text-white font-bold text-lg mb-3 tracking-tight group-hover:text-[#ff2a2a] transition-colors">
+                  <h4 className="text-white font-bold text-lg mb-3 tracking-tight group-hover:text-[#ff2a2a] transition-colors font-['Outfit',sans-serif]">
                     {item.title}
                   </h4>
-                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed font-light">
+                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed font-normal font-['Plus_Jakarta_Sans',sans-serif]">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-white/40">
+                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] text-white/40">
                   <span>ACHIEVEMENT 0{index + 1}</span>
                   <span>✨</span>
                 </div>

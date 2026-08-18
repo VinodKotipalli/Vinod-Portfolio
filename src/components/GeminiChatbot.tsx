@@ -161,7 +161,7 @@ const GeminiChatbot: React.FC = () => {
 
   return (
     <aside aria-label="Gemini AI Assistant" className="fixed bottom-6 right-6 z-50 font-sans">
-      {/* Floating Launcher Trigger */}
+      {/* Floating Launcher Trigger - Compact Icon */}
       <AnimatePresence>
         {!isOpen && (
           <motion.button
@@ -170,18 +170,21 @@ const GeminiChatbot: React.FC = () => {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative flex items-center gap-3 bg-gradient-to-r from-[#ff2a2a] via-[#e61e1e] to-[#c41515] text-white px-5 py-3.5 rounded-full shadow-[0_8px_30px_rgba(255,42,42,0.4)] hover:shadow-[0_8px_35px_rgba(255,42,42,0.6)] border border-white/20 backdrop-blur-md cursor-pointer transition-all duration-300"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Open Cloud AI Assistant"
+            title="Ask Cloud AI (Gemini 3)"
+            className="group relative w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-tr from-[#ff2a2a] to-[#d41c1c] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(255,42,42,0.35)] hover:shadow-[0_6px_25px_rgba(255,42,42,0.55)] border border-white/20 backdrop-blur-md cursor-pointer transition-all duration-300"
           >
-            <div className="relative">
-              <Sparkles className="w-5 h-5 animate-pulse text-yellow-300" />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full ring-2 ring-black animate-ping" />
+            <div className="relative flex items-center justify-center">
+              <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:rotate-12 transition-transform duration-300" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-300 rounded-full ring-2 ring-black" />
             </div>
-            <div className="flex flex-col items-start text-left">
-              <span className="text-xs font-black uppercase tracking-wider">Ask Cloud AI</span>
-              <span className="text-[10px] text-white/80 font-mono">Gemini 3 Powered</span>
-            </div>
+            
+            {/* Tooltip on hover */}
+            <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg bg-[#141414]/95 text-white text-[11px] font-['Space_Grotesk',sans-serif] font-medium border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap shadow-lg">
+              Ask Cloud AI
+            </span>
           </motion.button>
         )}
       </AnimatePresence>

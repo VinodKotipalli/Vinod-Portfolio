@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
 
       {/* Middle Giant Typography */}
       <div className="w-full flex justify-center items-center py-12 md:py-16 overflow-hidden">
-        <h2 className="text-[12vw] md:text-[10vw] leading-none font-['Kanit',sans-serif] font-black tracking-tighter uppercase select-none text-[#181818] hover:text-[#222222] transition-colors w-full text-center whitespace-nowrap">
+        <h2 className="text-[12vw] md:text-[10vw] leading-none font-['Syne',sans-serif] font-black tracking-tighter uppercase select-none text-[#181818] hover:text-[#282828] transition-colors w-full text-center whitespace-nowrap">
           {personalInfo.name}
         </h2>
       </div>

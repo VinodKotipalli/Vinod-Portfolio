@@ -13,21 +13,21 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
         <div className="text-3xl p-3 bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
           {cert.icon}
         </div>
-        <span className="px-3 py-1 rounded-full bg-[#ff2a2a]/20 border border-[#ff2a2a]/30 text-[#ff2a2a] text-xs font-mono font-bold uppercase">
+        <span className="px-3 py-1 rounded-full bg-[#ff2a2a]/20 border border-[#ff2a2a]/30 text-[#ff2a2a] text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider">
           {cert.code}
         </span>
       </div>
 
-      <h3 className="text-white font-bold text-lg sm:text-xl tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug mb-3">
+      <h3 className="text-white font-bold text-lg sm:text-xl tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug mb-3 font-['Outfit',sans-serif]">
         {cert.name}
       </h3>
 
-      <p className="text-white/60 text-xs sm:text-sm font-mono font-semibold uppercase">
+      <p className="text-white/70 text-xs sm:text-sm font-['Space_Grotesk',sans-serif] font-medium uppercase tracking-wide">
         {cert.issuer} • {cert.year}
       </p>
     </div>
 
-    <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-white/50">
+    <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] text-white/50">
       <span className="flex items-center gap-1.5 text-white/80">
         <span className="w-2 h-2 rounded-full bg-green-500" />
         Verified Certification
@@ -49,13 +49,13 @@ const Certificates: React.FC = () => {
       <div className="max-w-6xl mx-auto relative z-20">
         {/* Header */}
         <div data-aos="fade-up" className="mb-16 text-center md:text-left">
-          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/70 font-bold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-widest">
-            Credentials & Validation
+          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/80 font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-[0.25em]">
+            ✦ Credentials & Validation
           </div>
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-4 uppercase font-['Kanit',sans-serif]">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-4 uppercase font-['Syne',sans-serif]">
             CERTIFICATIONS
           </h2>
-          <p className="text-white/60 text-sm sm:text-base md:text-lg max-w-xl font-light leading-relaxed">
+          <p className="text-white/70 text-sm sm:text-base md:text-lg max-w-xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed">
             Official Amazon Web Services professional certifications validating architectural design and cloud operations expertise.
           </p>
         </div>

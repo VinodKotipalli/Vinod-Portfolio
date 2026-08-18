@@ -44,7 +44,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error: any) {
       console.error('Google Sign-In Error:', error);
       let errorMsg = 'Failed to sign in with Google. Please try again.';
-      if (error?.code === 'auth/popup-closed-by-user') {
+      if (error?.code === 'auth/unauthorized-domain') {
+        const currentDomain = typeof window !== 'undefined' ? window.location.hostname : 'your-domain.vercel.app';
+        errorMsg = `Firebase Auth Domain Not Authorized: Please add "${currentDomain}" to Firebase Console -> Authentication -> Settings -> Authorized domains. (You can also continue as guest below)`;
+      } else if (error?.code === 'auth/popup-closed-by-user') {
         errorMsg = 'Sign-in cancelled. Please complete Google authentication to send your inquiry.';
       } else if (error?.code === 'auth/popup-blocked') {
         errorMsg = 'Pop-up was blocked by your browser. Please allow pop-ups for this site and retry.';

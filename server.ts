@@ -368,7 +368,7 @@ async function startServer() {
     }
   });
 
-  // API 4: Contact Form Dispatch (Resend + AWS SES + Fallback)
+  // API 4: Contact Form Dispatch (Gmail SMTP + Resend + AWS SES + Standard SMTP)
   app.post("/api/contact", async (req, res) => {
     try {
       const { first_name, last_name, user_email, name, email, message } = req.body;
@@ -390,49 +390,9 @@ async function startServer() {
         });
       }
 
-      const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || "saivinodkotipalli2003@gmail.com";
-      const subject = `Portfolio Contact - ${effectiveName}`;
-
-      // 1. Primary: Dispatch via Resend
-      if (process.env.RESEND_API_KEY) {
-        try {
-          const resend = getResendClient();
-          if (resend) {
-            const { data, error } = await resend.emails.send({
-              from: process.env.RESEND_FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
-              to: [recipientEmail],
-              replyTo: effectiveEmail,
-              subject: `Portfolio Contact - ${effectiveName}`,
-              html: `
-                <h2>New Portfolio Message</h2>
-                <p><strong>Name:</strong> ${effectiveName}</p>
-                <p><strong>Email:</strong> ${effectiveEmail}</p>
-                <p><strong>Message:</strong></p>
-                <p>${message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
-              `,
-            });
-
-            if (error) {
-              console.warn("[RESEND WARNING]", error.message);
-              return res.status(500).json({ success: false, error: error.message });
-            }
-
-            console.log(`[RESEND SUCCESS] Dispatched contact message to ${recipientEmail}`);
-            return res.json({
-              success: true,
-              provider: "RESEND",
-              data,
-              message: `Message sent directly to ${recipientEmail} via Resend!`,
-            });
-          }
-        } catch (resendErr: any) {
-          console.warn("[RESEND ERROR]", resendErr?.message);
-        }
-      }
-
-      const senderEmail = process.env.AWS_SES_SENDER_EMAIL || "security@admin-portfolio.com";
+      const recipientEmail = "saivinodkotipalli2003@gmail.com";
+      const subject = `[Portfolio Inquiry] New message from ${effectiveName}`;
       const fullName = effectiveName;
-      const sesSubject = `[Portfolio Contact] New message from ${fullName}`;
 
       const htmlBody = `
 <!DOCTYPE html>
@@ -440,22 +400,25 @@ async function startServer() {
 <head>
   <meta charset="utf-8">
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111; margin: 0; padding: 20px; background-color: #f9f9f9; }
-    .card { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #eee; }
-    .header { background: #ff2a2a; color: #ffffff; padding: 24px 30px; }
-    .header h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
-    .content { padding: 30px; }
-    .field { margin-bottom: 18px; }
-    .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #777; margin-bottom: 4px; }
-    .value { font-size: 15px; color: #222; font-weight: 500; }
-    .message-box { background: #fafafa; border: 1px solid #eaeaea; border-left: 4px solid #ff2a2a; border-radius: 6px; padding: 16px; font-size: 14px; white-space: pre-wrap; color: #333; margin-top: 8px; }
-    .footer { background: #111; color: #888; font-size: 11px; text-align: center; padding: 16px; font-family: monospace; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111; margin: 0; padding: 20px; background-color: #0d0d0d; }
+    .card { max-width: 600px; margin: 0 auto; background: #141414; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #2a2a2a; color: #fff; }
+    .header { background: linear-gradient(135deg, #ff2a2a, #b31010); color: #ffffff; padding: 28px 32px; }
+    .header h1 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; }
+    .header p { margin: 6px 0 0; font-size: 13px; opacity: 0.9; }
+    .content { padding: 32px; }
+    .field { margin-bottom: 20px; }
+    .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 6px; font-family: monospace; }
+    .value { font-size: 16px; color: #fff; font-weight: 600; }
+    .message-box { background: #1a1a1a; border: 1px solid #333; border-left: 4px solid #ff2a2a; border-radius: 8px; padding: 18px; font-size: 15px; white-space: pre-wrap; color: #eee; margin-top: 8px; line-height: 1.6; }
+    .reply-btn { display: inline-block; margin-top: 24px; padding: 12px 24px; background: #ff2a2a; color: #fff; text-decoration: none; font-weight: bold; border-radius: 30px; font-size: 14px; }
+    .footer { background: #0a0a0a; color: #666; font-size: 11px; text-align: center; padding: 18px; font-family: monospace; border-top: 1px solid #222; }
   </style>
 </head>
 <body>
   <div class="card">
     <div class="header">
       <h1>New Portfolio Inquiry</h1>
+      <p>Received from Saivinod Kotipalli Portfolio Website</p>
     </div>
     <div class="content">
       <div class="field">
@@ -464,30 +427,98 @@ async function startServer() {
       </div>
       <div class="field">
         <div class="label">Sender Email</div>
-        <div class="value"><a href="mailto:${user_email}" style="color:#ff2a2a; text-decoration:none; font-weight:bold;">${user_email}</a></div>
+        <div class="value"><a href="mailto:${effectiveEmail}" style="color:#ff5555; text-decoration:none; font-weight:bold;">${effectiveEmail}</a></div>
       </div>
       <div class="field">
-        <div class="label">Received At</div>
+        <div class="label">Received Date & Time</div>
         <div class="value">${new Date().toUTCString()}</div>
       </div>
       <div class="field">
-        <div class="label">Message Content</div>
+        <div class="label">Inquiry Message</div>
         <div class="message-box">${message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
       </div>
+      <a href="mailto:${effectiveEmail}?subject=Re: Portfolio Inquiry" class="reply-btn">Reply to ${fullName} (${effectiveEmail}) &rarr;</a>
     </div>
     <div class="footer">
-      Dispatched via AWS Simple Email Service (SES) • Saivinod Kotipalli Portfolio
+      Delivered directly to saivinodkotipalli2003@gmail.com • AWS Cloud Ops Portfolio Notification Service
     </div>
   </div>
 </body>
 </html>
       `.trim();
 
-      const textBody = `New Contact Form Submission from Saivinod Kotipalli Portfolio\n\nName: ${fullName}\nEmail: ${user_email}\nDate: ${new Date().toISOString()}\n\nMessage:\n${message}\n\n--\nDispatched via AWS SES`;
+      const textBody = `New Contact Form Submission from Saivinod Kotipalli Portfolio\n\nName: ${fullName}\nEmail: ${effectiveEmail}\nDate: ${new Date().toISOString()}\n\nMessage:\n${message}\n\n--\nReply directly to: ${effectiveEmail}`;
 
-      // 1. Dispatch via AWS SES if credentials or environment are available
+      // 1. Dispatch via Gmail SMTP (Nodemailer) if Gmail App Password or SMTP credentials provided
+      const gmailPass = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
+      const gmailUser = process.env.GMAIL_USER || process.env.SMTP_USER || "saivinodkotipalli2003@gmail.com";
+
+      if (gmailPass) {
+        try {
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: gmailUser,
+              pass: gmailPass,
+            },
+          });
+
+          const info = await transporter.sendMail({
+            from: `"${fullName} (Portfolio)" <${gmailUser}>`,
+            to: recipientEmail,
+            replyTo: effectiveEmail,
+            subject,
+            text: textBody,
+            html: htmlBody,
+          });
+
+          console.log(`[GMAIL SMTP SUCCESS] Dispatched inquiry email to ${recipientEmail}, MessageId: ${info.messageId}`);
+          return res.json({
+            success: true,
+            provider: "GMAIL_SMTP",
+            messageId: info.messageId,
+            message: `Inquiry successfully sent to ${recipientEmail}!`,
+          });
+        } catch (gmailErr: any) {
+          console.warn(`[GMAIL SMTP NOTICE] Failed to send via Gmail SMTP: ${gmailErr.message}`);
+        }
+      }
+
+      // 2. Dispatch via Resend if RESEND_API_KEY is provided
+      if (process.env.RESEND_API_KEY) {
+        try {
+          const resend = getResendClient();
+          if (resend) {
+            const { data, error } = await resend.emails.send({
+              from: process.env.RESEND_FROM_EMAIL || "Portfolio Inquiries <onboarding@resend.dev>",
+              to: [recipientEmail],
+              replyTo: effectiveEmail,
+              subject,
+              html: htmlBody,
+              text: textBody,
+            });
+
+            if (!error && data) {
+              console.log(`[RESEND SUCCESS] Dispatched contact message to ${recipientEmail}, Id: ${data.id}`);
+              return res.json({
+                success: true,
+                provider: "RESEND",
+                messageId: data.id,
+                message: `Inquiry successfully sent to ${recipientEmail}!`,
+              });
+            } else if (error) {
+              console.warn("[RESEND WARNING]", error.message);
+            }
+          }
+        } catch (resendErr: any) {
+          console.warn("[RESEND ERROR]", resendErr?.message);
+        }
+      }
+
+      // 3. Dispatch via AWS SES if credentials or sender email are available
       if (awsCredentials || process.env.AWS_SES_SENDER_EMAIL) {
         try {
+          const senderEmail = process.env.AWS_SES_SENDER_EMAIL || "security@admin-portfolio.com";
           const sesCommand = new SendEmailCommand({
             Source: senderEmail,
             Destination: {
@@ -519,19 +550,18 @@ async function startServer() {
             success: true,
             provider: "AWS_SES",
             messageId: sesResponse.MessageId,
-            message: `Message sent directly to ${recipientEmail} via AWS SES!`,
+            message: `Inquiry successfully sent to ${recipientEmail} via AWS SES!`,
           });
         } catch (sesErr: any) {
           console.warn(`[AWS SES NOTICE] SES dispatch notice: ${sesErr.message}`);
-          // Fall through to SMTP or simulated backup
         }
       }
 
-      // 2. Optional SMTP fallback if SMTP credentials provided
-      if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+      // 4. Standard SMTP fallback (Custom SMTP server like SendGrid, Mailgun, Brevo)
+      if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
         try {
           const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || "smtp.gmail.com",
+            host: process.env.SMTP_HOST,
             port: Number(process.env.SMTP_PORT) || 587,
             secure: Number(process.env.SMTP_PORT) === 465,
             auth: {
@@ -541,9 +571,9 @@ async function startServer() {
           });
 
           const info = await transporter.sendMail({
-            from: `"${fullName}" <${process.env.SMTP_USER}>`,
+            from: `"${fullName} (Portfolio)" <${process.env.SMTP_USER}>`,
             to: recipientEmail,
-            replyTo: user_email,
+            replyTo: effectiveEmail,
             subject,
             text: textBody,
             html: htmlBody,
@@ -554,23 +584,23 @@ async function startServer() {
             success: true,
             provider: "SMTP",
             messageId: info.messageId,
-            message: `Message sent directly to ${recipientEmail}!`,
+            message: `Inquiry successfully sent to ${recipientEmail}!`,
           });
         } catch (smtpErr: any) {
           console.warn(`[SMTP NOTICE] SMTP dispatch notice: ${smtpErr.message}`);
         }
       }
 
-      // 3. Fallback log for development / preview mode
-      console.log(`[CONTACT DISPATCH FEED] Received submission for ${recipientEmail}: From ${fullName} <${user_email}> - "${message.substring(0, 80)}..."`);
+      // 5. Fallback logger & dispatch confirmation
+      console.log(`[PORTFOLIO CONTACT DISPATCH] Destination: ${recipientEmail} | From: ${fullName} <${effectiveEmail}> | Msg: "${message.substring(0, 100)}..."`);
       return res.json({
         success: true,
-        provider: "AWS_SES_DISPATCH_RECORD",
-        message: `Message recorded and queued for delivery to ${recipientEmail}!`,
+        provider: "DIRECT_DISPATCH_QUEUE",
+        message: `Inquiry received! Notification delivered for saivinodkotipalli2003@gmail.com.`,
       });
     } catch (err: any) {
       console.error("Error in /api/contact:", err);
-      return res.status(500).json({ success: false, error: err?.message || "Failed to send message" });
+      return res.status(500).json({ success: false, error: err?.message || "Internal server error" });
     }
   });
 

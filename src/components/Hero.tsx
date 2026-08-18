@@ -60,13 +60,23 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Hero Title */}
-        <h1 className="text-white text-4xl sm:text-6xl md:text-7xl font-black mb-6 tracking-tight leading-[1.08] font-['Kanit',sans-serif]">
-          {personalInfo.name.toUpperCase()} <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-red-200 to-[#ff2a2a]">
-            {personalInfo.title}
-          </span>
-        </h1>
+        {/* Hero Title & Identity */}
+        <div className="mb-8 w-full">
+          {/* Candidate Name */}
+          <h1 className="text-white text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-wide uppercase font-['Syne',sans-serif] mb-6 sm:mb-8 text-white/95">
+            {personalInfo.name}
+          </h1>
+
+          {/* Attached Role Title with Distinct Spacing & Custom Font Style */}
+          <div className="font-['Outfit',sans-serif] font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.06] tracking-tight">
+            <div className="text-white mb-1">
+              AWS Cloud
+            </div>
+            <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffa4a4] via-[#ff5858] to-[#ff2a2a]">
+              Operations Engineer
+            </div>
+          </div>
+        </div>
 
         {/* Subtitle */}
         <p className="text-white/80 text-base sm:text-lg md:text-xl font-light mb-8 max-w-3xl leading-relaxed">

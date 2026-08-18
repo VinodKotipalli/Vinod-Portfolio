@@ -32,13 +32,13 @@ const TechnicalSkills: React.FC = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div data-aos="fade-up" className="mb-16 md:mb-20 text-center md:text-left">
-          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/70 font-bold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-widest">
-            Skills & Competencies
+          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/80 font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-[0.25em]">
+            ✦ Skills & Competencies
           </div>
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight uppercase font-['Kanit',sans-serif]">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight uppercase font-['Syne',sans-serif]">
             TECHNICAL SKILLS
           </h2>
-          <p className="text-white/60 text-sm sm:text-base md:text-lg max-w-2xl font-light leading-relaxed">
+          <p className="text-white/70 text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed">
             Enterprise cloud operations, automated CI/CD pipelines, container orchestration, and comprehensive AWS infrastructure tools.
           </p>
         </div>
@@ -57,21 +57,21 @@ const TechnicalSkills: React.FC = () => {
                 <div className="flex items-start justify-between gap-3 mb-5 pb-3 border-b border-white/10">
                   <div className="flex items-center gap-2.5">
                     <span className="text-2xl">{categoryIcons[category.title] || '⚡'}</span>
-                    <h3 className="text-white font-bold text-base md:text-lg tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug">
+                    <h3 className="text-white font-bold text-base md:text-lg tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug font-['Outfit',sans-serif]">
                       {category.title}
                     </h3>
                   </div>
-                  <span className="text-xs font-mono font-bold text-white/30 shrink-0">
+                  <span className="text-xs font-['JetBrains_Mono',monospace] font-bold text-white/40 shrink-0">
                     #{index + 1 < 10 ? `0${index + 1}` : index + 1}
                   </span>
                 </div>
 
                 {/* Skill Pills */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 font-['Space_Grotesk',sans-serif]">
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="px-3 py-1 rounded-lg text-xs font-medium bg-black/60 border border-white/10 text-white/90 group-hover:border-white/20 transition-colors"
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-black/60 border border-white/10 text-white/90 group-hover:border-white/20 transition-all hover:bg-[#ff2a2a]/10 hover:text-white"
                     >
                       {skill}
                     </span>
