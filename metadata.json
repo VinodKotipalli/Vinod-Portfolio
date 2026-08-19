@@ -1,6 +1,6 @@
 {
   "name": "Saivinod Kotipalli Portfolio",
-  "description": "Official portfolio of Saivinod Kotipalli – AWS Cloud Operations Engineer featuring an interactive AI Live Mock Interview platform powered by Gemini.",
-  "requestFramePermissions": ["microphone"],
+  "description": "Official portfolio of Saivinod Kotipalli – AWS Cloud Operations Engineer.",
+  "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

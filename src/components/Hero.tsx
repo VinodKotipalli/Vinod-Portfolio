@@ -1,78 +1,68 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
+import { downloadResumePdf } from '../utils/generateResumePdf';
 
 const Hero: React.FC = () => {
   const { data } = usePortfolio();
-  const { heroContent, personalInfo, socialLinks } = data;
+  const { personalInfo, heroContent } = data;
 
   return (
-    <section className="relative w-full min-h-screen bg-[#000000] overflow-hidden flex flex-col justify-between pt-28 pb-12">
-      {/* Background Gradients & Glows */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-red-600/10 rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 -right-40 w-96 h-96 bg-orange-600/10 rounded-full blur-[140px]" />
-        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-red-900/10 rounded-full blur-[160px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950/80 to-black z-10" />
+    <section className="relative min-h-screen flex flex-col justify-between pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 overflow-hidden">
+      {/* Dynamic Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Subtle radial gradient */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#ff2a2a]/10 rounded-full blur-[140px]" />
+        
+        {/* Grid pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }}
+        />
+
+        {/* Large Decorative Text Outline */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 select-none pointer-events-none text-center w-full overflow-hidden opacity-10">
+          <span className="text-[12vw] font-black tracking-tighter text-transparent stroke-text uppercase whitespace-nowrap">
+            DEVOPS • CLOUD • SRE
+          </span>
+        </div>
       </div>
 
-      {/* Social Sidebar (Desktop) */}
-      <div className="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-6">
-        <div className="w-[1px] h-16 bg-white/20" />
-        <a
-          href={socialLinks.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-[#0077b5] hover:scale-125 transition-all duration-300"
-          aria-label="LinkedIn"
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
-        </a>
-        <a
-          href={socialLinks.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-white hover:scale-125 transition-all duration-300"
-          aria-label="GitHub"
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              fillRule="evenodd"
-              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </a>
-        <div className="w-[1px] h-16 bg-white/20" />
-      </div>
-
-      {/* Main Hero Content */}
-      <div className="relative z-20 px-6 md:px-12 max-w-6xl mx-auto flex flex-col items-start text-left w-full my-auto">
-        {/* Badges Row */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-mono font-bold tracking-wider text-[#ff2a2a] uppercase backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-[#ff2a2a] animate-ping" />
-            {personalInfo.title}
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-12 flex flex-col items-start justify-center flex-grow w-full">
+        {/* Top Badges matching reference style */}
+        <div className="flex flex-wrap items-center gap-3 mb-6 sm:mb-8">
+          {/* Badge 1: Role Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#ff3b3b]" />
+            <span className="text-[#ff4d4d] text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wider uppercase">
+              AWS CLOUD OPERATIONS ENGINEER
+            </span>
           </div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/70">
-            📍 {personalInfo.location}
+
+          {/* Badge 2: Location Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
+            <span className="text-xs">📍</span>
+            <span className="text-white/70 text-xs font-['JetBrains_Mono',monospace] tracking-wide">
+              {personalInfo.location}
+            </span>
           </div>
         </div>
 
         {/* Hero Title & Identity */}
         <div className="mb-8 w-full">
-          {/* Candidate Name */}
-          <h1 className="text-white text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-wide uppercase font-['Syne',sans-serif] mb-6 sm:mb-8 text-white/95">
+          {/* Candidate Name - Large Expanded Typography */}
+          <h1 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] font-black tracking-wider uppercase font-['Syne',sans-serif] mb-6 sm:mb-8 text-white leading-none">
             {personalInfo.name}
           </h1>
 
-          {/* Attached Role Title with Distinct Spacing & Custom Font Style */}
-          <div className="font-['Outfit',sans-serif] font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.06] tracking-tight">
+          {/* Attached Role Title in Exact Dual-Tone Style */}
+          <div className="font-['Outfit',sans-serif] font-black text-4xl sm:text-6xl md:text-7xl lg:text-[5.2rem] leading-[1.05] tracking-tight">
             <div className="text-white mb-1">
               AWS Cloud
             </div>
-            <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffa4a4] via-[#ff5858] to-[#ff2a2a]">
+            <div className="text-[#ff5858]">
               Operations Engineer
             </div>
           </div>
@@ -121,10 +111,9 @@ const Hero: React.FC = () => {
             {heroContent.ctaSecondary.text}
           </a>
 
-          <a
-            href={heroContent.ctaResume.href}
-            download
-            className="px-7 py-3.5 text-sm md:text-base rounded-full bg-black/60 border border-white/40 text-white font-bold hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-md flex items-center gap-2"
+          <button
+            onClick={() => downloadResumePdf('Saivinod_Kotipalli_Resume.pdf')}
+            className="px-7 py-3.5 text-sm md:text-base rounded-full bg-black/60 border border-white/40 text-white font-bold hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-md flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.25)]"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -134,8 +123,8 @@ const Hero: React.FC = () => {
                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               />
             </svg>
-            {heroContent.ctaResume.text}
-          </a>
+            <span>{heroContent.ctaResume.text}</span>
+          </button>
         </div>
       </div>
 

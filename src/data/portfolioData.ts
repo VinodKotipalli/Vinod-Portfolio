@@ -190,16 +190,12 @@ export const experienceData: ExperienceItem = {
   location: "Hyderabad",
   duration: "June 2024 – June 2026",
   highlights: [
-    "Designed, deployed, and maintained a centralized Prometheus and Grafana monitoring platform, delivering real-time visibility into infrastructure health across multiple Linux servers and cloud environments.",
+    "Designed, deployed, and maintained a centralized Prometheus and Grafana monitoring platform, delivering real-time visibility into infrastructure health across multiple Linux servers, Docker containers, and AWS environments.",
     "Automated provisioning and configuration of monitoring infrastructure using Terraform, enabling consistent, version-controlled, repeatable deployment of Prometheus, Grafana, and Node Exporter across environments.",
     "Integrated Jenkins CI/CD pipelines with the monitoring stack to validate application health post-deployment, trigger automated alerts on failed builds, and accelerate release cycles from weekly to daily.",
-    "Installed and configured Node Exporter on Linux servers to collect CPU, memory, disk, filesystem, network, and system load metrics; configured Prometheus scrape jobs, service discovery, recording rules, and alerting rules for continuous infrastructure and application monitoring.",
-    "Developed interactive Grafana dashboards using PromQL queries to visualize infrastructure performance, server availability, application health, and resource utilization.",
-    "Integrated Alertmanager with email and Slack notifications for automated alerting on CPU, memory, disk, and service downtime; tuned alert thresholds, grouping, and deduplication policies to reduce alert fatigue and improve incident response efficiency.",
-    "Monitored AWS EC2 instances, Linux servers, and Docker containers to improve operational visibility and system reliability; performed proactive capacity planning and troubleshot exporter, scrape, and connectivity issues by analyzing Prometheus target status and logs.",
-    "Applied AWS Well-Architected Framework best practices across the Reliability, Security, Cost Optimization, Performance Efficiency, and Operational Excellence pillars when designing and reviewing monitoring and cloud infrastructure solutions.",
-    "Authored and maintained technical documentation, dashboard guides, operational runbooks, and standard operating procedures (SOPs) for monitoring, alerting, and incident response, improving knowledge transfer and reducing onboarding time.",
-    "Collaborated with DevOps, Cloud Operations, and application teams to implement monitoring standards and support production incident management through faster root cause analysis and reduced Mean Time to Detect (MTTD).",
+    "Installed and configured Node Exporter on Linux servers to collect CPU, memory, disk, network, and system load metrics, developing interactive Grafana dashboards using PromQL queries for multi-tier performance visualization.",
+    "Integrated Alertmanager with email and Slack notifications for automated threshold alerts, deduplication, and grouping—reducing alert fatigue, accelerating root cause analysis, and minimizing Mean Time to Detect (MTTD).",
+    "Applied AWS Well-Architected Framework best practices across EC2, IAM, and CloudWatch while authoring standard operating procedures (SOPs), operational runbooks, and incident response workflows to ensure enterprise system reliability.",
   ],
 };
 

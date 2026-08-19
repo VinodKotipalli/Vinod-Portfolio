@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
+import { downloadResumePdf } from '../utils/generateResumePdf';
 
 const AboutMe: React.FC = () => {
   const { data } = usePortfolio();
@@ -120,10 +121,9 @@ const AboutMe: React.FC = () => {
             Experience
           </motion.a>
 
-          <motion.a
-            href={personalInfo.resumeUrl}
-            download
-            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] border border-white/30 bg-black/40 text-white font-bold text-base md:text-lg hover:bg-white hover:text-black transition-colors"
+          <motion.button
+            onClick={() => downloadResumePdf('Saivinod_Kotipalli_Resume.pdf')}
+            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] border border-white/30 bg-black/40 text-white font-bold text-base md:text-lg hover:bg-white hover:text-black transition-colors cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -136,7 +136,7 @@ const AboutMe: React.FC = () => {
               />
             </svg>
             Resume
-          </motion.a>
+          </motion.button>
         </div>
       </motion.div>
     </section>

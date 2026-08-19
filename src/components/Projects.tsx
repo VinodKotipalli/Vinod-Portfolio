@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
+import { ProjectItem } from '../data/portfolioData';
+import { ExternalLink, X, CheckCircle2, Layers, Cpu, ShieldCheck } from 'lucide-react';
 
 export const Projects: React.FC = () => {
   const { data } = usePortfolio();
   const projects = data.projects;
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
   return (
     <section
@@ -33,79 +31,73 @@ export const Projects: React.FC = () => {
           </p>
         </div>
 
-        {/* 5 Projects Grid Layout */}
+        {/* 5 Square Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, pIndex) => {
-            const isExpanded = expandedIndex === pIndex;
-            const displayedHighlights = isExpanded ? project.highlights : project.highlights.slice(0, 3);
-
             return (
               <div
                 key={project.title}
                 data-aos="fade-up"
-                data-aos-delay={pIndex * 80}
-                className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:border-[#ff2a2a]/40 hover:bg-white/[0.07] hover:shadow-[0_15px_35px_rgba(255,42,42,0.1)] transition-all duration-300 flex flex-col justify-between group"
+                data-aos-delay={pIndex * 70}
+                onClick={() => setSelectedProject(project)}
+                className="aspect-square bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 sm:p-7 hover:border-[#ff2a2a]/60 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(255,42,42,0.15)] transition-all duration-300 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
               >
+                {/* Subtle top corner accent */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#ff2a2a]/10 to-transparent pointer-events-none rounded-tr-3xl" />
+
+                {/* Top Section: Category & Status */}
                 <div>
-                  {/* Category & Status Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-white/10">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-['JetBrains_Mono',monospace] font-bold bg-[#ff2a2a]/15 text-[#ff5858] border border-[#ff2a2a]/30 uppercase tracking-wider">
+                  <div className="flex items-center justify-between gap-2 mb-3 pb-3 border-b border-white/10">
+                    <span className="px-2.5 py-0.5 rounded-md text-[10px] font-['JetBrains_Mono',monospace] font-bold bg-[#ff2a2a]/15 text-[#ff5858] border border-[#ff2a2a]/30 uppercase tracking-wider truncate max-w-[170px]">
                       {project.category}
                     </span>
-                    <span className="flex items-center gap-1.5 text-[10px] font-['JetBrains_Mono',monospace] text-emerald-400">
+                    <span className="flex items-center gap-1.5 text-[10px] font-['JetBrains_Mono',monospace] text-emerald-400 shrink-0">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       Production Ready
                     </span>
                   </div>
 
-                  {/* Project Title & Subtitle */}
-                  <h3 className="text-lg font-bold text-white group-hover:text-[#ff2a2a] transition-colors leading-snug font-['Outfit',sans-serif] mb-1">
+                  {/* Project Title */}
+                  <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-[#ff2a2a] transition-colors leading-snug font-['Outfit',sans-serif] mb-1.5 line-clamp-2">
                     {project.title}
                   </h3>
-                  <p className="text-xs text-white/60 font-['Plus_Jakarta_Sans',sans-serif] mb-3 leading-relaxed">
+
+                  {/* Subtitle */}
+                  <p className="text-[11px] text-white/60 font-['Plus_Jakarta_Sans',sans-serif] mb-3 line-clamp-1">
                     {project.subtitle}
                   </p>
 
-                  {/* Description */}
-                  <p className="text-xs text-white/80 font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed mb-4">
+                  {/* Concise Description */}
+                  <p className="text-xs text-white/75 font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed line-clamp-3 mb-3">
                     {project.description}
                   </p>
-
-                  {/* Key Highlights */}
-                  <div className="space-y-2 mb-4 pt-3 border-t border-white/10">
-                    <span className="text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase text-[#ff5858] tracking-wider block">
-                      Key Highlights:
-                    </span>
-                    {displayedHighlights.map((highlight, hIdx) => (
-                      <div key={hIdx} className="flex items-start gap-2 text-xs text-white/80 font-['Plus_Jakarta_Sans',sans-serif] leading-snug">
-                        <span className="text-[#ff2a2a] font-bold shrink-0 mt-0.5">▸</span>
-                        <span>{highlight}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Expand/Collapse Toggle if more highlights exist */}
-                  {project.highlights.length > 3 && (
-                    <button
-                      onClick={() => toggleExpand(pIndex)}
-                      className="text-[11px] font-['JetBrains_Mono',monospace] text-[#ff5858] hover:text-white transition-colors mb-4 flex items-center gap-1 font-semibold"
-                    >
-                      {isExpanded ? '▲ Show less' : `▼ View all highlights (${project.highlights.length})`}
-                    </button>
-                  )}
                 </div>
 
-                {/* Technologies List */}
-                <div className="pt-4 border-t border-white/10 mt-2">
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.technologies.map((tech) => (
+                {/* Bottom Section: Tech Stack & Trigger Button */}
+                <div className="pt-3 border-t border-white/10">
+                  {/* Tech stack pills */}
+                  <div className="flex flex-wrap gap-1.5 mb-3.5">
+                    {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-0.5 rounded bg-black/60 border border-white/10 text-[10px] font-['JetBrains_Mono',monospace] text-white/90 group-hover:border-white/20 transition-all hover:bg-[#ff2a2a]/10 hover:text-white"
+                        className="px-2 py-0.5 rounded bg-black/60 border border-white/10 text-[10px] font-['JetBrains_Mono',monospace] text-white/90 group-hover:border-white/20 transition-all"
                       >
                         {tech}
                       </span>
                     ))}
+                    {project.technologies.length > 4 && (
+                      <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] font-['JetBrains_Mono',monospace] text-white/50">
+                        +{project.technologies.length - 4}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Open Details Link */}
+                  <div className="flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] font-bold text-[#ff5858] group-hover:text-white transition-colors">
+                    <span>View Architecture Details</span>
+                    <span className="w-6 h-6 rounded-full bg-white/5 border border-white/10 group-hover:bg-[#ff2a2a] group-hover:border-[#ff2a2a] flex items-center justify-center text-white transition-all text-xs">
+                      ↗
+                    </span>
                   </div>
                 </div>
               </div>
@@ -113,6 +105,92 @@ export const Projects: React.FC = () => {
           })}
         </div>
       </div>
+
+      {/* Interactive Project Details Modal */}
+      {selectedProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div
+            className="bg-[#0e0e0e] border border-white/15 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedProject(null)}
+              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white flex items-center justify-center transition-colors"
+              aria-label="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className="px-3 py-1 rounded-full text-xs font-['JetBrains_Mono',monospace] font-bold bg-[#ff2a2a]/20 text-[#ff5858] border border-[#ff2a2a]/30 uppercase tracking-wider">
+                {selectedProject.category}
+              </span>
+              <span className="flex items-center gap-1.5 text-xs font-['JetBrains_Mono',monospace] text-emerald-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                Production Architecture
+              </span>
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl font-black text-white font-['Outfit',sans-serif] mb-2 pr-8">
+              {selectedProject.title}
+            </h3>
+            <p className="text-sm text-white/70 font-['Plus_Jakarta_Sans',sans-serif] mb-6">
+              {selectedProject.subtitle}
+            </p>
+
+            {/* Description */}
+            <div className="mb-6 p-4 rounded-2xl bg-white/5 border border-white/10">
+              <h4 className="text-xs font-['JetBrains_Mono',monospace] font-bold text-white/90 uppercase tracking-wider mb-2">
+                Overview & Design Purpose
+              </h4>
+              <p className="text-sm text-white/80 font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed">
+                {selectedProject.description}
+              </p>
+            </div>
+
+            {/* Key Deliverables & Architecture Highlights */}
+            <div className="mb-6">
+              <h4 className="text-xs font-['JetBrains_Mono',monospace] font-bold text-[#ff5858] uppercase tracking-wider mb-3">
+                Key Architecture Deliverables ({selectedProject.highlights.length} Points)
+              </h4>
+              <div className="space-y-2.5">
+                {selectedProject.highlights.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-white/5"
+                  >
+                    <span className="w-5 h-5 rounded-md bg-[#ff2a2a] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                      {idx + 1}
+                    </span>
+                    <span className="text-xs sm:text-sm text-white/85 font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tech Stack */}
+            <div className="pt-4 border-t border-white/10">
+              <h4 className="text-xs font-['JetBrains_Mono',monospace] font-bold text-white/90 uppercase tracking-wider mb-3">
+                Technologies & Tools Applied
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {selectedProject.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1 rounded-lg bg-white/10 border border-white/15 text-xs font-['JetBrains_Mono',monospace] text-white font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { Sparkles, Bot } from 'lucide-react';
 
-interface NavbarProps {
-  onNavigateMockInterview?: () => void;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ onNavigateMockInterview }) => {
+const Navbar: React.FC = () => {
   const { data } = usePortfolio();
   const { personalInfo, socialLinks } = data;
   const [scrolled, setScrolled] = useState(false);
@@ -25,25 +20,11 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateMockInterview }) => {
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Achievements', href: '#achievements' },
     { name: 'Certifications', href: '#certifications' },
-    { name: 'AI Mock Interview', href: '#mock-interview', isAi: true },
     { name: 'Education', href: '#education' },
     { name: 'Contact', href: '#contact' },
   ];
-
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isAi?: boolean) => {
-    if (isAi && onNavigateMockInterview) {
-      e.preventDefault();
-      onNavigateMockInterview();
-      setMobileMenuOpen(false);
-      const elem = document.getElementById('mock-interview');
-      if (elem) {
-        elem.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      setMobileMenuOpen(false);
-    }
-  };
 
   return (
     <nav
@@ -53,11 +34,11 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateMockInterview }) => {
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 flex items-center justify-between">
         {/* Brand Name */}
         <a
           href="#"
-          className="text-white text-lg sm:text-xl font-black tracking-wider uppercase flex items-center gap-1.5 group shrink-0"
+          className="text-white text-lg sm:text-xl font-black tracking-wider uppercase flex items-center gap-1.5 group"
         >
           <span className="bg-[#ff2a2a] text-white w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs">
             SK
@@ -66,62 +47,16 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateMockInterview }) => {
         </a>
 
         {/* Desktop Nav Links */}
-        <div className="hidden xl:flex items-center gap-4 bg-white/5 border border-white/10 rounded-full px-5 py-2 backdrop-blur-md">
-          {navLinks.map((link) => {
-            if (link.isAi) {
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href, true)}
-                  className="text-[#ff5858] hover:text-white text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wider uppercase transition-all flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#ff2a2a]/15 border border-[#ff2a2a]/40 shadow-[0_0_15px_rgba(255,42,42,0.3)]"
-                >
-                  <Bot className="w-3.5 h-3.5" />
-                  <span>{link.name}</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                </a>
-              );
-            }
-            return (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-white/70 hover:text-white text-xs font-['JetBrains_Mono',monospace] font-semibold tracking-wider uppercase transition-colors"
-              >
-                {link.name}
-              </a>
-            );
-          })}
-        </div>
-
-        {/* Compact Desktop (lg screen) navigation */}
-        <div className="hidden lg:flex xl:hidden items-center gap-3 bg-white/5 border border-white/10 rounded-full px-4 py-2 backdrop-blur-md">
-          <a
-            href="#projects"
-            className="text-white/70 hover:text-white text-xs font-['JetBrains_Mono',monospace] font-semibold uppercase"
-          >
-            Projects
-          </a>
-          <a
-            href="#certifications"
-            className="text-white/70 hover:text-white text-xs font-['JetBrains_Mono',monospace] font-semibold uppercase"
-          >
-            Certifications
-          </a>
-          <a
-            href="#mock-interview"
-            onClick={(e) => handleLinkClick(e, '#mock-interview', true)}
-            className="text-[#ff5858] hover:text-white text-xs font-['JetBrains_Mono',monospace] font-bold uppercase flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#ff2a2a]/15 border border-[#ff2a2a]/40"
-          >
-            <Bot className="w-3 h-3" />
-            <span>AI Interview</span>
-          </a>
-          <a
-            href="#contact"
-            className="text-white/70 hover:text-white text-xs font-['JetBrains_Mono',monospace] font-semibold uppercase"
-          >
-            Contact
-          </a>
+        <div className="hidden lg:flex items-center gap-6 bg-white/5 border border-white/10 rounded-full px-6 py-2 backdrop-blur-md">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-white/70 hover:text-white text-xs font-['JetBrains_Mono',monospace] font-semibold tracking-wider uppercase transition-colors"
+            >
+              {link.name}
+            </a>
+          ))}
         </div>
 
         {/* Action Buttons */}
@@ -153,12 +88,10 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateMockInterview }) => {
             </svg>
           </a>
           <a
-            href="#mock-interview"
-            onClick={(e) => handleLinkClick(e, '#mock-interview', true)}
-            className="px-4 py-2 rounded-full bg-[#ff2a2a] hover:bg-red-600 text-white font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-[0_0_20px_rgba(255,42,42,0.4)] flex items-center gap-1.5"
+            href="#contact"
+            className="px-5 py-2 rounded-full bg-[#ff2a2a] hover:bg-red-600 text-white font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-[0_0_20px_rgba(255,42,42,0.4)]"
           >
-            <Sparkles className="w-3 h-3" />
-            <span>AI Interview</span>
+            Get In Touch
           </a>
         </div>
 
@@ -187,17 +120,10 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigateMockInterview }) => {
             <a
               key={link.name}
               href={link.href}
-              onClick={(e) => handleLinkClick(e, link.href, link.isAi)}
-              className={`text-base font-bold uppercase tracking-wider py-1 transition-colors flex items-center justify-between ${
-                link.isAi ? 'text-[#ff5858]' : 'text-white/80 hover:text-[#ff2a2a]'
-              }`}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-white/80 hover:text-[#ff2a2a] text-base font-bold uppercase tracking-wider py-1 transition-colors"
             >
-              <span>{link.name}</span>
-              {link.isAi && (
-                <span className="px-2 py-0.5 rounded-full bg-[#ff2a2a]/20 text-[#ff5858] text-[10px] font-['JetBrains_Mono',monospace]">
-                  LIVE
-                </span>
-              )}
+              {link.name}
             </a>
           ))}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between">

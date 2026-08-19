@@ -10,11 +10,6 @@ import jwt from "jsonwebtoken";
 import axios from "axios";
 import { GoogleGenAI, ThinkingLevel } from "@google/genai";
 import { Resend } from "resend";
-import {
-  generateStartQuestion,
-  processCandidateAnswer,
-  generateEvaluationReport,
-} from "./server/interviewEngine";
 
 const JWT_SECRET = process.env.JWT_SECRET || "admin-security-jwt-secret-key-2026-portfolio";
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
@@ -683,162 +678,12 @@ Guidelines:
     }
   });
 
-  // In-Memory storage for Interview Sessions (synced across requests)
-  const interviewHistoryStore: any[] = [];
-
-  // API 6: Start AI Mock Interview
-  app.post("/api/interview/start", async (req, res) => {
-    try {
-      const { role, experience, difficulty, topic, totalQuestions = 5, voiceMode = false } = req.body;
-
-      if (!role || !topic) {
-        return res.status(400).json({
-          success: false,
-          error: "Role and topic are required to start an interview.",
-        });
-      }
-
-      const { question, interviewerGreeting } = await generateStartQuestion({
-        role: role || "AWS DevOps Engineer",
-        experience: experience || "2–4 Years",
-        difficulty: difficulty || "Intermediate",
-        topic: topic || "Kubernetes",
-        totalQuestions: Number(totalQuestions) || 5,
-      });
-
-      const sessionId = "intv_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);
-
-      return res.json({
-        success: true,
-        sessionId,
-        greeting: interviewerGreeting,
-        firstQuestion: question,
-        questionIndex: 1,
-        totalQuestions: Number(totalQuestions) || 5,
-        voiceMode: Boolean(voiceMode),
-      });
-    } catch (err: any) {
-      console.error("Error in /api/interview/start:", err);
-      return res.status(500).json({
-        success: false,
-        error: err?.message || "Failed to initialize interview. Please check your API configuration.",
-      });
-    }
-  });
-
-  // API 7: Process Candidate Answer (Follow-up or Next Question)
-  app.post(["/api/interview/answer", "/api/interview/question", "/api/interview/followup"], async (req, res) => {
-    try {
-      const {
-        role,
-        experience,
-        difficulty,
-        topic,
-        totalQuestions = 5,
-        currentQuestionIndex = 1,
-        messages = [],
-        candidateAnswer,
-      } = req.body;
-
-      if (!candidateAnswer || typeof candidateAnswer !== "string" || !candidateAnswer.trim()) {
-        return res.status(400).json({
-          success: false,
-          error: "Candidate answer cannot be empty.",
-        });
-      }
-
-      const result = await processCandidateAnswer({
-        role: role || "AWS DevOps Engineer",
-        experience: experience || "2–4 Years",
-        difficulty: difficulty || "Intermediate",
-        topic: topic || "Kubernetes",
-        totalQuestions: Number(totalQuestions) || 5,
-        currentQuestionIndex: Number(currentQuestionIndex) || 1,
-        messages,
-        candidateAnswer: candidateAnswer.trim(),
-      });
-
-      return res.json({
-        success: true,
-        ...result,
-      });
-    } catch (err: any) {
-      console.error("Error in /api/interview/answer:", err);
-      return res.status(500).json({
-        success: false,
-        error: err?.message || "Failed to process candidate response.",
-      });
-    }
-  });
-
-  // API 8: Evaluate Completed Interview
-  app.post("/api/interview/evaluate", async (req, res) => {
-    try {
-      const {
-        role,
-        experience,
-        difficulty,
-        topic,
-        totalQuestions = 5,
-        durationSeconds = 300,
-        messages = [],
-      } = req.body;
-
-      if (!Array.isArray(messages) || messages.length === 0) {
-        return res.status(400).json({
-          success: false,
-          error: "Interview transcript messages are required for evaluation.",
-        });
-      }
-
-      const evaluation = await generateEvaluationReport({
-        role: role || "AWS DevOps Engineer",
-        experience: experience || "2–4 Years",
-        difficulty: difficulty || "Intermediate",
-        topic: topic || "Kubernetes",
-        totalQuestions: Number(totalQuestions) || 5,
-        durationSeconds: Number(durationSeconds) || 300,
-        messages,
-      });
-
-      return res.json({
-        success: true,
-        evaluation,
-      });
-    } catch (err: any) {
-      console.error("Error in /api/interview/evaluate:", err);
-      return res.status(500).json({
-        success: false,
-        error: err?.message || "Failed to evaluate interview performance.",
-      });
-    }
-  });
-
-  // API 9: Interview History Retrieval & Saving
-  app.get("/api/interview/history", (req, res) => {
-    return res.json({
-      success: true,
-      history: interviewHistoryStore,
-    });
-  });
-
-  app.post("/api/interview/history", (req, res) => {
-    try {
-      const { session } = req.body;
-      if (session && session.id) {
-        // Prepend to history, keeping max 30 items
-        interviewHistoryStore.unshift(session);
-        if (interviewHistoryStore.length > 30) {
-          interviewHistoryStore.pop();
-        }
-      }
-      return res.json({
-        success: true,
-        history: interviewHistoryStore,
-      });
-    } catch (err: any) {
-      return res.status(500).json({ success: false, error: err.message });
-    }
+  // Dedicated Resume Download Endpoints
+  app.get(["/Saivinod_Kotipalli_Resume.pdf", "/api/resume/download"], (req, res) => {
+    const resumePath = path.join(process.cwd(), "public", "Saivinod_Kotipalli_Resume.pdf");
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", 'attachment; filename="Saivinod_Kotipalli_Resume.pdf"');
+    res.sendFile(resumePath);
   });
 
   // Vite middleware for development
