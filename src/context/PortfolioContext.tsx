@@ -7,6 +7,7 @@ import {
   keyAchievements as initialKeyAchievements,
   certificationsList as initialCertificationsList,
   educationData as initialEducationData,
+  projectsList as initialProjectsList,
   footerContent as initialFooterContent,
   socialLinks as initialSocialLinks,
   SkillCategory,
@@ -14,6 +15,7 @@ import {
   AchievementItem,
   CertificateItem,
   EducationItem,
+  ProjectItem,
 } from '../data/portfolioData';
 
 export interface PortfolioFullData {
@@ -22,6 +24,7 @@ export interface PortfolioFullData {
   technicalSkills: SkillCategory[];
   experience: ExperienceItem;
   achievements: AchievementItem[];
+  projects: ProjectItem[];
   certificates: CertificateItem[];
   education: EducationItem;
   footerContent: typeof initialFooterContent;
@@ -34,13 +37,14 @@ const defaultFullData: PortfolioFullData = {
   technicalSkills: initialSkillsCategories,
   experience: initialExperienceData,
   achievements: initialKeyAchievements,
+  projects: initialProjectsList,
   certificates: initialCertificationsList,
   education: initialEducationData,
   footerContent: initialFooterContent,
   socialLinks: initialSocialLinks,
 };
 
-const STORAGE_KEY = 'saivinod_portfolio_data_v6';
+const STORAGE_KEY = 'saivinod_portfolio_data_v11';
 
 interface PortfolioContextType {
   data: PortfolioFullData;

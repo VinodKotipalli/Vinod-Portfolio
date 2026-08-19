@@ -10,6 +10,7 @@ import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
 import TechnicalSkills from './components/TechnicalSkills';
 import Experience from './components/Experience';
+import Projects from './components/Projects';
 import Certificates from './components/Certificates';
 import Education from './components/Education';
 import Contact from './components/Contact';
@@ -33,6 +34,7 @@ function MainLayout() {
       <AboutMe />
       <TechnicalSkills />
       <Experience />
+      <Projects />
       <Certificates />
       <Education />
       <Contact />
