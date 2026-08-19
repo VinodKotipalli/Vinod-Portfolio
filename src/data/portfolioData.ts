@@ -74,7 +74,7 @@ export const personalInfo = {
 };
 
 export const socialLinks = {
-  github: "https://github.com/saivinodkotipalli",
+  github: "https://github.com/VinodKotipalli",
   linkedin: "https://www.linkedin.com/in/saivinod-kotipalli-960aa61a0",
   instagram: "https://instagram.com/saivinod.kotipalli",
 };
