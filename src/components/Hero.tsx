@@ -53,17 +53,21 @@ const Hero: React.FC = () => {
         {/* Hero Title & Identity */}
         <div className="mb-8 w-full">
           {/* Candidate Name - Large Expanded Typography */}
-          <h1 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] font-black tracking-wider uppercase font-['Syne',sans-serif] mb-6 sm:mb-8 text-white leading-none">
+          <h1 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] font-black tracking-wider uppercase font-['Syne',sans-serif] mb-6 sm:mb-8 leading-none">
             {personalInfo.name}
           </h1>
 
-          {/* Attached Role Title in Exact Dual-Tone Style */}
+          {/* Attached Role Title with RGB Colors & Motion */}
           <div className="font-['Outfit',sans-serif] font-black text-4xl sm:text-6xl md:text-7xl lg:text-[5.2rem] leading-[1.05] tracking-tight">
-            <div className="text-white mb-1">
-              AWS Cloud
+            <div className="mb-1">
+              <span className="text-rgb-motion drop-shadow-[0_0_35px_rgba(0,245,255,0.35)]">
+                AWS Cloud
+              </span>
             </div>
-            <div className="text-[#ff5858]">
-              Operations Engineer
+            <div>
+              <span className="text-rgb-motion drop-shadow-[0_0_35px_rgba(59,130,246,0.35)]">
+                Operations Engineer
+              </span>
             </div>
           </div>
         </div>

@@ -51,3 +51,38 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #ff2a2a;
 }
+
+/* Exact RGB Spectrum Motion Flow for Role Title */
+@keyframes rgbMotionFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.text-rgb-motion {
+  background: linear-gradient(
+    90deg,
+    #00f5ff 0%,
+    #00b4d8 14%,
+    #3b82f6 28%,
+    #8b5cf6 42%,
+    #d946ef 56%,
+    #ff007f 70%,
+    #00e676 84%,
+    #00f5ff 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: rgbMotionFlow 5s ease-in-out infinite;
+  display: inline-block;
+}
+
