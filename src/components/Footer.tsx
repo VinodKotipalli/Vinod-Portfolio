@@ -1,12 +1,18 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useTheme } from '../context/ThemeContext';
 
 const Footer: React.FC = () => {
   const { data } = usePortfolio();
+  const { theme } = useTheme();
   const { personalInfo, socialLinks, footerContent } = data;
 
   return (
-    <footer className="bg-[#080808] text-[#d4d4d4] py-16 px-6 md:px-12 w-full font-mono text-[10px] md:text-xs tracking-widest flex flex-col justify-between min-h-[45vh] border-t border-white/10">
+    <footer className={`py-16 px-6 md:px-12 w-full font-mono text-[10px] md:text-xs tracking-widest flex flex-col justify-between min-h-[45vh] border-t transition-colors duration-300 ${
+      theme === 'dark'
+        ? 'bg-[#080808] text-[#d4d4d4] border-white/10'
+        : 'bg-slate-100 text-slate-700 border-slate-300'
+    }`}>
       {/* Top Row - Future & Motivational Captions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 w-full font-mono max-w-7xl mx-auto">
         <div className="flex flex-col gap-2">
@@ -14,10 +20,14 @@ const Footer: React.FC = () => {
             <span>✦</span>
             <span className="uppercase">Architecting Tomorrow</span>
           </div>
-          <p className="text-white/80 leading-relaxed text-[11px] md:text-xs">
+          <p className={`leading-relaxed text-[11px] md:text-xs ${
+            theme === 'dark' ? 'text-white/80' : 'text-slate-800'
+          }`}>
             "The best way to predict the future is to engineer it with precision and resilience."
           </p>
-          <p className="text-white/50 text-[10px]">
+          <p className={`text-[10px] ${
+            theme === 'dark' ? 'text-white/50' : 'text-slate-500'
+          }`}>
             Transforming bold visions into scalable, autonomous cloud systems.
           </p>
         </div>
@@ -27,10 +37,14 @@ const Footer: React.FC = () => {
             <span>✦</span>
             <span className="uppercase">Limitless Innovation</span>
           </div>
-          <p className="text-white/80 leading-relaxed text-[11px] md:text-xs">
+          <p className={`leading-relaxed text-[11px] md:text-xs ${
+            theme === 'dark' ? 'text-white/80' : 'text-slate-800'
+          }`}>
             "Driven by curiosity, fueled by relentless learning."
           </p>
-          <p className="text-white/50 text-[10px]">
+          <p className={`text-[10px] ${
+            theme === 'dark' ? 'text-white/50' : 'text-slate-500'
+          }`}>
             Every deployment is a step toward a smarter, more connected future.
           </p>
         </div>
@@ -40,10 +54,14 @@ const Footer: React.FC = () => {
             <span>✦</span>
             <span className="uppercase">Building The Future</span>
           </div>
-          <p className="text-white/80 leading-relaxed text-[11px] md:text-xs">
+          <p className={`leading-relaxed text-[11px] md:text-xs ${
+            theme === 'dark' ? 'text-white/80' : 'text-slate-800'
+          }`}>
             "The future belongs to those who build with purpose and passion."
           </p>
-          <p className="text-white/50 text-[10px]">
+          <p className={`text-[10px] ${
+            theme === 'dark' ? 'text-white/50' : 'text-slate-500'
+          }`}>
             Ready to shape what's next • {new Date().getFullYear()} & Beyond
           </p>
         </div>
@@ -51,7 +69,11 @@ const Footer: React.FC = () => {
 
       {/* Middle Typography */}
       <div className="w-full flex justify-center items-center py-10 md:py-14 px-4">
-        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5vw] font-['Syne',sans-serif] font-black tracking-tight uppercase select-none text-[#222222] hover:text-[#383838] transition-colors duration-300 text-center leading-none max-w-7xl">
+        <h2 className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5vw] font-['Syne',sans-serif] font-black tracking-tight uppercase select-none transition-colors duration-300 text-center leading-none max-w-7xl ${
+          theme === 'dark'
+            ? 'text-[#222222] hover:text-[#383838]'
+            : 'text-slate-300 hover:text-slate-400'
+        }`}>
           Saivinod Kotipalli
         </h2>
       </div>
@@ -61,11 +83,15 @@ const Footer: React.FC = () => {
         <div className="flex flex-col gap-4">
           <a
             href="#contact"
-            className="underline hover:text-white transition-colors underline-offset-4 decoration-1 font-bold text-sm text-white"
+            className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-sm ${
+              theme === 'dark' ? 'text-white hover:text-red-400' : 'text-slate-900 hover:text-red-600'
+            }`}
           >
             Get In Touch
           </a>
-          <p className="text-white/50 font-mono text-[9px] md:text-[10px]">
+          <p className={`font-mono text-[9px] md:text-[10px] ${
+            theme === 'dark' ? 'text-white/50' : 'text-slate-500'
+          }`}>
             {footerContent.copyright}
           </p>
         </div>
@@ -73,7 +99,9 @@ const Footer: React.FC = () => {
         <div className="flex flex-col gap-3 md:items-center">
           <a
             href={`mailto:${personalInfo.email}`}
-            className="underline hover:text-white transition-colors underline-offset-4 decoration-1 lowercase text-xs text-white/80"
+            className={`underline transition-colors underline-offset-4 decoration-1 lowercase text-xs ${
+              theme === 'dark' ? 'text-white/80 hover:text-white' : 'text-slate-700 hover:text-slate-950'
+            }`}
           >
             {personalInfo.email}
           </a>
@@ -84,7 +112,9 @@ const Footer: React.FC = () => {
               href={socialLinks.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#d4d4d4] hover:text-[#ff2a2a] transition-colors duration-300"
+              className={`transition-colors duration-300 ${
+                theme === 'dark' ? 'text-[#d4d4d4] hover:text-[#ff2a2a]' : 'text-slate-600 hover:text-[#ff2a2a]'
+              }`}
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -96,7 +126,9 @@ const Footer: React.FC = () => {
               href={socialLinks.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#d4d4d4] hover:text-[#ff2a2a] transition-colors duration-300"
+              className={`transition-colors duration-300 ${
+                theme === 'dark' ? 'text-[#d4d4d4] hover:text-[#ff2a2a]' : 'text-slate-600 hover:text-[#ff2a2a]'
+              }`}
               aria-label="GitHub"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -115,7 +147,9 @@ const Footer: React.FC = () => {
             href={socialLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-white transition-colors underline-offset-4 decoration-1 font-bold text-xs text-white/80"
+            className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-xs ${
+              theme === 'dark' ? 'text-white/80 hover:text-white' : 'text-slate-700 hover:text-slate-950'
+            }`}
           >
             Connect on LinkedIn
           </a>
@@ -123,7 +157,9 @@ const Footer: React.FC = () => {
             href={socialLinks.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-white transition-colors underline-offset-4 decoration-1 font-bold text-xs text-white/80 mt-1"
+            className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-xs mt-1 ${
+              theme === 'dark' ? 'text-white/80 hover:text-white' : 'text-slate-700 hover:text-slate-950'
+            }`}
           >
             Explore GitHub Profile
           </a>

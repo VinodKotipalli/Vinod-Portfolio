@@ -1,17 +1,26 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useTheme } from '../context/ThemeContext';
 import { downloadResumePdf } from '../utils/generateResumePdf';
 
 const AboutMe: React.FC = () => {
   const { data } = usePortfolio();
+  const { theme } = useTheme();
   const { personalInfo } = data;
 
   return (
-    <section id="about" className="relative w-full min-h-screen flex flex-col justify-center items-center py-24 px-5 sm:px-8 md:px-12 bg-[#0C0C0C] overflow-hidden">
+    <section
+      id="about"
+      className={`relative w-full min-h-screen flex flex-col justify-center items-center py-24 px-5 sm:px-8 md:px-12 transition-colors duration-300 overflow-hidden ${
+        theme === 'dark' ? 'bg-[#0C0C0C] text-white' : 'bg-white text-slate-900 border-t border-slate-200'
+      }`}
+    >
       {/* Decorative Ambient Tech Vectors & Glows */}
       <motion.div
-        className="absolute top-[8%] left-[3%] sm:left-[5%] w-28 sm:w-36 h-28 sm:h-36 rounded-full border border-red-500/20 bg-red-500/5 backdrop-blur-sm flex items-center justify-center pointer-events-none z-0"
+        className={`absolute top-[8%] left-[3%] sm:left-[5%] w-28 sm:w-36 h-28 sm:h-36 rounded-full border backdrop-blur-sm flex items-center justify-center pointer-events-none z-0 ${
+          theme === 'dark' ? 'border-red-500/20 bg-red-500/5' : 'border-red-500/30 bg-red-500/10 shadow-sm'
+        }`}
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 0.8 }}
         viewport={{ once: true }}
@@ -22,20 +31,24 @@ const AboutMe: React.FC = () => {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-[8%] left-[4%] sm:left-[6%] w-24 sm:w-32 h-24 sm:h-32 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center pointer-events-none z-0 rotate-12"
+        className={`absolute bottom-[8%] left-[4%] sm:left-[6%] w-24 sm:w-32 h-24 sm:h-32 rounded-2xl border backdrop-blur-sm flex items-center justify-center pointer-events-none z-0 rotate-12 ${
+          theme === 'dark' ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-slate-100/90 shadow-sm'
+        }`}
         initial={{ x: -40, opacity: 0 }}
         whileInView={{ x: 0, opacity: 0.8 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3, duration: 0.8 }}
       >
-        <div className="text-center font-mono text-[10px] text-white/50">
+        <div className={`text-center font-mono text-[10px] ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}>
           <span className="text-[#ff2a2a] block font-bold text-sm">99.9%</span>
           UPTIME
         </div>
       </motion.div>
 
       <motion.div
-        className="absolute top-[10%] right-[3%] sm:right-[5%] w-28 sm:w-36 h-28 sm:h-36 rounded-full border border-orange-500/20 bg-orange-500/5 backdrop-blur-sm flex items-center justify-center pointer-events-none z-0"
+        className={`absolute top-[10%] right-[3%] sm:right-[5%] w-28 sm:w-36 h-28 sm:h-36 rounded-full border backdrop-blur-sm flex items-center justify-center pointer-events-none z-0 ${
+          theme === 'dark' ? 'border-orange-500/20 bg-orange-500/5' : 'border-orange-500/30 bg-orange-500/10 shadow-sm'
+        }`}
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 0.8 }}
         viewport={{ once: true }}
@@ -46,7 +59,9 @@ const AboutMe: React.FC = () => {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-[6%] right-[4%] sm:right-[6%] w-28 sm:w-40 h-24 sm:h-28 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col justify-center p-3 pointer-events-none z-0 -rotate-6"
+        className={`absolute bottom-[6%] right-[4%] sm:right-[6%] w-28 sm:w-40 h-24 sm:h-28 rounded-2xl border backdrop-blur-sm flex flex-col justify-center p-3 pointer-events-none z-0 -rotate-6 ${
+          theme === 'dark' ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-slate-100/90 shadow-sm'
+        }`}
         initial={{ x: 40, opacity: 0 }}
         whileInView={{ x: 0, opacity: 0.8 }}
         viewport={{ once: true }}
@@ -54,13 +69,13 @@ const AboutMe: React.FC = () => {
       >
         <div className="flex items-center gap-1.5 mb-1.5">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="font-mono text-[10px] text-white/60">OBSERVABILITY</span>
+          <span className={`font-mono text-[10px] ${theme === 'dark' ? 'text-white/60' : 'text-slate-600'}`}>OBSERVABILITY</span>
         </div>
         <div className="flex gap-1 items-end h-6">
           <div className="w-2 h-3 bg-[#ff2a2a]/60 rounded-t" />
           <div className="w-2 h-5 bg-[#ff2a2a] rounded-t" />
           <div className="w-2 h-4 bg-[#ff2a2a]/80 rounded-t" />
-          <div className="w-2 h-6 bg-white/80 rounded-t" />
+          <div className={`w-2 h-6 rounded-t ${theme === 'dark' ? 'bg-white/80' : 'bg-slate-700'}`} />
           <div className="w-2 h-5 bg-[#ff2a2a] rounded-t" />
         </div>
       </motion.div>
@@ -73,16 +88,24 @@ const AboutMe: React.FC = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/80 font-['JetBrains_Mono',monospace] font-semibold mb-6 shadow-sm bg-white/5 backdrop-blur-md uppercase tracking-[0.25em]">
+        <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-6 shadow-sm backdrop-blur-md uppercase tracking-[0.25em] border transition-colors ${
+          theme === 'dark'
+            ? 'border-white/20 text-white/80 bg-white/5'
+            : 'border-slate-300 text-slate-800 bg-slate-100'
+        }`}>
           ✦ Professional Summary
         </div>
 
-        <h2 className="text-white text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-tight tracking-tight mb-8 font-['Syne',sans-serif] uppercase">
+        <h2 className={`text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-tight tracking-tight mb-8 font-['Syne',sans-serif] uppercase transition-colors ${
+          theme === 'dark' ? 'text-white' : 'text-slate-950'
+        }`}>
           ABOUT ME
         </h2>
 
         {/* Word-for-word Summary from Resume */}
-        <p className="text-white/90 text-base sm:text-lg md:text-xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed max-w-3xl mx-auto mb-10 text-justify sm:text-center">
+        <p className={`text-base sm:text-lg md:text-xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed max-w-3xl mx-auto mb-10 text-justify sm:text-center transition-colors ${
+          theme === 'dark' ? 'text-white/90' : 'text-slate-700'
+        }`}>
           {personalInfo.summary}
         </p>
 
@@ -100,7 +123,11 @@ const AboutMe: React.FC = () => {
           ].map((badge) => (
             <span
               key={badge}
-              className="px-4 py-1.5 rounded-full bg-white/5 border border-white/15 text-white/90 text-xs md:text-sm font-['Space_Grotesk',sans-serif] font-medium backdrop-blur-md hover:border-[#ff2a2a] hover:text-[#ff8a8a] transition-all duration-300"
+              className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-['Space_Grotesk',sans-serif] font-medium backdrop-blur-md border transition-all duration-300 ${
+                theme === 'dark'
+                  ? 'bg-white/5 border-white/15 text-white/90 hover:border-[#ff2a2a] hover:text-[#ff8a8a]'
+                  : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-[#ff2a2a] hover:text-red-600 shadow-sm'
+              }`}
             >
               {badge}
             </span>
@@ -111,11 +138,17 @@ const AboutMe: React.FC = () => {
         <div className="flex flex-row justify-center items-center gap-4 sm:gap-8 font-['Outfit',sans-serif]">
           <motion.a
             href="#experience"
-            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] bg-white text-black font-bold text-base md:text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+            className={`flex items-center gap-3 px-7 py-3.5 rounded-[30px] font-bold text-base md:text-lg transition-transform ${
+              theme === 'dark'
+                ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)]'
+                : 'bg-slate-900 text-white shadow-[0_4px_15px_rgba(15,23,42,0.2)]'
+            }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center font-bold text-xs">
+            <span className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs ${
+              theme === 'dark' ? 'bg-black text-white' : 'bg-white text-slate-900'
+            }`}>
               →
             </span>
             Experience
@@ -123,7 +156,11 @@ const AboutMe: React.FC = () => {
 
           <motion.button
             onClick={() => downloadResumePdf('Saivinod_Kotipalli_Resume.pdf')}
-            className="flex items-center gap-3 px-7 py-3.5 rounded-[30px] border border-white/30 bg-black/40 text-white font-bold text-base md:text-lg hover:bg-white hover:text-black transition-colors cursor-pointer"
+            className={`flex items-center gap-3 px-7 py-3.5 rounded-[30px] border font-bold text-base md:text-lg transition-colors cursor-pointer ${
+              theme === 'dark'
+                ? 'border-white/30 bg-black/40 text-white hover:bg-white hover:text-black'
+                : 'border-slate-300 bg-white text-slate-800 hover:bg-slate-900 hover:text-white shadow-sm'
+            }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

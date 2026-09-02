@@ -1,10 +1,11 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useTheme } from '../context/ThemeContext';
 import { CertificateItem } from '../data/portfolioData';
 
 // 1. AWS Logo with clear, unmistakable 'AWS' typography and vibrant orange smile arrow
 const AwsProviderLogo: React.FC = () => (
-  <div className="w-11 h-11 rounded-xl bg-white border border-white/20 flex flex-col items-center justify-center p-1.5 shadow-md shrink-0 group-hover:scale-105 transition-transform overflow-hidden select-none">
+  <div className="w-11 h-11 rounded-xl bg-white border border-slate-200 dark:border-white/20 flex flex-col items-center justify-center p-1.5 shadow-md shrink-0 group-hover:scale-105 transition-transform overflow-hidden select-none">
     <span className="text-[#232F3E] font-black text-sm leading-none tracking-tight font-['Outfit',sans-serif]">
       AWS
     </span>
@@ -25,7 +26,7 @@ const AwsProviderLogo: React.FC = () => (
 
 // 2. Microsoft Logo matching uploaded image (4-color square logo)
 const MicrosoftProviderLogo: React.FC = () => (
-  <div className="w-11 h-11 rounded-xl bg-white border border-white/20 flex items-center justify-center p-2.5 shadow-md shrink-0 group-hover:scale-105 transition-transform">
+  <div className="w-11 h-11 rounded-xl bg-white border border-slate-200 dark:border-white/20 flex items-center justify-center p-2.5 shadow-md shrink-0 group-hover:scale-105 transition-transform">
     <div className="grid grid-cols-2 gap-1 w-6 h-6">
       <div className="bg-[#F25022] rounded-[1px] w-full h-full" />
       <div className="bg-[#7FBA00] rounded-[1px] w-full h-full" />
@@ -37,7 +38,7 @@ const MicrosoftProviderLogo: React.FC = () => (
 
 // 3. GitHub Logo matching uploaded image (Black rounded badge with white circle and black cat)
 const GitHubProviderLogo: React.FC = () => (
-  <div className="w-11 h-11 rounded-xl bg-black border border-white/20 flex items-center justify-center p-1.5 shadow-md shrink-0 group-hover:scale-105 transition-transform">
+  <div className="w-11 h-11 rounded-xl bg-black border border-slate-200 dark:border-white/20 flex items-center justify-center p-1.5 shadow-md shrink-0 group-hover:scale-105 transition-transform">
     <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden">
       <svg viewBox="0 0 24 24" className="w-6 h-6 fill-black">
         <path
@@ -52,7 +53,7 @@ const GitHubProviderLogo: React.FC = () => (
 
 // 4. Anthropic Claude Logo matching uploaded image (Off-white / cream background with bold Anthropic 'A\' mark)
 const AnthropicProviderLogo: React.FC = () => (
-  <div className="w-11 h-11 rounded-xl bg-[#FBF9F4] border border-white/20 flex items-center justify-center p-2 shadow-md shrink-0 group-hover:scale-105 transition-transform">
+  <div className="w-11 h-11 rounded-xl bg-[#FBF9F4] border border-slate-200 dark:border-white/20 flex items-center justify-center p-2 shadow-md shrink-0 group-hover:scale-105 transition-transform">
     <svg viewBox="0 0 24 24" className="w-7 h-7 fill-[#141413]">
       <path d="M17.4 3h-3.3L8.3 18.5h3.4l1.2-3.4h5.8l1.2 3.4h3.4L17.4 3zm-3.5 9.5l1.9-5.3 1.9 5.3h-3.8zM6.6 18.5H3.2L9 3h3.4L6.6 18.5z" />
     </svg>
@@ -77,13 +78,18 @@ const getIssuerCategory = (issuer: string) => {
 };
 
 const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ cert, index }) => {
+  const { theme } = useTheme();
   const issuerCat = getIssuerCategory(cert.issuer);
 
   return (
     <div
       data-aos="fade-up"
       data-aos-delay={String(Math.min((index % 6) * 80, 400))}
-      className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:border-[#ff2a2a]/50 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(255,42,42,0.12)] transition-all duration-300 group flex flex-col justify-between"
+      className={`backdrop-blur-md border rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between ${
+        theme === 'dark'
+          ? 'bg-white/5 border-white/10 hover:border-[#ff2a2a]/50 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(255,42,42,0.12)]'
+          : 'bg-slate-50 border-slate-200 hover:border-[#ff2a2a]/50 hover:bg-white hover:shadow-md'
+      }`}
     >
       <div>
         {/* Top bar: Provider Logo, Code Badge & Dates */}
@@ -91,39 +97,57 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
           <div className="flex items-center gap-3">
             <ProviderLogo issuer={cert.issuer} name={cert.name} />
             <div>
-              <span className="text-[11px] font-['Space_Grotesk',sans-serif] font-bold text-white/90 block">
+              <span className={`text-[11px] font-['Space_Grotesk',sans-serif] font-bold block ${
+                theme === 'dark' ? 'text-white/90' : 'text-slate-800'
+              }`}>
                 {cert.issuer}
               </span>
-              <span className="text-[10px] font-['JetBrains_Mono',monospace] text-white/50">
+              <span className={`text-[10px] font-['JetBrains_Mono',monospace] ${
+                theme === 'dark' ? 'text-white/50' : 'text-slate-500'
+              }`}>
                 {cert.issueDate ? `Issued ${cert.issueDate}` : cert.year}
                 {cert.expiryDate ? ` · Exp ${cert.expiryDate}` : ''}
               </span>
             </div>
           </div>
-          <span className="px-2.5 py-1 rounded-full bg-[#ff2a2a]/15 border border-[#ff2a2a]/30 text-[#ff5858] text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider shrink-0">
+          <span className={`px-2.5 py-1 rounded-full text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider shrink-0 border ${
+            theme === 'dark'
+              ? 'bg-[#ff2a2a]/15 border-[#ff2a2a]/30 text-[#ff5858]'
+              : 'bg-red-50 border-red-200 text-red-700'
+          }`}>
             {cert.code}
           </span>
         </div>
 
         {/* Certificate Title */}
-        <h3 className="text-white font-bold text-base sm:text-lg tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug mb-2 font-['Outfit',sans-serif]">
+        <h3 className={`font-bold text-base sm:text-lg tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug mb-2 font-['Outfit',sans-serif] ${
+          theme === 'dark' ? 'text-white' : 'text-slate-900'
+        }`}>
           {cert.name}
         </h3>
 
         {/* Description */}
         {cert.description && (
-          <p className="text-xs text-white/70 font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed mb-3">
+          <p className={`text-xs font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed mb-3 ${
+            theme === 'dark' ? 'text-white/70' : 'text-slate-600'
+          }`}>
             {cert.description}
           </p>
         )}
 
         {/* Skills Chips */}
         {cert.skills && cert.skills.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-4 pt-2 border-t border-white/5">
+          <div className={`flex flex-wrap gap-1 mb-4 pt-2 border-t ${
+            theme === 'dark' ? 'border-white/5' : 'border-slate-200'
+          }`}>
             {cert.skills.map((skill) => (
               <span
                 key={skill}
-                className="px-2 py-0.5 rounded bg-black/50 border border-white/10 text-[9px] font-['JetBrains_Mono',monospace] text-white/80"
+                className={`px-2 py-0.5 rounded text-[9px] font-['JetBrains_Mono',monospace] border ${
+                  theme === 'dark'
+                    ? 'bg-black/50 border-white/10 text-white/80'
+                    : 'bg-white border-slate-200 text-slate-700'
+                }`}
               >
                 {skill}
               </span>
@@ -133,13 +157,17 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
       </div>
 
       {/* Footer: Verification Badge */}
-      <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2 text-xs font-['JetBrains_Mono',monospace] text-white/50">
-        <span className="flex items-center gap-1.5 text-[10px] text-white/70">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+      <div className={`pt-3 border-t flex items-center justify-between gap-2 text-xs font-['JetBrains_Mono',monospace] ${
+        theme === 'dark' ? 'border-white/10 text-white/50' : 'border-slate-200 text-slate-500'
+      }`}>
+        <span className={`flex items-center gap-1.5 text-[10px] ${
+          theme === 'dark' ? 'text-white/70' : 'text-slate-700'
+        }`}>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           Verified Credential
         </span>
 
-        <span className="flex items-center gap-1.5 text-[10px] text-emerald-400 font-semibold shrink-0">
+        <span className="flex items-center gap-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
           {issuerCat}
         </span>
       </div>
@@ -149,12 +177,17 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
 
 export const Certificates: React.FC = () => {
   const { data } = usePortfolio();
+  const { theme } = useTheme();
   const certs = data.certificates;
 
   return (
     <section
       id="certifications"
-      className="bg-[#080808] text-white pt-24 pb-32 px-5 sm:px-8 md:px-12 w-full relative overflow-hidden font-sans border-t border-white/10"
+      className={`pt-24 pb-32 px-5 sm:px-8 md:px-12 w-full relative overflow-hidden font-sans border-t transition-colors duration-300 ${
+        theme === 'dark'
+          ? 'bg-[#080808] text-white border-white/10'
+          : 'bg-white text-slate-900 border-slate-200'
+      }`}
     >
       {/* Background ambient glow */}
       <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
@@ -162,13 +195,21 @@ export const Certificates: React.FC = () => {
       <div className="max-w-6xl mx-auto relative z-20">
         {/* Header */}
         <div data-aos="fade-up" className="mb-12 text-center md:text-left">
-          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/80 font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-[0.25em]">
+          <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
+            theme === 'dark'
+              ? 'border-white/20 text-white/80 bg-white/5'
+              : 'border-slate-300 text-slate-800 bg-slate-100'
+          }`}>
             ✦ Credentials & Certifications ({certs.length})
           </div>
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-4 uppercase font-['Syne',sans-serif]">
+          <h2 className={`text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 uppercase font-['Syne',sans-serif] transition-colors ${
+            theme === 'dark' ? 'text-white' : 'text-slate-950'
+          }`}>
             CERTIFICATIONS
           </h2>
-          <p className="text-white/70 text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed">
+          <p className={`text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
+            theme === 'dark' ? 'text-white/70' : 'text-slate-600'
+          }`}>
             Industry-recognized credentials across Amazon Web Services (AWS), Microsoft Azure, Anthropic Claude GenAI, and GitHub DevOps.
           </p>
         </div>

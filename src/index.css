@@ -13,43 +13,57 @@
 }
 html {
   scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 body {
   margin: 0;
   padding: 0;
-  background-color: #000;
-  color: #fff;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-/* AOS Animation Custom Class */
-[data-aos="drop-bounce"] {
-  opacity: 0;
+
+html.dark body,
+html:not(.light) body {
+  background-color: #000000;
+  color: #ffffff;
 }
-[data-aos="drop-bounce"].aos-animate {
-  animation: dropBounce 1.2s cubic-bezier(0.28, 0.84, 0.42, 1) forwards;
+
+html.light body {
+  background-color: #f8fafc;
+  color: #0f172a;
 }
-@keyframes dropBounce {
-  0% { transform: translateY(-300px); opacity: 0; }
-  50% { transform: translateY(0); opacity: 1; }
-  65% { transform: translateY(-40px); opacity: 1; }
-  80% { transform: translateY(0); opacity: 1; }
-  90% { transform: translateY(-15px); opacity: 1; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-/* Custom Scrollbar */
+
+/* Custom Scrollbar - Dark & Light */
 ::-webkit-scrollbar {
   width: 8px;
 }
-::-webkit-scrollbar-track {
+html.dark ::-webkit-scrollbar-track,
+html:not(.light) ::-webkit-scrollbar-track {
   background: #0a0a0a;
 }
-::-webkit-scrollbar-thumb {
-  background: #333;
+html.light ::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+html.dark ::-webkit-scrollbar-thumb,
+html:not(.light) ::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #94a3b8;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #ff2a2a;
+}
+
+/* Light Mode Card & Surface Utilities */
+.light .stroke-text {
+  -webkit-text-stroke: 1px rgba(15, 23, 42, 0.12);
+}
+.dark .stroke-text {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
 }
 
 /* Exact RGB Spectrum Motion Flow for Role Title */

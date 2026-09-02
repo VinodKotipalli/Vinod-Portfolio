@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useTheme } from '../context/ThemeContext';
 
 const Contact: React.FC = () => {
   const { data } = usePortfolio();
+  const { theme } = useTheme();
   const { personalInfo, socialLinks } = data;
 
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -153,16 +155,22 @@ const Contact: React.FC = () => {
   return (
     <section
       id="contact"
-      className="bg-[#0a0a0a] pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:80px_80px]"
+      className={`pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans transition-colors duration-300 ${
+        theme === 'dark'
+          ? 'bg-[#0a0a0a] bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)]'
+          : 'bg-white bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)]'
+      } bg-[size:80px_80px]`}
     >
       {/* Background Big Typography */}
       <motion.div
-        className="absolute top-10 left-0 w-full pointer-events-none select-none overflow-hidden opacity-10 flex justify-center"
+        className={`absolute top-10 left-0 w-full pointer-events-none select-none overflow-hidden flex justify-center ${
+          theme === 'dark' ? 'opacity-10 text-white' : 'opacity-[0.06] text-black'
+        }`}
         initial={{ x: -100 }}
         animate={{ x: 0 }}
         transition={{ duration: 1.5 }}
       >
-        <h1 className="text-[25vw] font-black text-white uppercase tracking-tighter leading-none font-['Syne',sans-serif]">
+        <h1 className="text-[25vw] font-black uppercase tracking-tighter leading-none font-['Syne',sans-serif]">
           Contact
         </h1>
       </motion.div>

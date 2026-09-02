@@ -4,6 +4,7 @@ import 'aos/dist/aos.css';
 
 import { PortfolioProvider } from './context/PortfolioContext';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -18,6 +19,8 @@ import Footer from './components/Footer';
 import GeminiChatbot from './components/GeminiChatbot';
 
 function MainLayout() {
+  const { theme } = useTheme();
+
   useEffect(() => {
     AOS.init({
       duration: 700,
@@ -27,7 +30,9 @@ function MainLayout() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-[#ff2a2a] selection:text-white relative">
+    <div className={`min-h-screen font-sans selection:bg-[#ff2a2a] selection:text-white relative transition-colors duration-300 ${
+      theme === 'dark' ? 'bg-black text-white' : 'bg-slate-50 text-slate-900'
+    }`}>
       <Preloader />
       <Navbar />
       <Hero />
@@ -47,9 +52,11 @@ function MainLayout() {
 export default function App() {
   return (
     <AuthProvider>
-      <PortfolioProvider>
-        <MainLayout />
-      </PortfolioProvider>
+      <ThemeProvider>
+        <PortfolioProvider>
+          <MainLayout />
+        </PortfolioProvider>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

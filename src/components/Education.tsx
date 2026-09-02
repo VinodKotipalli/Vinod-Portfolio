@@ -1,25 +1,39 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useTheme } from '../context/ThemeContext';
 
 const Education: React.FC = () => {
   const { data } = usePortfolio();
+  const { theme } = useTheme();
   const { education } = data;
 
   return (
     <section
       id="education"
-      className="bg-[#0c0c0c] text-white pt-24 pb-32 px-5 sm:px-8 md:px-12 w-full relative overflow-hidden font-sans border-t border-white/10"
+      className={`pt-24 pb-32 px-5 sm:px-8 md:px-12 w-full relative overflow-hidden font-sans border-t transition-colors duration-300 ${
+        theme === 'dark'
+          ? 'bg-[#0c0c0c] text-white border-white/10'
+          : 'bg-slate-50 text-slate-900 border-slate-200'
+      }`}
     >
       <div className="max-w-6xl mx-auto relative z-20">
         {/* Header */}
         <div data-aos="fade-up" className="mb-16 text-center md:text-left">
-          <div className="inline-block border border-white/20 rounded-full px-5 py-1.5 text-xs sm:text-sm text-white/80 font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm bg-white/5 backdrop-blur-sm uppercase tracking-[0.25em]">
+          <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
+            theme === 'dark'
+              ? 'border-white/20 text-white/80 bg-white/5'
+              : 'border-slate-300 text-slate-800 bg-white'
+          }`}>
             ✦ Academic Background
           </div>
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-4 uppercase font-['Syne',sans-serif]">
+          <h2 className={`text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 uppercase font-['Syne',sans-serif] transition-colors ${
+            theme === 'dark' ? 'text-white' : 'text-slate-950'
+          }`}>
             EDUCATION
           </h2>
-          <p className="text-white/70 text-sm sm:text-base md:text-lg max-w-xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed">
+          <p className={`text-sm sm:text-base md:text-lg max-w-xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
+            theme === 'dark' ? 'text-white/70' : 'text-slate-600'
+          }`}>
             Formal foundations in Computer Science principles, algorithms, operating systems, and software engineering.
           </p>
         </div>
@@ -27,32 +41,52 @@ const Education: React.FC = () => {
         {/* Education Card */}
         <div
           data-aos="fade-up"
-          className="bg-white/5 backdrop-blur-md border border-white/15 rounded-3xl p-6 sm:p-8 md:p-10 max-w-3xl hover:border-[#ff2a2a]/50 transition-all duration-300 shadow-xl"
+          className={`backdrop-blur-md border rounded-3xl p-6 sm:p-8 md:p-10 max-w-3xl transition-all duration-300 ${
+            theme === 'dark'
+              ? 'bg-white/5 border-white/15 hover:border-[#ff2a2a]/50 shadow-xl'
+              : 'bg-white border-slate-200 hover:border-[#ff2a2a]/50 shadow-md'
+          }`}
         >
           <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-            <span className="text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-widest text-[#ff2a2a] bg-[#ff2a2a]/10 px-3.5 py-1.5 rounded-full border border-[#ff2a2a]/20">
+            <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full border ${
+              theme === 'dark'
+                ? 'text-[#ff2a2a] bg-[#ff2a2a]/10 border-[#ff2a2a]/20'
+                : 'text-red-700 bg-red-50 border-red-200'
+            }`}>
               Graduation Degree
             </span>
-            <span className="text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-bold text-white bg-white/10 px-4 py-1.5 rounded-full border border-white/20">
+            <span className={`text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-bold px-4 py-1.5 rounded-full border ${
+              theme === 'dark'
+                ? 'text-white bg-white/10 border-white/20'
+                : 'text-slate-800 bg-slate-100 border-slate-300'
+            }`}>
               Score: {education.percentage}
             </span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 font-['Outfit',sans-serif]">
+          <h3 className={`text-2xl sm:text-3xl font-black mb-2 font-['Outfit',sans-serif] ${
+            theme === 'dark' ? 'text-white' : 'text-slate-950'
+          }`}>
             {education.degree}
           </h3>
 
-          <p className="text-base sm:text-lg font-bold text-white/90 mb-2 font-['Space_Grotesk',sans-serif]">
+          <p className={`text-base sm:text-lg font-bold mb-2 font-['Space_Grotesk',sans-serif] ${
+            theme === 'dark' ? 'text-white/90' : 'text-slate-700'
+          }`}>
             {education.institution} • {education.university}
           </p>
 
-          <p className="text-xs sm:text-sm font-['JetBrains_Mono',monospace] text-white/60 mb-6">
+          <p className={`text-xs sm:text-sm font-['JetBrains_Mono',monospace] mb-6 ${
+            theme === 'dark' ? 'text-white/60' : 'text-slate-500'
+          }`}>
             📍 {education.location}
           </p>
 
-          <div className="pt-6 border-t border-white/10 flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] text-white/70">
+          <div className={`pt-6 border-t flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] ${
+            theme === 'dark' ? 'border-white/10 text-white/70' : 'border-slate-200 text-slate-600'
+          }`}>
             <span>Duration: {education.duration}</span>
-            <span className="text-green-400">✓ Completed</span>
+            <span className="text-emerald-600 dark:text-green-400 font-semibold">✓ Completed</span>
           </div>
         </div>
       </div>
