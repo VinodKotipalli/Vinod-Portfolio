@@ -19,14 +19,14 @@ const AboutMe: React.FC = () => {
       {/* Decorative Ambient Tech Vectors & Glows */}
       <motion.div
         className={`absolute top-[8%] left-[3%] sm:left-[5%] w-28 sm:w-36 h-28 sm:h-36 rounded-full border backdrop-blur-sm flex items-center justify-center pointer-events-none z-0 ${
-          theme === 'dark' ? 'border-red-500/20 bg-red-500/5' : 'border-red-500/30 bg-red-500/10 shadow-sm'
+          theme === 'dark' ? 'border-cyan-500/20 bg-cyan-500/5' : 'border-cyan-500/30 bg-cyan-500/10 shadow-sm'
         }`}
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 0.8 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1, duration: 0.8 }}
       >
-        <div className="w-16 h-16 rounded-full border border-dashed border-red-500/30 animate-spin" style={{ animationDuration: '20s' }} />
+        <div className="w-16 h-16 rounded-full border border-dashed border-cyan-500/30 animate-spin" style={{ animationDuration: '20s' }} />
         <span className="absolute text-xl opacity-80">☁️</span>
       </motion.div>
 
@@ -40,21 +40,21 @@ const AboutMe: React.FC = () => {
         transition={{ delay: 0.3, duration: 0.8 }}
       >
         <div className={`text-center font-mono text-[10px] ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}>
-          <span className="text-[#ff2a2a] block font-bold text-sm">99.9%</span>
+          <span className="text-cyan-400 block font-bold text-sm">99.9%</span>
           UPTIME
         </div>
       </motion.div>
 
       <motion.div
         className={`absolute top-[10%] right-[3%] sm:right-[5%] w-28 sm:w-36 h-28 sm:h-36 rounded-full border backdrop-blur-sm flex items-center justify-center pointer-events-none z-0 ${
-          theme === 'dark' ? 'border-orange-500/20 bg-orange-500/5' : 'border-orange-500/30 bg-orange-500/10 shadow-sm'
+          theme === 'dark' ? 'border-blue-500/20 bg-blue-500/5' : 'border-blue-500/30 bg-blue-500/10 shadow-sm'
         }`}
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 0.8 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2, duration: 0.8 }}
       >
-        <div className="w-20 h-20 rounded-full border border-dotted border-orange-500/40 animate-spin" style={{ animationDuration: '25s' }} />
+        <div className="w-20 h-20 rounded-full border border-dotted border-blue-500/40 animate-spin" style={{ animationDuration: '25s' }} />
         <span className="absolute text-xl opacity-80">⚡</span>
       </motion.div>
 
@@ -68,15 +68,15 @@ const AboutMe: React.FC = () => {
         transition={{ delay: 0.4, duration: 0.8 }}
       >
         <div className="flex items-center gap-1.5 mb-1.5">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className={`font-mono text-[10px] ${theme === 'dark' ? 'text-white/60' : 'text-slate-600'}`}>OBSERVABILITY</span>
         </div>
         <div className="flex gap-1 items-end h-6">
-          <div className="w-2 h-3 bg-[#ff2a2a]/60 rounded-t" />
-          <div className="w-2 h-5 bg-[#ff2a2a] rounded-t" />
-          <div className="w-2 h-4 bg-[#ff2a2a]/80 rounded-t" />
+          <div className="w-2 h-3 bg-cyan-500/60 rounded-t" />
+          <div className="w-2 h-5 bg-cyan-400 rounded-t" />
+          <div className="w-2 h-4 bg-blue-500/80 rounded-t" />
           <div className={`w-2 h-6 rounded-t ${theme === 'dark' ? 'bg-white/80' : 'bg-slate-700'}`} />
-          <div className="w-2 h-5 bg-[#ff2a2a] rounded-t" />
+          <div className="w-2 h-5 bg-cyan-400 rounded-t" />
         </div>
       </motion.div>
 
@@ -90,8 +90,8 @@ const AboutMe: React.FC = () => {
       >
         <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-6 shadow-sm backdrop-blur-md uppercase tracking-[0.25em] border transition-colors ${
           theme === 'dark'
-            ? 'border-white/20 text-white/80 bg-white/5'
-            : 'border-slate-300 text-slate-800 bg-slate-100'
+            ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
+            : 'border-cyan-200 text-cyan-800 bg-cyan-50'
         }`}>
           ✦ Professional Summary
         </div>
@@ -125,8 +125,8 @@ const AboutMe: React.FC = () => {
               key={badge}
               className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-['Space_Grotesk',sans-serif] font-medium backdrop-blur-md border transition-all duration-300 ${
                 theme === 'dark'
-                  ? 'bg-white/5 border-white/15 text-white/90 hover:border-[#ff2a2a] hover:text-[#ff8a8a]'
-                  : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-[#ff2a2a] hover:text-red-600 shadow-sm'
+                  ? 'bg-white/5 border-white/15 text-white/90 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+                  : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-cyan-400 hover:text-cyan-700 shadow-sm'
               }`}
             >
               {badge}

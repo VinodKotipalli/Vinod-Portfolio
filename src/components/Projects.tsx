@@ -20,16 +20,16 @@ export const Projects: React.FC = () => {
       }`}
     >
       {/* Ambient background glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-600/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div data-aos="fade-up" className="mb-14 text-center md:text-left">
           <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
             theme === 'dark'
-              ? 'border-white/20 text-white/80 bg-white/5'
-              : 'border-slate-300 text-slate-800 bg-white'
+              ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
+              : 'border-cyan-200 text-cyan-800 bg-cyan-50'
           }`}>
             ✦ Technical Projects
           </div>
@@ -56,12 +56,12 @@ export const Projects: React.FC = () => {
                 onClick={() => setSelectedProject(project)}
                 className={`aspect-square backdrop-blur-md border rounded-3xl p-6 sm:p-7 transition-all duration-300 flex flex-col justify-between group cursor-pointer relative overflow-hidden ${
                   theme === 'dark'
-                    ? 'bg-white/5 border-white/10 hover:border-[#ff2a2a]/60 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(255,42,42,0.15)]'
-                    : 'bg-white border-slate-200 hover:border-[#ff2a2a]/60 hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)]'
+                    ? 'bg-white/5 border-white/10 hover:border-cyan-400/60 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(6,182,212,0.15)]'
+                    : 'bg-white border-slate-200 hover:border-cyan-500/60 hover:shadow-[0_12px_30px_rgba(6,182,212,0.08)]'
                 }`}
               >
                 {/* Subtle top corner accent */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#ff2a2a]/10 to-transparent pointer-events-none rounded-tr-3xl" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-cyan-500/15 to-transparent pointer-events-none rounded-tr-3xl" />
 
                 {/* Top Section: Category & Status */}
                 <div>
@@ -70,8 +70,8 @@ export const Projects: React.FC = () => {
                   }`}>
                     <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider truncate max-w-[170px] border ${
                       theme === 'dark'
-                        ? 'bg-[#ff2a2a]/15 text-[#ff5858] border-[#ff2a2a]/30'
-                        : 'bg-red-50 text-red-700 border-red-200'
+                        ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30'
+                        : 'bg-cyan-50 text-cyan-800 border-cyan-200'
                     }`}>
                       {project.category}
                     </span>
@@ -82,8 +82,8 @@ export const Projects: React.FC = () => {
                   </div>
 
                   {/* Project Title */}
-                  <h3 className={`text-base sm:text-lg font-bold group-hover:text-[#ff2a2a] transition-colors leading-snug font-['Outfit',sans-serif] mb-1.5 line-clamp-2 ${
-                    theme === 'dark' ? 'text-white' : 'text-slate-900'
+                  <h3 className={`text-base sm:text-lg font-bold group-hover:text-cyan-400 transition-colors leading-snug font-['Outfit',sans-serif] mb-1.5 line-clamp-2 ${
+                    theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
                   }`}>
                     {project.title}
                   </h3>
@@ -131,9 +131,9 @@ export const Projects: React.FC = () => {
                   </div>
 
                   {/* Open Details Link */}
-                  <div className="flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] font-bold text-[#ff2a2a] group-hover:text-red-600 dark:group-hover:text-white transition-colors">
-                    <span>View Architecture Details</span>
-                    <span className="w-6 h-6 rounded-full bg-white/5 border border-white/10 group-hover:bg-[#ff2a2a] group-hover:border-[#ff2a2a] flex items-center justify-center text-slate-900 dark:text-white transition-all text-xs">
+                  <div className="flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] font-bold text-cyan-400 dark:text-cyan-300 group-hover:text-cyan-300 dark:group-hover:text-white transition-colors">
+                    <span className={theme === 'dark' ? 'text-cyan-300' : 'text-cyan-700'}>View Architecture Details</span>
+                    <span className="w-6 h-6 rounded-full bg-white/5 border border-white/10 group-hover:bg-cyan-500 group-hover:border-cyan-500 flex items-center justify-center text-slate-900 dark:text-white transition-all text-xs group-hover:text-white">
                       ↗
                     </span>
                   </div>
@@ -170,7 +170,11 @@ export const Projects: React.FC = () => {
 
             {/* Modal Header */}
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 rounded-full text-xs font-['JetBrains_Mono',monospace] font-bold bg-[#ff2a2a]/20 text-[#ff2a2a] border border-[#ff2a2a]/30 uppercase tracking-wider">
+              <span className={`px-3 py-1 rounded-full text-xs font-['JetBrains_Mono',monospace] font-bold border uppercase tracking-wider ${
+                theme === 'dark'
+                  ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                  : 'bg-cyan-50 text-cyan-800 border-cyan-200'
+              }`}>
                 {selectedProject.category}
               </span>
               <span className="flex items-center gap-1.5 text-xs font-['JetBrains_Mono',monospace] text-emerald-600 dark:text-emerald-400 font-semibold">
@@ -208,7 +212,9 @@ export const Projects: React.FC = () => {
 
             {/* Key Deliverables & Architecture Highlights */}
             <div className="mb-6">
-              <h4 className="text-xs font-['JetBrains_Mono',monospace] font-bold text-[#ff2a2a] uppercase tracking-wider mb-3">
+              <h4 className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider mb-3 ${
+                theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'
+              }`}>
                 Key Architecture Deliverables ({selectedProject.highlights.length} Points)
               </h4>
               <div className="space-y-2.5">
@@ -219,7 +225,7 @@ export const Projects: React.FC = () => {
                       theme === 'dark' ? 'bg-black/40 border-white/5' : 'bg-slate-50 border-slate-200'
                     }`}
                   >
-                    <span className="w-5 h-5 rounded-md bg-[#ff2a2a] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-md bg-gradient-to-r from-cyan-500 to-blue-600 text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
                     <span className={`text-xs sm:text-sm font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed ${
@@ -264,7 +270,7 @@ export const Projects: React.FC = () => {
                   rel="noopener noreferrer"
                   className={`px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
                     theme === 'dark'
-                      ? 'bg-white text-black hover:bg-gray-200'
+                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_20px_rgba(6,182,212,0.3)]'
                       : 'bg-slate-900 text-white hover:bg-slate-800'
                   }`}
                 >

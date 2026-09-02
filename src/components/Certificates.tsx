@@ -87,8 +87,8 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
       data-aos-delay={String(Math.min((index % 6) * 80, 400))}
       className={`backdrop-blur-md border rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between ${
         theme === 'dark'
-          ? 'bg-white/5 border-white/10 hover:border-[#ff2a2a]/50 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(255,42,42,0.12)]'
-          : 'bg-slate-50 border-slate-200 hover:border-[#ff2a2a]/50 hover:bg-white hover:shadow-md'
+          ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(6,182,212,0.12)]'
+          : 'bg-slate-50 border-slate-200 hover:border-cyan-500/50 hover:bg-white hover:shadow-md'
       }`}
     >
       <div>
@@ -112,16 +112,16 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
           </div>
           <span className={`px-2.5 py-1 rounded-full text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider shrink-0 border ${
             theme === 'dark'
-              ? 'bg-[#ff2a2a]/15 border-[#ff2a2a]/30 text-[#ff5858]'
-              : 'bg-red-50 border-red-200 text-red-700'
+              ? 'bg-cyan-500/15 border-cyan-500/30 text-cyan-300'
+              : 'bg-cyan-50 border-cyan-200 text-cyan-800'
           }`}>
             {cert.code}
           </span>
         </div>
 
         {/* Certificate Title */}
-        <h3 className={`font-bold text-base sm:text-lg tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug mb-2 font-['Outfit',sans-serif] ${
-          theme === 'dark' ? 'text-white' : 'text-slate-900'
+        <h3 className={`font-bold text-base sm:text-lg tracking-tight group-hover:text-cyan-400 transition-colors leading-snug mb-2 font-['Outfit',sans-serif] ${
+          theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
         }`}>
           {cert.name}
         </h3>
@@ -190,15 +190,15 @@ export const Certificates: React.FC = () => {
       }`}
     >
       {/* Background ambient glow */}
-      <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-20">
         {/* Header */}
         <div data-aos="fade-up" className="mb-12 text-center md:text-left">
           <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
             theme === 'dark'
-              ? 'border-white/20 text-white/80 bg-white/5'
-              : 'border-slate-300 text-slate-800 bg-slate-100'
+              ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
+              : 'border-cyan-200 text-cyan-800 bg-cyan-50'
           }`}>
             ✦ Credentials & Certifications ({certs.length})
           </div>

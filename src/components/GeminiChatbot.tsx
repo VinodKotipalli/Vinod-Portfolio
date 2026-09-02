@@ -174,7 +174,7 @@ const GeminiChatbot: React.FC = () => {
             whileTap={{ scale: 0.9 }}
             aria-label="Open Cloud AI Assistant"
             title="Ask Cloud AI (Gemini 3)"
-            className="group relative w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-tr from-[#ff2a2a] to-[#d41c1c] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(255,42,42,0.35)] hover:shadow-[0_6px_25px_rgba(255,42,42,0.55)] border border-white/20 backdrop-blur-md cursor-pointer transition-all duration-300"
+            className="group relative w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center shadow-[0_4px_20px_rgba(6,182,212,0.35)] hover:shadow-[0_6px_25px_rgba(6,182,212,0.55)] border border-white/20 backdrop-blur-md cursor-pointer transition-all duration-300"
           >
             <div className="relative flex items-center justify-center">
               <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:rotate-12 transition-transform duration-300" />
@@ -198,22 +198,22 @@ const GeminiChatbot: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className={`bg-[#0d0d0d] border border-white/15 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col transition-all duration-300 ${
+            className={`bg-[#0d0d0d] border border-cyan-500/20 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col transition-all duration-300 ${
               isExpanded
                 ? 'w-[95vw] sm:w-[650px] h-[88vh] max-h-[850px]'
                 : 'w-[92vw] sm:w-[420px] h-[600px] max-h-[85vh]'
             }`}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#171717] via-[#1a1a1a] to-[#241313] border-b border-white/10 p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#111c2e] via-[#122238] to-[#0c1626] border-b border-cyan-500/20 p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#ff2a2a] to-orange-500 flex items-center justify-center text-white shadow-md border border-white/20">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md border border-white/20">
                   <Bot className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="font-bold text-sm text-white tracking-tight">Saivinod AI Advisor</h3>
-                    <span className="inline-flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/30">
+                    <span className="inline-flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
                       Live
                     </span>
                   </div>
@@ -292,12 +292,12 @@ const GeminiChatbot: React.FC = () => {
                   onClick={() => setMode('complex')}
                   className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer whitespace-nowrap ${
                     mode === 'complex'
-                      ? 'bg-[#ff2a2a]/20 text-red-300 border-[#ff2a2a]/50 shadow-sm'
+                      ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-sm'
                       : 'bg-white/5 text-white/60 border-transparent hover:text-white hover:bg-white/10'
                   }`}
                   title="High Thinking Reasoning Mode (gemini-3.1-pro-preview with ThinkingLevel.HIGH)"
                 >
-                  <Brain className="w-3.5 h-3.5 text-[#ff2a2a]" />
+                  <Brain className="w-3.5 h-3.5 text-cyan-400" />
                   <span>High Thinking</span>
                 </button>
               </div>
@@ -313,7 +313,7 @@ const GeminiChatbot: React.FC = () => {
                   className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {msg.role === 'model' && (
-                    <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-[#ff2a2a] to-orange-500 flex-shrink-0 flex items-center justify-center text-white mt-1 shadow-sm">
+                    <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex-shrink-0 flex items-center justify-center text-white mt-1 shadow-sm">
                       <Bot className="w-4 h-4" />
                     </div>
                   )}
@@ -321,7 +321,7 @@ const GeminiChatbot: React.FC = () => {
                   <div
                     className={`max-w-[85%] rounded-2xl p-3.5 text-xs leading-relaxed relative group ${
                       msg.role === 'user'
-                        ? 'bg-[#ff2a2a] text-white rounded-br-none shadow-md font-medium'
+                        ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-br-none shadow-md font-medium'
                         : 'bg-[#1a1a1a] text-white/90 border border-white/10 rounded-bl-none shadow-sm'
                     }`}
                   >
@@ -330,7 +330,7 @@ const GeminiChatbot: React.FC = () => {
                       <div className="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-white/10 text-[10px] font-mono text-white/50">
                         <span className="flex items-center gap-1 text-white/70">
                           {msg.mode === 'fast' && <Zap className="w-3 h-3 text-yellow-400" />}
-                          {msg.mode === 'complex' && <Brain className="w-3 h-3 text-[#ff2a2a]" />}
+                          {msg.mode === 'complex' && <Brain className="w-3 h-3 text-cyan-400" />}
                           {msg.mode === 'general' && <Sparkles className="w-3 h-3 text-blue-400" />}
                           {msg.modelUsed || (msg.mode === 'complex' ? 'gemini-3.1-pro-preview' : 'gemini-3.5-flash')}
                         </span>
@@ -377,14 +377,14 @@ const GeminiChatbot: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex gap-3 justify-start items-start"
                 >
-                  <div className="w-7 h-7 rounded-xl bg-[#ff2a2a] flex items-center justify-center text-white mt-1 animate-pulse">
+                  <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white mt-1 animate-pulse">
                     <Bot className="w-4 h-4" />
                   </div>
                   <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl rounded-bl-none p-3.5 text-xs text-white/80 max-w-[80%] flex items-center gap-3">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#ff2a2a] animate-bounce [animation-delay:-0.3s]" />
-                      <span className="w-2 h-2 rounded-full bg-orange-400 animate-bounce [animation-delay:-0.15s]" />
-                      <span className="w-2 h-2 rounded-full bg-yellow-300 animate-bounce" />
+                      <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:-0.3s]" />
+                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-bounce [animation-delay:-0.15s]" />
+                      <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce" />
                     </div>
                     <span className="font-mono text-[11px] text-white/70">
                       {mode === 'complex'
@@ -427,7 +427,7 @@ const GeminiChatbot: React.FC = () => {
                 }}
                 className="flex items-end gap-2"
               >
-                <div className="flex-1 bg-[#1f1f1f] border border-white/15 focus-within:border-[#ff2a2a] rounded-2xl px-3.5 py-2 transition-colors">
+                <div className="flex-1 bg-[#1f1f1f] border border-white/15 focus-within:border-cyan-400 rounded-2xl px-3.5 py-2 transition-colors">
                   <textarea
                     ref={inputRef}
                     value={inputMessage}
@@ -450,7 +450,7 @@ const GeminiChatbot: React.FC = () => {
                   type="submit"
                   id="send-gemini-msg-btn"
                   disabled={!inputMessage.trim() || isLoading}
-                  className="w-10 h-10 rounded-2xl bg-[#ff2a2a] hover:bg-red-600 disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center transition-all duration-200 shadow-md flex-shrink-0 cursor-pointer"
+                  className="w-10 h-10 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center transition-all duration-200 shadow-[0_0_15px_rgba(6,182,212,0.4)] flex-shrink-0 cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </button>

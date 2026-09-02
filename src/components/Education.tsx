@@ -21,8 +21,8 @@ const Education: React.FC = () => {
         <div data-aos="fade-up" className="mb-16 text-center md:text-left">
           <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
             theme === 'dark'
-              ? 'border-white/20 text-white/80 bg-white/5'
-              : 'border-slate-300 text-slate-800 bg-white'
+              ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
+              : 'border-cyan-200 text-cyan-800 bg-cyan-50'
           }`}>
             ✦ Academic Background
           </div>
@@ -43,15 +43,15 @@ const Education: React.FC = () => {
           data-aos="fade-up"
           className={`backdrop-blur-md border rounded-3xl p-6 sm:p-8 md:p-10 max-w-3xl transition-all duration-300 ${
             theme === 'dark'
-              ? 'bg-white/5 border-white/15 hover:border-[#ff2a2a]/50 shadow-xl'
-              : 'bg-white border-slate-200 hover:border-[#ff2a2a]/50 shadow-md'
+              ? 'bg-white/5 border-white/15 hover:border-cyan-400/50 hover:shadow-[0_15px_35px_rgba(6,182,212,0.12)] shadow-xl'
+              : 'bg-white border-slate-200 hover:border-cyan-500/50 hover:shadow-md shadow-md'
           }`}
         >
           <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
             <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full border ${
               theme === 'dark'
-                ? 'text-[#ff2a2a] bg-[#ff2a2a]/10 border-[#ff2a2a]/20'
-                : 'text-red-700 bg-red-50 border-red-200'
+                ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30'
+                : 'text-cyan-800 bg-cyan-50 border-cyan-200'
             }`}>
               Graduation Degree
             </span>

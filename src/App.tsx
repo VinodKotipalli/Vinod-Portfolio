@@ -30,7 +30,7 @@ function MainLayout() {
   }, []);
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-[#ff2a2a] selection:text-white relative transition-colors duration-300 ${
+    <div className={`min-h-screen font-sans selection:bg-cyan-500 selection:text-black relative transition-colors duration-300 ${
       theme === 'dark' ? 'bg-black text-white' : 'bg-slate-50 text-slate-900'
     }`}>
       <Preloader />

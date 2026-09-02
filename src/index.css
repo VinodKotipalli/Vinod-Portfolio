@@ -55,7 +55,7 @@ html.light ::-webkit-scrollbar-thumb {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff2a2a;
+  background: #06b6d4;
 }
 
 /* Light Mode Card & Surface Utilities */

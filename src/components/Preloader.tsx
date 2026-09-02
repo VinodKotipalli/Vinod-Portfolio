@@ -30,7 +30,7 @@ const Preloader: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <motion.div
-              className="bg-[#ff2a2a] px-4 py-2 rounded-2xl text-white overflow-hidden whitespace-nowrap"
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-2.5 rounded-2xl text-white overflow-hidden whitespace-nowrap shadow-[0_0_50px_rgba(6,182,212,0.5)]"
               initial={{ clipPath: 'inset(100% 0 0 0)' }}
               animate={{ clipPath: 'inset(0% 0 0 0)' }}
               transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.2 }}

@@ -32,16 +32,16 @@ const TechnicalSkills: React.FC = () => {
       }`}
     >
       {/* Background Ambient Glows */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-orange-600/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div data-aos="fade-up" className="mb-16 md:mb-20 text-center md:text-left">
           <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
             theme === 'dark'
-              ? 'border-white/20 text-white/80 bg-white/5'
-              : 'border-slate-300 text-slate-800 bg-white'
+              ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
+              : 'border-cyan-200 text-cyan-800 bg-cyan-50'
           }`}>
             ✦ Skills & Competencies
           </div>
@@ -66,8 +66,8 @@ const TechnicalSkills: React.FC = () => {
               data-aos-delay={index * 50}
               className={`backdrop-blur-md border rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between ${
                 theme === 'dark'
-                  ? 'bg-white/5 border-white/10 hover:border-[#ff2a2a]/50 hover:bg-white/[0.07] hover:shadow-[0_15px_35px_rgba(255,42,42,0.1)]'
-                  : 'bg-white border-slate-200 hover:border-[#ff2a2a]/40 hover:bg-white hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]'
+                  ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.07] hover:shadow-[0_15px_35px_rgba(6,182,212,0.15)]'
+                  : 'bg-white border-slate-200 hover:border-cyan-500/40 hover:bg-white hover:shadow-[0_10px_30px_rgba(6,182,212,0.08)]'
               }`}
             >
               <div>
@@ -77,8 +77,8 @@ const TechnicalSkills: React.FC = () => {
                 }`}>
                   <div className="flex items-center gap-2.5">
                     <span className="text-2xl">{categoryIcons[category.title] || '⚡'}</span>
-                    <h3 className={`font-bold text-base md:text-lg tracking-tight group-hover:text-[#ff2a2a] transition-colors leading-snug font-['Outfit',sans-serif] ${
-                      theme === 'dark' ? 'text-white' : 'text-slate-900'
+                    <h3 className={`font-bold text-base md:text-lg tracking-tight group-hover:text-cyan-400 transition-colors leading-snug font-['Outfit',sans-serif] ${
+                      theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-600'
                     }`}>
                       {category.title}
                     </h3>
@@ -97,8 +97,8 @@ const TechnicalSkills: React.FC = () => {
                       key={skill}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                         theme === 'dark'
-                          ? 'bg-black/60 border border-white/10 text-white/90 group-hover:border-white/20 hover:bg-[#ff2a2a]/10 hover:text-white'
-                          : 'bg-slate-100 border border-slate-200 text-slate-800 hover:bg-red-50 hover:text-red-700 hover:border-red-200'
+                          ? 'bg-black/60 border border-white/10 text-white/90 group-hover:border-white/20 hover:bg-cyan-500/15 hover:text-cyan-300 hover:border-cyan-500/40'
+                          : 'bg-slate-100 border border-slate-200 text-slate-800 hover:bg-cyan-50 hover:text-cyan-800 hover:border-cyan-200'
                       }`}
                     >
                       {skill}

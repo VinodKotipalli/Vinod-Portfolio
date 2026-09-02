@@ -16,7 +16,10 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Subtle radial gradient */}
         <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full blur-[140px] ${
-          theme === 'dark' ? 'bg-[#ff2a2a]/10' : 'bg-[#ff2a2a]/5'
+          theme === 'dark' ? 'bg-cyan-500/15' : 'bg-cyan-500/10'
+        }`} />
+        <div className={`absolute top-1/3 right-1/4 w-[450px] h-[450px] rounded-full blur-[130px] ${
+          theme === 'dark' ? 'bg-blue-600/15' : 'bg-blue-600/8'
         }`} />
         
         {/* Grid pattern overlay */}
@@ -44,12 +47,12 @@ const Hero: React.FC = () => {
           {/* Badge 1: Role Badge */}
           <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-md transition-colors ${
             theme === 'dark'
-              ? 'bg-white/[0.04] border border-white/10'
-              : 'bg-white border border-slate-200 shadow-sm'
+              ? 'bg-cyan-500/10 border border-cyan-500/30'
+              : 'bg-cyan-50 border border-cyan-200 shadow-sm'
           }`}>
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ff3b3b]" />
+            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
             <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wider uppercase ${
-              theme === 'dark' ? 'text-[#ff4d4d]' : 'text-red-600'
+              theme === 'dark' ? 'text-cyan-300' : 'text-cyan-800'
             }`}>
               AWS CLOUD OPERATIONS ENGINEER
             </span>
@@ -174,7 +177,7 @@ const Hero: React.FC = () => {
 
           <a
             href={heroContent.ctaSecondary.href}
-            className="px-7 py-3.5 text-sm md:text-base rounded-full bg-[#ff2a2a] text-white font-bold hover:bg-red-600 transition-all duration-300 shadow-[0_0_20px_rgba(255,42,42,0.4)]"
+            className="px-7 py-3.5 text-sm md:text-base rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold transition-all duration-300 shadow-[0_0_25px_rgba(6,182,212,0.4)] hover:shadow-[0_0_35px_rgba(6,182,212,0.6)]"
           >
             {heroContent.ctaSecondary.text}
           </a>

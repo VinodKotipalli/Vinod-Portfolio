@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
       {/* Top Row - Future & Motivational Captions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 w-full font-mono max-w-7xl mx-auto">
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 text-[#ff2a2a] text-[11px] font-bold tracking-wider">
+          <div className="flex items-center gap-2 text-cyan-400 text-[11px] font-bold tracking-wider">
             <span>✦</span>
             <span className="uppercase">Architecting Tomorrow</span>
           </div>
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-2 md:items-center md:text-center">
-          <div className="flex items-center gap-2 text-[#ff2a2a] text-[11px] font-bold tracking-wider">
+          <div className="flex items-center gap-2 text-cyan-400 text-[11px] font-bold tracking-wider">
             <span>✦</span>
             <span className="uppercase">Limitless Innovation</span>
           </div>
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-2 md:items-end md:text-right">
-          <div className="flex items-center gap-2 text-[#ff2a2a] text-[11px] font-bold tracking-wider">
+          <div className="flex items-center gap-2 text-cyan-400 text-[11px] font-bold tracking-wider">
             <span>✦</span>
             <span className="uppercase">Building The Future</span>
           </div>
@@ -71,8 +71,8 @@ const Footer: React.FC = () => {
       <div className="w-full flex justify-center items-center py-10 md:py-14 px-4">
         <h2 className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5vw] font-['Syne',sans-serif] font-black tracking-tight uppercase select-none transition-colors duration-300 text-center leading-none max-w-7xl ${
           theme === 'dark'
-            ? 'text-[#222222] hover:text-[#383838]'
-            : 'text-slate-300 hover:text-slate-400'
+            ? 'text-[#1a2333] hover:text-cyan-900/60'
+            : 'text-slate-200 hover:text-cyan-100'
         }`}>
           Saivinod Kotipalli
         </h2>
@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
           <a
             href="#contact"
             className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-sm ${
-              theme === 'dark' ? 'text-white hover:text-red-400' : 'text-slate-900 hover:text-red-600'
+              theme === 'dark' ? 'text-white hover:text-cyan-300' : 'text-slate-900 hover:text-cyan-600'
             }`}
           >
             Get In Touch
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
           <a
             href={`mailto:${personalInfo.email}`}
             className={`underline transition-colors underline-offset-4 decoration-1 lowercase text-xs ${
-              theme === 'dark' ? 'text-white/80 hover:text-white' : 'text-slate-700 hover:text-slate-950'
+              theme === 'dark' ? 'text-white/80 hover:text-cyan-300' : 'text-slate-700 hover:text-cyan-700'
             }`}
           >
             {personalInfo.email}
@@ -113,7 +113,7 @@ const Footer: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className={`transition-colors duration-300 ${
-                theme === 'dark' ? 'text-[#d4d4d4] hover:text-[#ff2a2a]' : 'text-slate-600 hover:text-[#ff2a2a]'
+                theme === 'dark' ? 'text-[#d4d4d4] hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-600'
               }`}
               aria-label="LinkedIn"
             >
@@ -127,7 +127,7 @@ const Footer: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className={`transition-colors duration-300 ${
-                theme === 'dark' ? 'text-[#d4d4d4] hover:text-[#ff2a2a]' : 'text-slate-600 hover:text-[#ff2a2a]'
+                theme === 'dark' ? 'text-[#d4d4d4] hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-600'
               }`}
               aria-label="GitHub"
             >
@@ -148,7 +148,7 @@ const Footer: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-xs ${
-              theme === 'dark' ? 'text-white/80 hover:text-white' : 'text-slate-700 hover:text-slate-950'
+              theme === 'dark' ? 'text-white/80 hover:text-cyan-300' : 'text-slate-700 hover:text-cyan-700'
             }`}
           >
             Connect on LinkedIn
@@ -158,7 +158,7 @@ const Footer: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-xs mt-1 ${
-              theme === 'dark' ? 'text-white/80 hover:text-white' : 'text-slate-700 hover:text-slate-950'
+              theme === 'dark' ? 'text-white/80 hover:text-cyan-300' : 'text-slate-700 hover:text-cyan-700'
             }`}
           >
             Explore GitHub Profile

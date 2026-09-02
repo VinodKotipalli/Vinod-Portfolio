@@ -179,12 +179,16 @@ const Contact: React.FC = () => {
       <div className="relative z-10 w-full max-w-6xl mx-auto flex justify-end items-end pt-12">
         <div
           data-aos="fade-up"
-          className="bg-[#ff2a2a] w-full md:w-[90%] lg:w-[85%] p-8 md:p-14 text-white flex flex-col justify-between shadow-2xl rounded-3xl"
+          className="bg-gradient-to-br from-[#0b1e36] via-[#09182b] to-[#040d18] border border-cyan-500/30 w-full md:w-[90%] lg:w-[85%] p-8 md:p-14 text-white flex flex-col justify-between shadow-[0_25px_60px_rgba(6,182,212,0.2)] rounded-3xl relative overflow-hidden backdrop-blur-xl"
         >
+          {/* Subtle Ambient Radial inside Card */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+
           {/* Header */}
-          <div className="flex flex-col sm:flex-row justify-between items-start gap-8 mb-10">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-8 mb-10 relative z-10">
             <div>
-              <span className="text-xs font-['JetBrains_Mono',monospace] font-bold tracking-[0.25em] uppercase text-white/90 block mb-2">
+              <span className="text-xs font-['JetBrains_Mono',monospace] font-bold tracking-[0.25em] uppercase text-cyan-300 block mb-2">
                 ✦ Reach Me Directly
               </span>
               <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase font-['Syne',sans-serif]">
@@ -198,7 +202,7 @@ const Contact: React.FC = () => {
                 href={socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs font-['Space_Grotesk',sans-serif] font-bold uppercase tracking-wider bg-white text-[#0077b5] hover:bg-blue-50 border border-white/20 px-4 py-2.5 rounded-full transition-all duration-300 shadow-md"
+                className="flex items-center gap-2 text-xs font-['Space_Grotesk',sans-serif] font-bold uppercase tracking-wider bg-white text-[#0077b5] hover:bg-cyan-50 border border-white/20 px-4 py-2.5 rounded-full transition-all duration-300 shadow-md hover:scale-105"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -209,13 +213,13 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Direct Contact Form */}
-          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-10 w-full font-['Plus_Jakarta_Sans',sans-serif]">
+          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-10 w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-10">
             {/* Input Fields */}
             <div className="flex flex-col md:flex-row gap-10 md:gap-16 w-full">
               {/* Left Column */}
               <div className="flex-1 flex flex-col gap-8">
                 <div className="relative">
-                  <label className="text-[11px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider text-white/90 block mb-1">
+                  <label className="text-[11px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider text-cyan-200 block mb-1">
                     First Name *
                   </label>
                   <input
@@ -225,12 +229,12 @@ const Contact: React.FC = () => {
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="e.g. John"
                     required
-                    className="w-full bg-transparent border-b border-white/40 pb-2 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/50 font-medium rounded-none"
+                    className="w-full bg-transparent border-b border-cyan-500/30 focus:border-cyan-400 pb-2 text-lg focus:outline-none transition-colors placeholder-white/40 font-medium rounded-none"
                   />
                 </div>
 
                 <div className="relative">
-                  <label className="text-[11px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider text-white/90 block mb-1">
+                  <label className="text-[11px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider text-cyan-200 block mb-1">
                     Last Name
                   </label>
                   <input
@@ -239,12 +243,12 @@ const Contact: React.FC = () => {
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="e.g. Doe"
-                    className="w-full bg-transparent border-b border-white/40 pb-2 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/50 font-medium rounded-none"
+                    className="w-full bg-transparent border-b border-cyan-500/30 focus:border-cyan-400 pb-2 text-lg focus:outline-none transition-colors placeholder-white/40 font-medium rounded-none"
                   />
                 </div>
 
                 <div className="relative">
-                  <label className="text-[11px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider text-white/90 block mb-1">
+                  <label className="text-[11px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider text-cyan-200 block mb-1">
                     Email Address *
                   </label>
                   <input
@@ -254,7 +258,7 @@ const Contact: React.FC = () => {
                     onChange={(e) => setUserEmail(e.target.value)}
                     placeholder="e.g. name@company.com"
                     required
-                    className="w-full bg-transparent border-b border-white/40 pb-2 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/50 font-medium rounded-none"
+                    className="w-full bg-transparent border-b border-cyan-500/30 focus:border-cyan-400 pb-2 text-lg focus:outline-none transition-colors placeholder-white/40 font-medium rounded-none"
                   />
                 </div>
               </div>
@@ -262,7 +266,7 @@ const Contact: React.FC = () => {
               {/* Right Column */}
               <div className="flex-1 flex flex-col">
                 <div className="relative h-full flex flex-col">
-                  <label className="text-[11px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider text-white/90 block mb-1">
+                  <label className="text-[11px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider text-cyan-200 block mb-1">
                     Your Message *
                   </label>
                   <textarea
@@ -271,7 +275,7 @@ const Contact: React.FC = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Describe your role inquiry, project requirement, or collaboration opportunity..."
                     required
-                    className="w-full h-full min-h-[160px] bg-transparent border-b border-white/40 pb-2 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/50 font-medium resize-none rounded-none"
+                    className="w-full h-full min-h-[160px] bg-transparent border-b border-cyan-500/30 focus:border-cyan-400 pb-2 text-lg focus:outline-none transition-colors placeholder-white/40 font-medium resize-none rounded-none"
                   />
                 </div>
               </div>
@@ -287,10 +291,10 @@ const Contact: React.FC = () => {
                   checked={permissionAgreed}
                   onChange={(e) => setPermissionAgreed(e.target.checked)}
                   required
-                  className="mt-1 w-4 h-4 rounded-sm border-white/40 bg-transparent text-white focus:ring-white cursor-pointer"
-                  style={{ accentColor: 'white' }}
+                  className="mt-1 w-4 h-4 rounded-sm border-cyan-400/40 bg-transparent text-cyan-400 focus:ring-cyan-400 cursor-pointer"
+                  style={{ accentColor: '#06b6d4' }}
                 />
-                <label htmlFor="permission" className="cursor-pointer max-w-[320px] leading-snug text-xs">
+                <label htmlFor="permission" className="cursor-pointer max-w-[320px] leading-snug text-xs text-white/80">
                   I authorize direct email correspondence regarding professional AWS Cloud / DevOps opportunities.
                 </label>
               </div>
@@ -299,20 +303,20 @@ const Contact: React.FC = () => {
               <div className="flex-1 flex flex-col gap-6 text-xs text-white/80 font-medium">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                   <p className="text-[11px] text-white/80">
-                    Direct: <a href={`mailto:${personalInfo.emails.primary}`} className="underline font-bold text-white">{personalInfo.emails.primary}</a>
+                    Direct: <a href={`mailto:${personalInfo.emails.primary}`} className="underline font-bold text-cyan-300 hover:text-cyan-200">{personalInfo.emails.primary}</a>
                   </p>
 
                   <button
                     type="submit"
                     disabled={status === 'sending' || !permissionAgreed}
-                    className={`px-8 py-3.5 rounded-full border border-white/40 text-white font-bold flex items-center justify-center gap-3 transition-all duration-300 group whitespace-nowrap self-start sm:self-auto cursor-pointer ${
+                    className={`px-8 py-3.5 rounded-full font-bold flex items-center justify-center gap-3 transition-all duration-300 group whitespace-nowrap self-start sm:self-auto cursor-pointer ${
                       status === 'sending'
-                        ? 'opacity-50 cursor-not-allowed bg-white/10'
+                        ? 'opacity-50 cursor-not-allowed bg-cyan-600/30 text-white'
                         : status === 'success'
-                        ? 'bg-green-600 border-green-500 text-white shadow-[0_0_20px_rgba(22,163,74,0.4)]'
+                        ? 'bg-emerald-600 border border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)]'
                         : status === 'error'
-                        ? 'bg-red-800 border-red-700 text-white'
-                        : 'hover:bg-white hover:text-[#ff2a2a]'
+                        ? 'bg-red-800 border border-red-700 text-white'
+                        : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-[0_0_25px_rgba(6,182,212,0.4)] hover:shadow-[0_0_35px_rgba(6,182,212,0.6)]'
                     }`}
                   >
                     {status === 'sending' ? (
@@ -348,8 +352,8 @@ const Contact: React.FC = () => {
                   <div
                     className={`p-3.5 rounded-xl border text-xs font-mono flex items-center gap-2.5 ${
                       status === 'success'
-                        ? 'bg-black/40 border-green-400/50 text-green-300'
-                        : 'bg-black/40 border-red-400/50 text-red-300'
+                        ? 'bg-black/60 border-emerald-400/50 text-emerald-300'
+                        : 'bg-black/60 border-red-400/50 text-red-300'
                     }`}
                   >
                     <span className="text-base">{status === 'success' ? '⚡' : '⚠️'}</span>

@@ -17,15 +17,15 @@ const Experience: React.FC = () => {
       }`}
     >
       {/* Background Subtle Gradient */}
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/3 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div data-aos="fade-up" className="mb-16 text-center md:text-left">
           <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
             theme === 'dark'
-              ? 'border-white/20 text-white/80 bg-white/5'
-              : 'border-slate-300 text-slate-800 bg-slate-100'
+              ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
+              : 'border-cyan-200 text-cyan-800 bg-cyan-50'
           }`}>
             ✦ Career History
           </div>
@@ -46,8 +46,8 @@ const Experience: React.FC = () => {
           data-aos="fade-up"
           className={`backdrop-blur-md border rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-500 mb-20 ${
             theme === 'dark'
-              ? 'bg-white/5 border-white/15 hover:border-[#ff2a2a]/40 shadow-2xl'
-              : 'bg-slate-50 border-slate-200 hover:border-[#ff2a2a]/40 shadow-lg'
+              ? 'bg-white/5 border-white/15 hover:border-cyan-400/40 shadow-2xl'
+              : 'bg-slate-50 border-slate-200 hover:border-cyan-500/40 shadow-lg'
           }`}
         >
           {/* Company & Role Header */}
@@ -58,8 +58,8 @@ const Experience: React.FC = () => {
               <div className="flex flex-wrap items-center gap-3 mb-3">
                 <span className={`px-3.5 py-1 rounded-full text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider border ${
                   theme === 'dark'
-                    ? 'bg-[#ff2a2a]/20 text-[#ff2a2a] border-[#ff2a2a]/30'
-                    : 'bg-red-100 text-red-700 border-red-200'
+                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                    : 'bg-cyan-50 text-cyan-800 border-cyan-200'
                 }`}>
                   Full-Time Role
                 </span>
@@ -95,7 +95,7 @@ const Experience: React.FC = () => {
           {/* 10 Responsibilities and Achievements Points */}
           <div className="space-y-4">
             <h4 className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-[0.2em] mb-4 ${
-              theme === 'dark' ? 'text-[#ff5858]' : 'text-red-600'
+              theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'
             }`}>
               Key Responsibilities & Deliverables:
             </h4>
@@ -105,11 +105,11 @@ const Experience: React.FC = () => {
                   key={index}
                   className={`flex items-start gap-3.5 p-3.5 rounded-xl border transition-all group ${
                     theme === 'dark'
-                      ? 'bg-black/40 border-white/5 hover:border-white/15'
-                      : 'bg-white border-slate-200 hover:border-slate-300 shadow-sm'
+                      ? 'bg-black/40 border-white/5 hover:border-cyan-500/20'
+                      : 'bg-white border-slate-200 hover:border-cyan-300 shadow-sm'
                   }`}
                 >
-                  <span className="text-xs font-['JetBrains_Mono',monospace] font-bold bg-[#ff2a2a] text-white w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                  <span className="text-xs font-['JetBrains_Mono',monospace] font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
                     {index + 1}
                   </span>
                   <p className={`text-xs sm:text-sm md:text-base font-normal font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
@@ -130,8 +130,8 @@ const Experience: React.FC = () => {
           <div data-aos="fade-up" className="mb-12 text-center md:text-left">
             <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
               theme === 'dark'
-                ? 'border-white/20 text-white/80 bg-white/5'
-                : 'border-slate-300 text-slate-800 bg-slate-100'
+                ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
+                : 'border-cyan-200 text-cyan-800 bg-cyan-50'
             }`}>
               ✦ Impact & Metrics
             </div>
@@ -150,20 +150,20 @@ const Experience: React.FC = () => {
                 data-aos-delay={index * 100}
                 className={`backdrop-blur-md border rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 group ${
                   theme === 'dark'
-                    ? 'bg-white/5 border-white/10 hover:border-[#ff2a2a]/50 hover:bg-white/[0.08]'
-                    : 'bg-slate-50 border-slate-200 hover:border-[#ff2a2a]/40 hover:bg-white hover:shadow-md'
+                    ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08]'
+                    : 'bg-slate-50 border-slate-200 hover:border-cyan-500/40 hover:bg-white hover:shadow-md'
                 }`}
               >
                 <div>
                   <div className={`text-3xl sm:text-4xl font-black font-['Outfit',sans-serif] mb-3 ${
                     theme === 'dark'
-                      ? 'text-transparent bg-clip-text bg-gradient-to-r from-white via-red-200 to-[#ff2a2a]'
-                      : 'text-red-600'
+                      ? 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-300'
+                      : 'text-cyan-700'
                   }`}>
                     {item.metric}
                   </div>
-                  <h4 className={`font-bold text-lg mb-3 tracking-tight group-hover:text-[#ff2a2a] transition-colors font-['Outfit',sans-serif] ${
-                    theme === 'dark' ? 'text-white' : 'text-slate-900'
+                  <h4 className={`font-bold text-lg mb-3 tracking-tight group-hover:text-cyan-400 transition-colors font-['Outfit',sans-serif] ${
+                    theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
                   }`}>
                     {item.title}
                   </h4>
