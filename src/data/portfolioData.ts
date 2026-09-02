@@ -64,6 +64,8 @@ export const personalInfo = {
   title: "AWS Cloud Operations Engineer",
   location: "Srikakulam, Andhra Pradesh 532401",
   phone: "+91 8520899337",
+  phoneRaw: "8520899337",
+  whatsappUrl: "https://wa.me/918520899337",
   email: "saivinodkotipalli2003@gmail.com",
   emails: {
     primary: "saivinodkotipalli2003@gmail.com",
@@ -77,6 +79,7 @@ export const socialLinks = {
   github: "https://github.com/VinodKotipalli",
   linkedin: "https://www.linkedin.com/in/saivinod-kotipalli-960aa61a0",
   instagram: "https://instagram.com/saivinod.kotipalli",
+  whatsapp: "https://wa.me/918520899337",
 };
 
 export const heroContent = {
