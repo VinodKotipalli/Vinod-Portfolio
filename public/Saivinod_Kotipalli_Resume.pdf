@@ -1,5 +1,5 @@
 %PDF-1.3
-%ï¿½ß¬ï¿½
+%ºß¬à
 3 0 obj
 <</Type /Page
 /Parent 1 0 R
@@ -10,7 +10,7 @@
 endobj
 4 0 obj
 <<
-/Length 12544
+/Length 11739
 >>
 stream
 0.200025 w
@@ -23,534 +23,506 @@ BT
 (SAIVINOD KOTIPALLI) Tj
 ET
 BT
-/F2 11 Tf
-12.6499999999999986 TL
+/F2 10.5 Tf
+12.0749999999999993 TL
 0.157 0.196 0.255 rg
-220.6949999999999932 741. Td
-(AWS Cloud Operations Engineer) Tj
+157.9499999999999602 741. Td
+(AWS Cloud Operations Engineer | Site Reliability & DevOps) Tj
 ET
 BT
-/F1 9 Tf
-10.3499999999999996 TL
+/F1 8.5 Tf
+9.7749999999999986 TL
 0.275 0.294 0.333 rg
-120.9600000000000364 727. Td
-(Srikakulam, Andhra Pradesh 532401  |  +91 8520899337  |  saivinodkotipalli2003@gmail.com) Tj
+136.0000000000000284 728. Td
+(Srikakulam, Andhra Pradesh 532401 | +91 8520899337 | saivinodkotipalli2003@gmail.com) Tj
 ET
 BT
-/F2 10 Tf
-11.5 TL
+/F2 9.5 Tf
+10.9249999999999989 TL
 0.059 0.09 0.165 rg
-36. 713. Td
+36. 714. Td
 (PROFESSIONAL SUMMARY) Tj
 ET
 0.08 0.1 0.14 RG
 0.75 w
-36. 710. m
-576. 710. l
+36. 711.5 m
+576. 711.5 l
 S
 BT
-/F1 8.5 Tf
-9.7749999999999986 TL
+/F1 8.2 Tf
+9.347999999999999 TL
 0.118 0.161 0.231 rg
-36. 700. Td
-(AWS Cloud Operations Engineer with 2+ years of experience designing, deploying, and maintaining cloud monitoring and infrastructure) Tj
-T* (solutions on AWS. Skilled in Infrastructure as Code using Terraform, CI/CD automation with Jenkins, and implementing centralized monitoring) Tj
-T* (platforms using Prometheus, Grafana, Node Exporter, and Alert manager. Experienced in monitoring AWS EC2 instances, Linux servers, and) Tj
-T* (Docker containers, developing Grafana dashboards with PromQL, and configuring automated alerting through Slack and email notifications.) Tj
-T* (Proficient in Linux administration, AWS services including EC2, IAM, and CloudWatch, and applying AWS Well-Architected Framework) Tj
-T* (principles to improve reliability, security, performance, and operational excellence. Strong experience in technical documentation, incident) Tj
-T* (response, and collaborating with cross-functional teams to enhance system availability and reduce Mean Time to Detect \(MTTD\).) Tj
+36. 702. Td
+(AWS Cloud Operations Engineer with 2+ years of experience across cloud monitoring, infrastructure automation, and site reliability engineering \(SRE\)) Tj
+T* (on AWS. Skilled in Infrastructure as Code \(Terraform, AWS CloudFormation\), CI/CD automation \(Jenkins, GitHub Actions, AWS CodePipeline\), and) Tj
+T* (centralized observability using Prometheus, Grafana, Node Exporter, and Alertmanager. Experienced monitoring EC2 instances, Linux servers,) Tj
+T* (Docker containers, and Kubernetes/EKS workloads; building Grafana dashboards with PromQL; and automating Slack and email alerting to reduce) Tj
+T* (Mean Time to Detect \(MTTD\). Proficient in Linux administration, AWS core services \(EC2, IAM, VPC, CloudWatch\), and applying the AWS) Tj
+T* (Well-Architected Framework to improve reliability, security, performance, and cost optimization. Strong track record in technical documentation,) Tj
+T* (incident response, and cross-functional collaboration.) Tj
 ET
 BT
-/F2 10 Tf
-11.5 TL
+/F2 9.5 Tf
+10.9249999999999989 TL
 0.059 0.09 0.165 rg
-36. 625.3999999999999773 Td
+36. 630.5 Td
 (TECHNICAL SKILLS) Tj
 ET
 0.08 0.1 0.14 RG
 0.75 w
-36. 622.3999999999999773 m
-576. 622.3999999999999773 l
+36. 628. m
+576. 628. l
 S
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 612.3999999999999773 Td
-(Programming Languages: ) Tj
+36. 618.5 Td
+(Languages: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-139.5660000000000025 612.3999999999999773 Td
+82.8799999999999955 618.5 Td
 (Python, Java, Bash, Shell Scripting) Tj
 ET
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 602.7999999999999545 Td
-(Cloud Platforms \(AWS ï¿½ Compute & Storage\): ) Tj
+36. 609.2000000000000455 Td
+(AWS Compute & Storage: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-216.2359999999999616 602.7999999999999545 Td
+136.0799999999999841 609.2000000000000455 Td
 (EC2, S3, Lambda, RDS, ECR, EKS, Auto Scaling, SNS, CloudWatch) Tj
 ET
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 593.2000000000000455 Td
+36. 599.8999999999999773 Td
 (AWS Networking: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-106.8479999999999848 593.2000000000000455 Td
-(VPC, Subnets, Route 53, Elastic Load Balancing \(ALB/NLB/CLB\), NAT Gateway, Internet Gateway, VPC Peering, CloudFront,) Tj
+105.1199999999999903 599.8999999999999773 Td
+(VPC, Subnets, Route 53, ALB/NLB/CLB, NAT Gateway, Internet Gateway, VPC Peering, CloudFront, Direct Connect) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
-0.176 0.216 0.282 rg
-48. 583.7000000000000455 Td
-(Direct Connect) Tj
-ET
-BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 574.1000000000000227 Td
+36. 590.5999999999999091 Td
 (AWS Security: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-94.465999999999994 574.1000000000000227 Td
-(IAM, AWS KMS, Secrets Manager, Security Groups, NACLs, AWS WAF, AWS Shield, Guard Duty, Security Hub, ACM, AWS Config,) Tj
+93.039999999999992 590.5999999999999091 Td
+(IAM, KMS, Secrets Manager, Security Groups, NACLs, WAF, Shield, GuardDuty, Security Hub, ACM, AWS Config, CloudTrail) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
-0.176 0.216 0.282 rg
-48. 564.6000000000000227 Td
-(CloudTrail) Tj
-ET
-BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 555. Td
-(Containerization & Orchestration: ) Tj
+36. 581.2999999999999545 Td
+(Containers & Orchestration: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-169.0860000000000127 555. Td
+144.960000000000008 581.2999999999999545 Td
 (Docker, Kubernetes, Amazon EKS, Helm) Tj
 ET
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 545.3999999999999773 Td
-(Infrastructure as Code \(IaC\): ) Tj
+36. 572. Td
+(Infrastructure as Code: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-148.5039999999999623 545.3999999999999773 Td
-(Terraform, AWS CloudFormation) Tj
+125.8399999999999892 572. Td
+(Terraform, AWS CloudFormation, Ansible) Tj
 ET
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 535.7999999999999545 Td
+36. 562.6999999999999318 Td
 (Monitoring & Observability: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-145.5520000000000209 535.7999999999999545 Td
-(Amazon CloudWatch, Prometheus, Grafana, Dynatrace, Node Exporter, Alert manager, PromQL) Tj
+142.8800000000000239 562.6999999999999318 Td
+(CloudWatch, Prometheus, Grafana, Dynatrace, Node Exporter, Alertmanager, PromQL) Tj
 ET
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 526.2000000000000455 Td
-(Configuration Management: ) Tj
+36. 553.3999999999998636 Td
+(CI/CD & Version Control: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-146.7819999999999823 526.2000000000000455 Td
-(Ansible) Tj
+132.0799999999999841 553.3999999999998636 Td
+(Git, GitHub, GitLab, Jenkins, GitHub Actions, AWS CodePipeline) Tj
 ET
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 516.5999999999999091 Td
-(Version Control & CI/CD: ) Tj
-ET
-BT
-/F1 8.2 Tf
-9.4299999999999979 TL
-0.176 0.216 0.282 rg
-135.1380000000000052 516.5999999999999091 Td
-(Git, GitHub, GitLab, Jenkins, GitHub Actions, AWS Code Pipeline) Tj
-ET
-BT
-/F2 8.2 Tf
-9.4299999999999979 TL
-0.078 0.098 0.137 rg
-36. 506.9999999999999432 Td
+36. 544.0999999999999091 Td
 (Databases: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-81.6740000000000066 506.9999999999999432 Td
+80.5600000000000023 544.0999999999999091 Td
 (MySQL, PostgreSQL) Tj
 ET
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 497.3999999999999204 Td
+36. 534.7999999999999545 Td
 (Operating Systems: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-115.3760000000000048 497.3999999999999204 Td
+113.4400000000000119 534.7999999999999545 Td
 (Linux, Ubuntu, Amazon Linux) Tj
 ET
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 487.7999999999998977 Td
+36. 525.4999999999998863 Td
 (Methodologies: ) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-98.6479999999999961 487.7999999999998977 Td
+97.1200000000000045 525.4999999999998863 Td
 (DevOps, IaC, GitOps, CI/CD Automation, SRE, Cloud Security, Disaster Recovery & Backup, AWS Well-Architected Framework,) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-48. 478.2999999999998977 Td
+48. 516.2999999999999545 Td
 (Technical Documentation & Runbooks) Tj
 ET
 BT
-/F2 10 Tf
-11.5 TL
+/F2 9.5 Tf
+10.9249999999999989 TL
 0.059 0.09 0.165 rg
-36. 464.6999999999998749 Td
+36. 503.4999999999998863 Td
 (PROFESSIONAL EXPERIENCE) Tj
 ET
 0.08 0.1 0.14 RG
 0.75 w
-36. 461.6999999999998749 m
-576. 461.6999999999998749 l
+36. 500.9999999999998863 m
+576. 500.9999999999998863 l
 S
 BT
-/F2 9 Tf
-10.3499999999999996 TL
+/F2 8.8 Tf
+10.1199999999999992 TL
 0.059 0.09 0.165 rg
-36. 451.6999999999998749 Td
-(AWS Cloud Operations Engineer) Tj
-ET
-BT
-/F1 8.5 Tf
-9.7749999999999986 TL
-0.196 0.235 0.294 rg
-36. 441.1999999999998749 Td
-(Tata Consultancy Services \(TCS\), Hyderabad  |  June 2024 ï¿½ June 2026) Tj
+36. 491.4999999999998863 Td
+(AWS Cloud Operations Engineer — Tata Consultancy Services \(TCS\), Hyderabad) Tj
 ET
 BT
 /F1 8.2 Tf
 9.4299999999999979 TL
-0.118 0.161 0.231 rg
-38. 431.1999999999998749 Td
-(%ï¿½) Tj
+0.235 0.275 0.333 rg
+36. 481.9999999999998863 Td
+(June 2024 – Present) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-48. 431.1999999999998749 Td
-(Designed, deployed, and maintained a centralized Prometheus and Grafana monitoring platform, delivering real-time visibility into infrastructure) Tj
-T* (health across multiple Linux servers and cloud environments.) Tj
+38. 472.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-38. 410.7999999999998977 Td
-(%ï¿½) Tj
+46. 472.4999999999998863 Td
+(Designed, deployed, and maintained a centralized Prometheus and Grafana monitoring platform, delivering real-time visibility into infrastructure health) Tj
+T* (across multiple Linux servers and cloud environments.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-48. 410.7999999999998977 Td
-(Automated provisioning and configuration of monitoring infrastructure using Terraform, enabling consistent, version-controlled, repeatable) Tj
-T* (deployment of Prometheus, Grafana, and Node Exporter across environments.) Tj
+38. 453.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-38. 390.3999999999999204 Td
-(%ï¿½) Tj
+46. 453.4999999999998863 Td
+(Automated provisioning of monitoring infrastructure using Terraform, enabling consistent, version-controlled, repeatable deployment of Prometheus,) Tj
+T* (Grafana, and Node Exporter across environments.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-48. 390.3999999999999204 Td
-(Integrated Jenkins CI/CD pipelines with the monitoring stack to validate application health post-deployment, trigger automated alerts on failed) Tj
-T* (builds, and accelerate release cycles from weekly to daily.) Tj
+38. 434.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-38. 369.9999999999999432 Td
-(%ï¿½) Tj
+46. 434.4999999999998863 Td
+(Integrated Jenkins CI/CD pipelines with the monitoring stack to validate post-deployment application health and trigger automated alerts on failed) Tj
+T* (builds, accelerating release cycles from weekly to daily.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-48. 369.9999999999999432 Td
+38. 415.4999999999998863 Td
+(•) Tj
+ET
+BT
+/F1 7.9 Tf
+8.8480000000000008 TL
+0.118 0.161 0.231 rg
+46. 415.4999999999998863 Td
 (Installed and configured Node Exporter on Linux servers to collect CPU, memory, disk, filesystem, network, and system load metrics; configured) Tj
-T* (Prometheus scrape jobs, service discovery, recording rules, and alerting rules for continuous infrastructure and application monitoring.) Tj
+T* (Prometheus scrape jobs, service discovery, recording rules, and alerting rules.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 349.5999999999999659 Td
-(%ï¿½) Tj
+38. 396.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 349.5999999999999659 Td
-(Developed interactive Grafana dashboards using PromQL queries to visualize infrastructure performance, server availability, application health,) Tj
-T* (and resource utilization.) Tj
+46. 396.4999999999998863 Td
+(Developed interactive Grafana dashboards using PromQL to visualize infrastructure performance, server availability, application health, and resource) Tj
+T* (utilization.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 329.1999999999999886 Td
-(%ï¿½) Tj
+38. 377.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 329.1999999999999886 Td
-(Integrated Alertmanager with email and Slack notifications for automated alerting on CPU, memory, disk, and service downtime; tuned alert) Tj
-T* (thresholds, grouping, and deduplication policies to reduce alert fatigue and improve incident response efficiency.) Tj
+46. 377.4999999999998863 Td
+(Integrated Alertmanager with email and Slack for automated alerting on CPU, memory, disk, and service downtime; tuned thresholds, grouping, and) Tj
+T* (deduplication to reduce alert fatigue and improve incident response.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 308.8000000000000114 Td
-(%ï¿½) Tj
+38. 358.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 308.8000000000000114 Td
-(Monitored AWS EC2 instances, Linux servers, and Docker containers to improve operational visibility and system reliability; performed proactive) Tj
-T* (capacity planning and troubleshot exporter, scrape, and connectivity issues by analyzing Prometheus target status and logs.) Tj
+46. 358.4999999999998863 Td
+(Monitored AWS EC2 instances, Linux servers, and Docker containers to improve operational visibility and reliability; performed proactive capacity) Tj
+T* (planning and troubleshot exporter, scrape, and connectivity issues.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 288.4000000000000341 Td
-(%ï¿½) Tj
+38. 339.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 288.4000000000000341 Td
-(Applied AWS Well-Architected Framework best practices across the Reliability, Security, Cost Optimization, Performance Efficiency, and) Tj
-T* (Operational Excellence pillars when designing and reviewing monitoring and cloud infrastructure solutions.) Tj
+46. 339.4999999999998863 Td
+(Applied AWS Well-Architected Framework best practices across Reliability, Security, Cost Optimization, Performance Efficiency, and Operational) Tj
+T* (Excellence pillars in monitoring and infrastructure design.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 268. Td
-(%ï¿½) Tj
+38. 320.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 268. Td
-(Authored and maintained technical documentation, dashboard guides, operational runbooks, and standard operating procedures \(SOPs\) for) Tj
-T* (monitoring, alerting, and incident response, improving knowledge transfer and reducing onboarding time.) Tj
+46. 320.4999999999998863 Td
+(Authored technical documentation, dashboard guides, operational runbooks, and SOPs for monitoring, alerting, and incident response, improving) Tj
+T* (knowledge transfer and reducing onboarding time.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 247.6000000000000227 Td
-(%ï¿½) Tj
+38. 301.4999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 247.6000000000000227 Td
-(Collaborated with DevOps, Cloud Operations, and application teams to implement monitoring standards and support production incident) Tj
-T* (management through faster root cause analysis and reduced Mean Time to Detect \(MTTD\).) Tj
+46. 301.4999999999998863 Td
+(Collaborated with DevOps, Cloud Operations, and application teams to implement monitoring standards and support incident management through) Tj
+T* (faster root cause analysis and reduced MTTD.) Tj
 ET
 BT
-/F2 10 Tf
-11.5 TL
+/F2 9.5 Tf
+10.9249999999999989 TL
 0.059 0.09 0.165 rg
-36. 224.2000000000000455 Td
+36. 279.9999999999998863 Td
 (KEY ACHIEVEMENTS) Tj
 ET
 0.08 0.1 0.14 RG
 0.75 w
-36. 221.2000000000000455 m
-576. 221.2000000000000455 l
+36. 277.4999999999998863 m
+576. 277.4999999999998863 l
 S
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 211.2000000000000455 Td
-(%ï¿½) Tj
+38. 267.9999999999998863 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 211.2000000000000455 Td
+46. 267.9999999999998863 Td
 (Reduced application release cycles from weekly to daily by standardizing CI/CD workflows and deployment automation.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 200.1000000000000227 Td
-(%ï¿½) Tj
+38. 257.7999999999998408 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 200.1000000000000227 Td
+46. 257.7999999999998408 Td
 (Accelerated infrastructure delivery with reusable Infrastructure as Code \(IaC\) templates, reducing provisioning time by 80%.) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 7.9 Tf
+9.0849999999999991 TL
 0.118 0.161 0.231 rg
-38. 189. Td
-(%ï¿½) Tj
+38. 247.5999999999997954 Td
+(•) Tj
 ET
 BT
-/F1 8.2 Tf
-9.1839999999999993 TL
+/F1 7.9 Tf
+8.8480000000000008 TL
 0.118 0.161 0.231 rg
-48. 189. Td
-(Strengthened cloud governance and security through automated compliance controls, encryption, and least-privilege access, resulting in zero) Tj
-T* (critical security findings.) Tj
+46. 247.5999999999997954 Td
+(Strengthened cloud governance and security through automated compliance controls, encryption, and least-privilege access — resulting in zero critical) Tj
+T* (security findings.) Tj
 ET
 BT
-/F2 10 Tf
-11.5 TL
+/F2 9.5 Tf
+10.9249999999999989 TL
 0.059 0.09 0.165 rg
-36. 165.6000000000000227 Td
+36. 226.0999999999997954 Td
 (CERTIFICATIONS) Tj
 ET
 0.08 0.1 0.14 RG
 0.75 w
-36. 162.6000000000000227 m
-576. 162.6000000000000227 l
+36. 223.5999999999997954 m
+576. 223.5999999999997954 l
 S
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.118 0.161 0.231 rg
-36. 152.6000000000000227 Td
-(AWS Certified Solutions Architect ï¿½ Associate \(SAA-C03\), Amazon Web Services, 2026) Tj
+36. 214.0999999999997954 Td
+(AWS Certified Solutions Architect – Associate \(SAA-C03\), Amazon Web Services, 2026) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.118 0.161 0.231 rg
-36. 142.8000000000000682 Td
-(AWS Certified CloudOps Engineer ï¿½ Associate \(SOA-C03\), Amazon Web Services, 2026) Tj
+36. 204.8999999999997499 Td
+(AWS Certified CloudOps Engineer – Associate \(SOA-C03\), Amazon Web Services, 2026) Tj
 ET
 BT
-/F2 10 Tf
-11.5 TL
+/F2 9.5 Tf
+10.9249999999999989 TL
 0.059 0.09 0.165 rg
-36. 130.8000000000000682 Td
+36. 194.3999999999997499 Td
 (EDUCATION) Tj
 ET
 0.08 0.1 0.14 RG
 0.75 w
-36. 127.8000000000000682 m
-576. 127.8000000000000682 l
+36. 191.8999999999997499 m
+576. 191.8999999999997499 l
 S
 BT
-/F2 8.2 Tf
-9.4299999999999979 TL
+/F2 8 Tf
+9.1999999999999993 TL
 0.078 0.098 0.137 rg
-36. 117.8000000000000682 Td
+36. 182.3999999999997499 Td
 (B.Sc. Computer Science) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-124.8060000000000258 117.8000000000000682 Td
-( ï¿½ Sri Aditya Degree College, Ambedkar University, Srikakulam, Andhra Pradesh) Tj
+122.640000000000029 182.3999999999997499 Td
+( — Sri Aditya Degree College, Ambedkar University, Srikakulam, Andhra Pradesh) Tj
 ET
 BT
-/F1 8.2 Tf
-9.4299999999999979 TL
+/F1 8 Tf
+9.1999999999999993 TL
 0.176 0.216 0.282 rg
-36. 108.0000000000001137 Td
-(June 2020 ï¿½ August 2023  |  Percentage: 77.40%) Tj
+36. 173.1999999999997044 Td
+(June 2020 – August 2023 | Percentage: 77.40%) Tj
 ET
 endstream
 endobj
@@ -724,7 +696,7 @@ endobj
 19 0 obj
 <<
 /Producer (jsPDF 4.2.1)
-/CreationDate (D:20260819080351-00'00')
+/CreationDate (D:20260902051934-00'00')
 >>
 endobj
 20 0 obj
@@ -738,33 +710,33 @@ endobj
 xref
 0 21
 0000000000 65535 f 
-0000012717 00000 n 
-0000014534 00000 n 
+0000011912 00000 n 
+0000013729 00000 n 
 0000000015 00000 n 
 0000000120 00000 n 
-0000012774 00000 n 
-0000012899 00000 n 
-0000013029 00000 n 
-0000013162 00000 n 
-0000013299 00000 n 
-0000013422 00000 n 
-0000013551 00000 n 
-0000013683 00000 n 
-0000013819 00000 n 
-0000013947 00000 n 
-0000014074 00000 n 
-0000014203 00000 n 
-0000014336 00000 n 
-0000014438 00000 n 
-0000014782 00000 n 
-0000014868 00000 n 
+0000011969 00000 n 
+0000012094 00000 n 
+0000012224 00000 n 
+0000012357 00000 n 
+0000012494 00000 n 
+0000012617 00000 n 
+0000012746 00000 n 
+0000012878 00000 n 
+0000013014 00000 n 
+0000013142 00000 n 
+0000013269 00000 n 
+0000013398 00000 n 
+0000013531 00000 n 
+0000013633 00000 n 
+0000013977 00000 n 
+0000014063 00000 n 
 trailer
 <<
 /Size 21
 /Root 20 0 R
 /Info 19 0 R
-/ID [ <B6F143356CD77A2456D3593E7E413558> <B6F143356CD77A2456D3593E7E413558> ]
+/ID [ <4A031B8744108E59F6ADC33DA0FF5629> <4A031B8744108E59F6ADC33DA0FF5629> ]
 >>
 startxref
-14972
+14167
 %%EOF

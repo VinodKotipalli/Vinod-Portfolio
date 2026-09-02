@@ -210,7 +210,7 @@ export const Certificates: React.FC = () => {
           <p className={`text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
             theme === 'dark' ? 'text-white/70' : 'text-slate-600'
           }`}>
-            Industry-recognized credentials across Amazon Web Services (AWS), Microsoft Azure, Anthropic Claude GenAI, and GitHub DevOps.
+            Official certifications from Amazon Web Services (AWS) validating solutions architecture and cloud operations expertise.
           </p>
         </div>
 

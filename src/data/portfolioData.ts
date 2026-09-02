@@ -61,7 +61,7 @@ export const personalInfo = {
   name: "Saivinod Kotipalli",
   firstName: "Saivinod",
   brandName: "Saivinod Kotipalli",
-  title: "AWS Cloud Operations Engineer",
+  title: "AWS Cloud Operations Engineer | Site Reliability & DevOps",
   location: "Srikakulam, Andhra Pradesh 532401",
   phone: "+91 8520899337",
   phoneRaw: "8520899337",
@@ -71,7 +71,7 @@ export const personalInfo = {
     primary: "saivinodkotipalli2003@gmail.com",
   },
   summary:
-    "AWS Cloud Operations Engineer with 2+ years of experience designing, deploying, and maintaining cloud monitoring and infrastructure solutions on AWS. Skilled in Infrastructure as Code using Terraform, CI/CD automation with Jenkins, and implementing centralized monitoring platforms using Prometheus, Grafana, Node Exporter, and Alert manager. Experienced in monitoring AWS EC2 instances, Linux servers, and Docker containers, developing Grafana dashboards with PromQL, and configuring automated alerting through Slack and email notifications. Proficient in Linux administration, AWS services including EC2, IAM, and CloudWatch, and applying AWS Well-Architected Framework principles to improve reliability, security, performance, and operational excellence. Strong experience in technical documentation, incident response, and collaborating with cross-functional teams to enhance system availability and reduce Mean Time to Detect (MTTD).",
+    "AWS Cloud Operations Engineer with 2+ years of experience across cloud monitoring, infrastructure automation, and site reliability engineering (SRE) on AWS. Skilled in Infrastructure as Code (Terraform, AWS CloudFormation), CI/CD automation (Jenkins, GitHub Actions, AWS CodePipeline), and centralized observability using Prometheus, Grafana, Node Exporter, and Alertmanager. Experienced monitoring EC2 instances, Linux servers, Docker containers, and Kubernetes/EKS workloads; building Grafana dashboards with PromQL; and automating Slack and email alerting to reduce Mean Time to Detect (MTTD). Proficient in Linux administration, AWS core services (EC2, IAM, VPC, CloudWatch), and applying the AWS Well-Architected Framework to improve reliability, security, performance, and cost optimization. Strong track record in technical documentation, incident response, and cross-functional collaboration.",
   resumeUrl: "/Saivinod_Kotipalli_Resume.pdf",
 };
 
@@ -86,7 +86,7 @@ export const heroContent = {
   greeting: "Hi, I'm Saivinod Kotipalli",
   titleHighlight: "AWS Cloud Operations Engineer",
   subtitle:
-    "AWS Cloud Operations Engineer with 2+ years of experience in AWS Cloud Infrastructure, Terraform IaC, Prometheus & Grafana Monitoring, Jenkins CI/CD, Docker & Kubernetes.",
+    "AWS Cloud Operations Engineer with 2+ years of experience across cloud monitoring, infrastructure automation, and site reliability engineering (SRE) on AWS.",
   ctaPrimary: { text: "View Experience", href: "#experience" },
   ctaSecondary: {
     text: "Contact Me",
@@ -97,11 +97,11 @@ export const heroContent = {
 
 export const technicalSkillsCategories: SkillCategory[] = [
   {
-    title: "Programming Languages",
+    title: "Languages",
     skills: ["Python", "Java", "Bash", "Shell Scripting"],
   },
   {
-    title: "Cloud Platforms (AWS – Compute & Storage)",
+    title: "AWS Compute & Storage",
     skills: ["EC2", "S3", "Lambda", "RDS", "ECR", "EKS", "Auto Scaling", "SNS", "CloudWatch"],
   },
   {
@@ -110,7 +110,7 @@ export const technicalSkillsCategories: SkillCategory[] = [
       "VPC",
       "Subnets",
       "Route 53",
-      "Elastic Load Balancing (ALB/NLB/CLB)",
+      "ALB/NLB/CLB",
       "NAT Gateway",
       "Internet Gateway",
       "VPC Peering",
@@ -122,13 +122,13 @@ export const technicalSkillsCategories: SkillCategory[] = [
     title: "AWS Security",
     skills: [
       "IAM",
-      "AWS KMS",
+      "KMS",
       "Secrets Manager",
       "Security Groups",
       "NACLs",
-      "AWS WAF",
-      "AWS Shield",
-      "Guard Duty",
+      "WAF",
+      "Shield",
+      "GuardDuty",
       "Security Hub",
       "ACM",
       "AWS Config",
@@ -136,32 +136,28 @@ export const technicalSkillsCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Containerization & Orchestration",
+    title: "Containers & Orchestration",
     skills: ["Docker", "Kubernetes", "Amazon EKS", "Helm"],
   },
   {
-    title: "Infrastructure as Code (IaC)",
-    skills: ["Terraform", "AWS CloudFormation"],
+    title: "Infrastructure as Code",
+    skills: ["Terraform", "AWS CloudFormation", "Ansible"],
   },
   {
     title: "Monitoring & Observability",
     skills: [
-      "Amazon CloudWatch",
+      "CloudWatch",
       "Prometheus",
       "Grafana",
       "Dynatrace",
       "Node Exporter",
-      "Alert manager",
+      "Alertmanager",
       "PromQL",
     ],
   },
   {
-    title: "Configuration Management",
-    skills: ["Ansible"],
-  },
-  {
-    title: "Version Control & CI/CD",
-    skills: ["Git", "GitHub", "GitLab", "Jenkins", "GitHub Actions", "AWS Code Pipeline"],
+    title: "CI/CD & Version Control",
+    skills: ["Git", "GitHub", "GitLab", "Jenkins", "GitHub Actions", "AWS CodePipeline"],
   },
   {
     title: "Databases",
@@ -191,14 +187,18 @@ export const experienceData: ExperienceItem = {
   role: "AWS Cloud Operations Engineer",
   company: "Tata Consultancy Services (TCS)",
   location: "Hyderabad",
-  duration: "June 2024 – June 2026",
+  duration: "June 2024 – Present",
   highlights: [
-    "Designed, deployed, and maintained a centralized Prometheus and Grafana monitoring platform, delivering real-time visibility into infrastructure health across multiple Linux servers, Docker containers, and AWS environments.",
-    "Automated provisioning and configuration of monitoring infrastructure using Terraform, enabling consistent, version-controlled, repeatable deployment of Prometheus, Grafana, and Node Exporter across environments.",
-    "Integrated Jenkins CI/CD pipelines with the monitoring stack to validate application health post-deployment, trigger automated alerts on failed builds, and accelerate release cycles from weekly to daily.",
-    "Installed and configured Node Exporter on Linux servers to collect CPU, memory, disk, network, and system load metrics, developing interactive Grafana dashboards using PromQL queries for multi-tier performance visualization.",
-    "Integrated Alertmanager with email and Slack notifications for automated threshold alerts, deduplication, and grouping—reducing alert fatigue, accelerating root cause analysis, and minimizing Mean Time to Detect (MTTD).",
-    "Applied AWS Well-Architected Framework best practices across EC2, IAM, and CloudWatch while authoring standard operating procedures (SOPs), operational runbooks, and incident response workflows to ensure enterprise system reliability.",
+    "Designed, deployed, and maintained a centralized Prometheus and Grafana monitoring platform, delivering real-time visibility into infrastructure health across multiple Linux servers and cloud environments.",
+    "Automated provisioning of monitoring infrastructure using Terraform, enabling consistent, version-controlled, repeatable deployment of Prometheus, Grafana, and Node Exporter across environments.",
+    "Integrated Jenkins CI/CD pipelines with the monitoring stack to validate post-deployment application health and trigger automated alerts on failed builds, accelerating release cycles from weekly to daily.",
+    "Installed and configured Node Exporter on Linux servers to collect CPU, memory, disk, filesystem, network, and system load metrics; configured Prometheus scrape jobs, service discovery, recording rules, and alerting rules.",
+    "Developed interactive Grafana dashboards using PromQL to visualize infrastructure performance, server availability, application health, and resource utilization.",
+    "Integrated Alertmanager with email and Slack for automated alerting on CPU, memory, disk, and service downtime; tuned thresholds, grouping, and deduplication to reduce alert fatigue and improve incident response.",
+    "Monitored AWS EC2 instances, Linux servers, and Docker containers to improve operational visibility and reliability; performed proactive capacity planning and troubleshot exporter, scrape, and connectivity issues.",
+    "Applied AWS Well-Architected Framework best practices across Reliability, Security, Cost Optimization, Performance Efficiency, and Operational Excellence pillars in monitoring and infrastructure design.",
+    "Authored technical documentation, dashboard guides, operational runbooks, and SOPs for monitoring, alerting, and incident response, improving knowledge transfer and reducing onboarding time.",
+    "Collaborated with DevOps, Cloud Operations, and application teams to implement monitoring standards and support incident management through faster root cause analysis and reduced MTTD.",
   ],
 };
 
@@ -219,117 +219,32 @@ export const keyAchievements: AchievementItem[] = [
     metric: "0 Critical Issues",
     title: "Cloud Governance & Security",
     description:
-      "Strengthened cloud governance and security through automated compliance controls, encryption, and least-privilege access, resulting in zero critical security findings.",
+      "Strengthened cloud governance and security through automated compliance controls, encryption, and least-privilege access — resulting in zero critical security findings.",
   },
 ];
 
 export const certificationsList: CertificateItem[] = [
   {
-    name: "AWS Certified Data Engineer - Associate",
-    code: "DEA-C01",
-    issuer: "Amazon",
-    issueDate: "Aug 2026",
-    expiryDate: "Aug 2029",
-    year: "2026",
-    icon: "📊",
-    skills: ["AWS Data Engineering & ETL", "Data Lakes & Data Storage", "Data Ingestion & Pipelines"],
-    description:
-      "Validates expertise in designing, implementing, and managing data solutions and pipelines on AWS, covering data ingestion, transformation, and security.",
-  },
-  {
-    name: "AWS Certified Solutions Architect - Associate",
+    name: "AWS Certified Solutions Architect – Associate",
     code: "SAA-C03",
-    issuer: "Amazon",
-    issueDate: "Jul 2026",
-    expiryDate: "Jul 2029",
+    issuer: "Amazon Web Services",
+    issueDate: "2026",
     year: "2026",
     icon: "☁️",
-    skills: ["Solution Architecture", "Amazon VPC & Networking", "High Availability & Resilience", "Cost Optimization"],
+    skills: ["AWS Well-Architected Framework", "VPC & High Availability", "Security & Resilience", "Cost Optimization"],
     description:
-      "Validates expertise in designing secure, resilient, high-performing, and cost-optimized AWS architectures.",
+      "Validates expertise in designing secure, high-performing, resilient, and cost-optimized architectures on Amazon Web Services.",
   },
   {
-    name: "Microsoft Certified: Azure Solutions Architect Expert",
-    code: "AZ-305",
-    issuer: "Microsoft",
-    issueDate: "Jul 2026",
-    expiryDate: "Jul 2027",
+    name: "AWS Certified CloudOps Engineer – Associate",
+    code: "SOA-C03",
+    issuer: "Amazon Web Services",
+    issueDate: "2026",
     year: "2026",
-    icon: "🔷",
-    skills: ["Azure Infrastructure Design", "Azure Identity & Security (Microsoft Entra ID, RBAC, Key Vault)", "Azure Compute & Networking"],
+    icon: "⚙️",
+    skills: ["Cloud Operations & Monitoring", "Systems Administration & Patching", "Reliability & Business Continuity", "Automated Remediation"],
     description:
-      "Validated expertise in designing secure, scalable, and reliable Microsoft Azure solutions across compute, networking, storage, and identity.",
-  },
-  {
-    name: "Microsoft Certified: Azure Administrator Associate",
-    code: "AZ-104",
-    issuer: "Microsoft",
-    issueDate: "May 2026",
-    expiryDate: "May 2027",
-    year: "2026",
-    icon: "🛡️",
-    skills: ["Azure Infrastructure as a Service (IaaS)", "Identity and Access Management (IAM)", "Virtual Networks & Governance"],
-    description:
-      "Demonstrating proficiency in implementing, managing, and monitoring identity, governance, storage, compute, and virtual networks in Azure.",
-  },
-  {
-    name: "Microsoft Certified: Azure Fundamentals",
-    code: "AZ-900",
-    issuer: "Microsoft",
-    issueDate: "Feb 2026",
-    year: "2026",
-    icon: "🌐",
-    skills: ["Microsoft Azure", "Cloud Computing Concepts", "Core Architecture Services", "Security & Compliance"],
-    description:
-      "Demonstrating foundational knowledge of cloud computing concepts and Microsoft Azure architecture, workloads, and security.",
-  },
-  {
-    name: "GitHub Foundations",
-    code: "GH-FOUND",
-    issuer: "Microsoft / GitHub",
-    issueDate: "Aug 2026",
-    expiryDate: "Aug 2028",
-    year: "2026",
-    icon: "🐙",
-    skills: ["Git Version Control", "GitHub Repository Management", "Branching & Merging", "Pull Requests & CI/CD"],
-    description:
-      "Validated foundational knowledge of Git and GitHub, including version control, repository management, branching and merging, and collaborative workflows.",
-  },
-  {
-    name: "Claude Certified Architect - Foundations",
-    code: "CCA-Foundations",
-    issuer: "Anthropic",
-    issueDate: "Aug 2026",
-    expiryDate: "Aug 2027",
-    year: "2026",
-    icon: "🧠",
-    skills: ["Claude API & Application Development", "Prompt Engineering & Context Management", "AI Agents & Tool Use", "Model Context Protocol (MCP)"],
-    description:
-      "Skilled in Claude API and AI application development, prompt engineering and context management, AI agents and tool use, and Model Context Protocol (MCP).",
-  },
-  {
-    name: "Claude Certified Developer - Foundations",
-    code: "CCD-Foundations",
-    issuer: "Anthropic",
-    issueDate: "Aug 2026",
-    expiryDate: "Aug 2027",
-    year: "2026",
-    icon: "💻",
-    skills: ["Claude AI / Anthropic Claude", "AI Application Development", "LLM Integration & Prompt Design"],
-    description:
-      "Demonstrating foundational knowledge of building and working with AI-powered applications using Anthropic Claude.",
-  },
-  {
-    name: "Claude Certified Associate - Foundations",
-    code: "CCA-Assoc",
-    issuer: "Anthropic",
-    issueDate: "Aug 2026",
-    expiryDate: "Aug 2027",
-    year: "2026",
-    icon: "⚡",
-    skills: ["Claude AI", "Generative AI", "AI Safety & Responsible Usage", "Context Optimization"],
-    description:
-      "Demonstrates foundational proficiency in using Claude and generative AI effectively, safely, and responsibly.",
+      "Validates technical expertise in deploying, managing, monitoring, and operating scalable, highly available systems and workloads on AWS.",
   },
 ];
 
