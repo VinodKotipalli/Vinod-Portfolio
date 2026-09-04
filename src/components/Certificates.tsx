@@ -1,8 +1,11 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
 import { CertificateItem } from '../data/portfolioData';
 import MotionCard from './MotionCard';
+import MaskedHeading from './MaskedHeading';
+import { StaggerContainer, StaggerItem } from './StaggerReveal';
 
 // 1. AWS Logo with clear, unmistakable 'AWS' typography and vibrant orange smile arrow
 const AwsProviderLogo: React.FC = () => (
@@ -78,14 +81,15 @@ const getIssuerCategory = (issuer: string) => {
   return 'Cloud & AI';
 };
 
-const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ cert, index }) => {
+const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ cert }) => {
   const { theme } = useTheme();
   const issuerCat = getIssuerCategory(cert.issuer);
 
   return (
-    <div
-      data-aos="fade-up"
-      data-aos-delay={String(Math.min((index % 6) * 80, 400))}
+    <StaggerItem
+      direction="up"
+      customDistance={32}
+      whileHover={{ y: -6 }}
       className="h-full"
     >
       <MotionCard
@@ -177,7 +181,7 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
           </span>
         </div>
       </MotionCard>
-    </div>
+    </StaggerItem>
   );
 };
 
@@ -200,7 +204,13 @@ export const Certificates: React.FC = () => {
 
       <div className="max-w-6xl mx-auto relative z-20">
         {/* Header */}
-        <div data-aos="fade-up" className="mb-12 text-center md:text-left">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mb-12 text-center md:text-left"
+        >
           <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
             theme === 'dark'
               ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
@@ -208,24 +218,30 @@ export const Certificates: React.FC = () => {
           }`}>
             ✦ Credentials & Certifications ({certs.length})
           </div>
-          <h2 className={`text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 uppercase font-['Syne',sans-serif] transition-colors ${
-            theme === 'dark' ? 'text-white' : 'text-slate-950'
-          }`}>
-            CERTIFICATIONS
-          </h2>
+          <MaskedHeading
+            text="CERTIFICATIONS"
+            as="h2"
+            className={`text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 uppercase font-['Syne',sans-serif] transition-colors ${
+              theme === 'dark' ? 'text-white' : 'text-slate-950'
+            }`}
+          />
           <p className={`text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
             theme === 'dark' ? 'text-white/70' : 'text-slate-600'
           }`}>
             Official certifications from Amazon Web Services (AWS) validating solutions architecture and cloud operations expertise.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Certificate Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Certificate Cards Grid with Sequential Staggered Entrance */}
+        <StaggerContainer
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          staggerDelay={0.09}
+          viewportAmount={0.12}
+        >
           {certs.map((cert, index) => (
             <CertificateCard key={cert.name + cert.code} cert={cert} index={index} />
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

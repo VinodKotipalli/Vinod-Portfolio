@@ -2,7 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
-import { downloadResumePdf } from '../utils/generateResumePdf';
+import MaskedHeading from './MaskedHeading';
+import { StaggerContainer, StaggerItem } from './StaggerReveal';
 
 const AboutMe: React.FC = () => {
   const { data } = usePortfolio();
@@ -26,7 +27,7 @@ const AboutMe: React.FC = () => {
         viewport={{ once: true }}
         transition={{ delay: 0.1, duration: 0.8 }}
       >
-        <div className="w-16 h-16 rounded-full border border-dashed border-cyan-500/30 animate-spin" style={{ animationDuration: '20s' }} />
+        <div className="w-16 h-16 rounded-full border border-dashed border-cyan-500/30" />
         <span className="absolute text-xl opacity-80">☁️</span>
       </motion.div>
 
@@ -54,7 +55,7 @@ const AboutMe: React.FC = () => {
         viewport={{ once: true }}
         transition={{ delay: 0.2, duration: 0.8 }}
       >
-        <div className="w-20 h-20 rounded-full border border-dotted border-blue-500/40 animate-spin" style={{ animationDuration: '25s' }} />
+        <div className="w-20 h-20 rounded-full border border-dotted border-blue-500/40" />
         <span className="absolute text-xl opacity-80">⚡</span>
       </motion.div>
 
@@ -96,11 +97,13 @@ const AboutMe: React.FC = () => {
           ✦ Professional Summary
         </div>
 
-        <h2 className={`text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-tight tracking-tight mb-8 font-['Syne',sans-serif] uppercase transition-colors ${
-          theme === 'dark' ? 'text-white' : 'text-slate-950'
-        }`}>
-          ABOUT ME
-        </h2>
+        <MaskedHeading
+          text="ABOUT ME"
+          as="h2"
+          className={`text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-black leading-tight tracking-tight mb-8 font-['Syne',sans-serif] uppercase transition-colors ${
+            theme === 'dark' ? 'text-white' : 'text-slate-950'
+          }`}
+        />
 
         {/* Word-for-word Summary from Resume */}
         <p className={`text-base sm:text-lg md:text-xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed max-w-3xl mx-auto mb-10 text-justify sm:text-center transition-colors ${
@@ -109,8 +112,13 @@ const AboutMe: React.FC = () => {
           {personalInfo.summary}
         </p>
 
-        {/* Core Competencies Badges */}
-        <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto mb-12">
+        {/* Core Competencies Badges with Staggered Entrance */}
+        <StaggerContainer
+          className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto mb-12"
+          staggerDelay={0.06}
+          delayChildren={0.1}
+          viewportAmount={0.2}
+        >
           {[
             'AWS Cloud Infrastructure',
             'Terraform IaC',
@@ -121,18 +129,21 @@ const AboutMe: React.FC = () => {
             'AWS Well-Architected Framework',
             'Incident Response & MTTD Reduction',
           ].map((badge) => (
-            <span
+            <StaggerItem
               key={badge}
-              className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-['Space_Grotesk',sans-serif] font-medium backdrop-blur-md border transition-all duration-300 ${
+              direction="up"
+              customDistance={18}
+              whileHover={{ scale: 1.08, y: -2 }}
+              className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-['Space_Grotesk',sans-serif] font-medium backdrop-blur-md border transition-colors duration-300 cursor-default ${
                 theme === 'dark'
                   ? 'bg-white/5 border-white/15 text-white/90 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]'
                   : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-cyan-400 hover:text-cyan-700 shadow-sm'
               }`}
             >
               {badge}
-            </span>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Buttons Row */}
         <div className="flex flex-row justify-center items-center gap-4 sm:gap-8 font-['Outfit',sans-serif]">
@@ -155,7 +166,10 @@ const AboutMe: React.FC = () => {
           </motion.a>
 
           <motion.button
-            onClick={() => downloadResumePdf('Saivinod_Kotipalli_Resume.pdf')}
+            onClick={async () => {
+              const { downloadResumePdf } = await import('../utils/generateResumePdf');
+              downloadResumePdf('Saivinod_Kotipalli_Resume.pdf');
+            }}
             className={`flex items-center gap-3 px-7 py-3.5 rounded-[30px] border font-bold text-base md:text-lg transition-colors cursor-pointer ${
               theme === 'dark'
                 ? 'border-white/30 bg-black/40 text-white hover:bg-white hover:text-black'

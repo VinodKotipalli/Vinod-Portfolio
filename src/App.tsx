@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import React, { lazy, Suspense } from 'react';
 
 import { PortfolioProvider } from './context/PortfolioContext';
 import { AuthProvider } from './context/AuthContext';
@@ -11,25 +9,20 @@ import MotionBackground from './components/MotionBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
-import TechnicalSkills from './components/TechnicalSkills';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Certificates from './components/Certificates';
-import Education from './components/Education';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
-import GeminiChatbot from './components/GeminiChatbot';
+import SectionFallback from './components/SectionFallback';
+
+// Lazy loading heavy components with React.lazy to reduce initial bundle size and speed up first paint
+const TechnicalSkills = lazy(() => import('./components/TechnicalSkills'));
+const Experience = lazy(() => import('./components/Experience'));
+const Projects = lazy(() => import('./components/Projects'));
+const Certificates = lazy(() => import('./components/Certificates'));
+const Education = lazy(() => import('./components/Education'));
+const Contact = lazy(() => import('./components/Contact'));
+const GeminiChatbot = lazy(() => import('./components/GeminiChatbot'));
 
 function MainLayout() {
   const { theme } = useTheme();
-
-  useEffect(() => {
-    AOS.init({
-      duration: 700,
-      once: true,
-      easing: 'ease-out-cubic',
-    });
-  }, []);
 
   return (
     <div className={`min-h-screen font-sans selection:bg-cyan-500 selection:text-black relative transition-colors duration-300 ${
@@ -41,14 +34,36 @@ function MainLayout() {
       <Navbar />
       <Hero />
       <AboutMe />
-      <TechnicalSkills />
-      <Experience />
-      <Projects />
-      <Certificates />
-      <Education />
-      <Contact />
+
+      <Suspense fallback={<SectionFallback minHeight="min-h-[500px]" title="Technical Skills" />}>
+        <TechnicalSkills />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback minHeight="min-h-[600px]" title="Professional Experience" />}>
+        <Experience />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback minHeight="min-h-[600px]" title="Featured Projects" />}>
+        <Projects />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback minHeight="min-h-[500px]" title="Certifications" />}>
+        <Certificates />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback minHeight="min-h-[400px]" title="Education" />}>
+        <Education />
+      </Suspense>
+
+      <Suspense fallback={<SectionFallback minHeight="min-h-[600px]" title="Contact Section" />}>
+        <Contact />
+      </Suspense>
+
       <Footer />
-      <GeminiChatbot />
+
+      <Suspense fallback={null}>
+        <GeminiChatbot />
+      </Suspense>
     </div>
   );
 }

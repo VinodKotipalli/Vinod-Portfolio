@@ -4,6 +4,8 @@ import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
 import AnimatedCounter from './AnimatedCounter';
 import MotionCard from './MotionCard';
+import MaskedHeading from './MaskedHeading';
+import { StaggerContainer, StaggerItem } from './StaggerReveal';
 
 const Experience: React.FC = () => {
   const { data } = usePortfolio();
@@ -24,7 +26,13 @@ const Experience: React.FC = () => {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <div data-aos="fade-up" className="mb-16 text-center md:text-left">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mb-16 text-center md:text-left"
+        >
           <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
             theme === 'dark'
               ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
@@ -32,21 +40,26 @@ const Experience: React.FC = () => {
           }`}>
             ✦ Career History
           </div>
-          <h2 className={`text-3xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4 tracking-tight uppercase font-['Syne',sans-serif] transition-colors ${
-            theme === 'dark' ? 'text-white' : 'text-slate-950'
-          }`}>
-            PROFESSIONAL EXPERIENCE
-          </h2>
+          <MaskedHeading
+            text="PROFESSIONAL EXPERIENCE"
+            as="h2"
+            className={`text-3xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4 tracking-tight uppercase font-['Syne',sans-serif] transition-colors ${
+              theme === 'dark' ? 'text-white' : 'text-slate-950'
+            }`}
+          />
           <p className={`text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
             theme === 'dark' ? 'text-white/70' : 'text-slate-600'
           }`}>
             Enterprise cloud operations experience building high-availability monitoring platforms and automated pipelines.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Experience Card */}
-        <div
-          data-aos="fade-up"
+        {/* Experience Card with Scroll-Triggered Timeline */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className={`backdrop-blur-md border rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-500 mb-20 ${
             theme === 'dark'
               ? 'bg-white/5 border-white/15 hover:border-cyan-400/40 shadow-2xl'
@@ -95,43 +108,51 @@ const Experience: React.FC = () => {
             </div>
           </div>
 
-          {/* 10 Responsibilities and Achievements Points with Hover Micro-Interactions */}
-          <div className="space-y-4">
-            <h4 className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-[0.2em] mb-4 ${
+          {/* 10 Responsibilities with Progressive Motion Timeline */}
+          <div className="relative">
+            <h4 className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 ${
               theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'
             }`}>
-              Key Responsibilities & Deliverables:
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span>Key Responsibilities & Deliverables:</span>
             </h4>
-            <div className="grid grid-cols-1 gap-3.5">
+
+            <StaggerContainer className="space-y-3" staggerDelay={0.05} delayChildren={0.05} viewportAmount={0.1}>
               {experience.highlights.map((point, index) => (
-                <motion.div
+                <StaggerItem
                   key={index}
-                  whileHover={{ x: 6, transition: { duration: 0.2 } }}
-                  className={`flex items-start gap-3.5 p-3.5 rounded-xl border transition-all group ${
+                  direction="right"
+                  customDistance={20}
+                  whileHover={{ x: 4 }}
+                  className={`flex items-start gap-3.5 p-3 sm:p-4 rounded-xl border transition-all duration-200 ${
                     theme === 'dark'
-                      ? 'bg-black/40 border-white/5 hover:border-cyan-500/30 hover:bg-white/[0.03]'
-                      : 'bg-white border-slate-200 hover:border-cyan-400 shadow-sm'
+                      ? 'bg-black/30 border-white/5 hover:border-cyan-500/20'
+                      : 'bg-white border-slate-200 hover:border-cyan-300 shadow-sm'
                   }`}
                 >
-                  <span className="text-xs font-['JetBrains_Mono',monospace] font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 shadow-sm group-hover:scale-110 transition-transform">
+                  <span className="text-xs font-['JetBrains_Mono',monospace] font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white w-5 h-5 rounded-md flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
                     {index + 1}
                   </span>
                   <p className={`text-xs sm:text-sm md:text-base font-normal font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
-                    theme === 'dark'
-                      ? 'text-white/85 group-hover:text-white'
-                      : 'text-slate-700 group-hover:text-slate-950'
+                    theme === 'dark' ? 'text-white/85' : 'text-slate-700'
                   }`}>
                     {point}
                   </p>
-                </motion.div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </div>
-        </div>
+        </motion.div>
 
         {/* Key Achievements Sub-Section with Animated Counters */}
         <div id="achievements" className="pt-8">
-          <div data-aos="fade-up" className="mb-12 text-center md:text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="mb-12 text-center md:text-left"
+          >
             <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
               theme === 'dark'
                 ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
@@ -144,14 +165,19 @@ const Experience: React.FC = () => {
             }`}>
               KEY ACHIEVEMENTS
             </h3>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <StaggerContainer
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            staggerDelay={0.12}
+            viewportAmount={0.15}
+          >
             {achievements.map((item, index) => (
-              <div
+              <StaggerItem
                 key={item.title}
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
+                direction="up"
+                customDistance={30}
+                whileHover={{ y: -6 }}
                 className="h-full"
               >
                 <MotionCard
@@ -190,9 +216,9 @@ const Experience: React.FC = () => {
                     <span className="group-hover:rotate-12 transition-transform duration-300">✨</span>
                   </div>
                 </MotionCard>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </div>
     </section>

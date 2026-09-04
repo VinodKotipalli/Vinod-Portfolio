@@ -37,7 +37,7 @@ export const MotionCard: React.FC<MotionCardProps> = ({
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
       whileHover={{ y: hoverY }}
-      transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
       className={`relative group overflow-hidden ${className}`}
     >
       {/* Interactive Cursor Spotlight Glow */}
@@ -45,7 +45,7 @@ export const MotionCard: React.FC<MotionCardProps> = ({
         className="pointer-events-none absolute -inset-px rounded-inherit transition-opacity duration-300 z-0"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${glowColor}, transparent 60%)`,
+          background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${glowColor}, transparent 70%)`,
         }}
       />
       <div className="relative z-10 w-full h-full flex flex-col justify-between">
@@ -56,3 +56,4 @@ export const MotionCard: React.FC<MotionCardProps> = ({
 };
 
 export default MotionCard;
+

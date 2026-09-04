@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
 
@@ -14,7 +15,13 @@ const Footer: React.FC = () => {
         : 'bg-slate-100 text-slate-700 border-slate-300'
     }`}>
       {/* Top Row - Future & Motivational Captions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 w-full font-mono max-w-7xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 w-full font-mono max-w-7xl mx-auto"
+      >
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 text-cyan-400 text-[11px] font-bold tracking-wider">
             <span>✦</span>
@@ -65,10 +72,16 @@ const Footer: React.FC = () => {
             Ready to shape what's next • {new Date().getFullYear()} & Beyond
           </p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Middle Typography */}
-      <div className="w-full flex justify-center items-center py-10 md:py-14 px-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+        className="w-full flex justify-center items-center py-10 md:py-14 px-4"
+      >
         <h2 className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5vw] font-['Syne',sans-serif] font-black tracking-tight uppercase select-none transition-colors duration-300 text-center leading-none max-w-7xl ${
           theme === 'dark'
             ? 'text-[#1a2333] hover:text-cyan-900/60'
@@ -76,19 +89,26 @@ const Footer: React.FC = () => {
         }`}>
           Saivinod Kotipalli
         </h2>
-      </div>
+      </motion.div>
 
       {/* Bottom Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 w-full items-end font-medium max-w-7xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 w-full items-end font-medium max-w-7xl mx-auto"
+      >
         <div className="flex flex-col gap-4">
-          <a
+          <motion.a
             href="#contact"
-            className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-sm ${
+            whileHover={{ x: 3 }}
+            className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-sm inline-block ${
               theme === 'dark' ? 'text-white hover:text-cyan-300' : 'text-slate-900 hover:text-cyan-600'
             }`}
           >
             Get In Touch
-          </a>
+          </motion.a>
           <p className={`font-mono text-[9px] md:text-[10px] ${
             theme === 'dark' ? 'text-white/50' : 'text-slate-500'
           }`}>
@@ -97,21 +117,24 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-3 md:items-center">
-          <a
+          <motion.a
             href={`mailto:${personalInfo.email}`}
+            whileHover={{ y: -1 }}
             className={`underline transition-colors underline-offset-4 decoration-1 lowercase text-xs ${
               theme === 'dark' ? 'text-white/80 hover:text-cyan-300' : 'text-slate-700 hover:text-cyan-700'
             }`}
           >
             {personalInfo.email}
-          </a>
+          </motion.a>
 
           {/* Social Links */}
           <div className="flex items-center gap-4 mt-2">
-            <a
+            <motion.a
               href={socialLinks.linkedin}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.15, y: -2 }}
+              whileTap={{ scale: 0.95 }}
               className={`transition-colors duration-300 ${
                 theme === 'dark' ? 'text-[#d4d4d4] hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-600'
               }`}
@@ -120,12 +143,14 @@ const Footer: React.FC = () => {
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
               </svg>
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
               href={socialLinks.github}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.15, y: -2 }}
+              whileTap={{ scale: 0.95 }}
               className={`transition-colors duration-300 ${
                 theme === 'dark' ? 'text-[#d4d4d4] hover:text-cyan-400' : 'text-slate-600 hover:text-cyan-600'
               }`}
@@ -138,33 +163,35 @@ const Footer: React.FC = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </motion.a>
           </div>
         </div>
 
         <div className="flex flex-col gap-1.5 md:items-end">
-          <a
+          <motion.a
             href={socialLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
+            whileHover={{ x: -3 }}
             className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-xs ${
               theme === 'dark' ? 'text-white/80 hover:text-cyan-300' : 'text-slate-700 hover:text-cyan-700'
             }`}
           >
             Connect on LinkedIn
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href={socialLinks.github}
             target="_blank"
             rel="noopener noreferrer"
+            whileHover={{ x: -3 }}
             className={`underline transition-colors underline-offset-4 decoration-1 font-bold text-xs mt-1 ${
               theme === 'dark' ? 'text-white/80 hover:text-cyan-300' : 'text-slate-700 hover:text-cyan-700'
             }`}
           >
             Explore GitHub Profile
-          </a>
+          </motion.a>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 };

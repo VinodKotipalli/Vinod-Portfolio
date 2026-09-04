@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
 import MotionCard from './MotionCard';
+import MaskedHeading from './MaskedHeading';
+import { StaggerContainer, StaggerItem } from './StaggerReveal';
 
 const categoryIcons: Record<string, string> = {
   'Languages': '💻',
@@ -43,8 +45,14 @@ const TechnicalSkills: React.FC = () => {
       <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
-        <div data-aos="fade-up" className="mb-16 md:mb-20 text-center md:text-left">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mb-14 text-center md:text-left"
+        >
           <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
             theme === 'dark'
               ? 'border-cyan-500/30 text-cyan-300 bg-cyan-500/5'
@@ -52,25 +60,32 @@ const TechnicalSkills: React.FC = () => {
           }`}>
             ✦ Skills & Competencies
           </div>
-          <h2 className={`text-3xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4 tracking-tight uppercase font-['Syne',sans-serif] transition-colors ${
-            theme === 'dark' ? 'text-white' : 'text-slate-950'
-          }`}>
-            TECHNICAL SKILLS
-          </h2>
+          <MaskedHeading
+            text="TECHNICAL SKILLS"
+            as="h2"
+            className={`text-3xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4 tracking-tight uppercase font-['Syne',sans-serif] transition-colors ${
+              theme === 'dark' ? 'text-white' : 'text-slate-950'
+            }`}
+          />
           <p className={`text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
             theme === 'dark' ? 'text-white/70' : 'text-slate-600'
           }`}>
             Enterprise cloud operations, automated CI/CD pipelines, container orchestration, and comprehensive AWS infrastructure tools.
           </p>
-        </div>
+        </motion.div>
 
-        {/* 11-12 Categorized Skills Grid with Motion Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* 6 Grid Cards with Sequential Staggered Entrance */}
+        <StaggerContainer
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          staggerDelay={0.09}
+          viewportAmount={0.12}
+        >
           {categories.map((category, index) => (
-            <div
+            <StaggerItem
               key={category.title}
-              data-aos="fade-up"
-              data-aos-delay={index * 40}
+              direction="up"
+              customDistance={32}
+              whileHover={{ y: -6 }}
               className="h-full"
             >
               <MotionCard
@@ -108,8 +123,9 @@ const TechnicalSkills: React.FC = () => {
                     {category.skills.map((skill) => (
                       <motion.span
                         key={skill}
-                        whileHover={{ scale: 1.06, y: -2 }}
-                        whileTap={{ scale: 0.96 }}
+                        whileHover={{ scale: 1.08, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                         className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-default transition-colors duration-200 ${
                           theme === 'dark'
                             ? 'bg-black/60 border border-white/10 text-white/90 group-hover:border-white/20 hover:bg-cyan-500/15 hover:text-cyan-300 hover:border-cyan-500/40'
@@ -122,9 +138,9 @@ const TechnicalSkills: React.FC = () => {
                   </div>
                 </div>
               </MotionCard>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

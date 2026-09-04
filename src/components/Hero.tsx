@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
-import { downloadResumePdf } from '../utils/generateResumePdf';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,16 +32,18 @@ const Hero: React.FC = () => {
   const { personalInfo, heroContent, socialLinks } = data;
 
   return (
-    <section className={`relative min-h-screen flex flex-col justify-between pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 overflow-hidden transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-black text-white' : 'bg-slate-50 text-slate-900'
-    }`}>
+    <section
+      className={`relative min-h-screen flex flex-col justify-between pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 overflow-hidden transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-black text-white' : 'bg-slate-50 text-slate-900'
+      }`}
+    >
       {/* Dynamic Background with Ambient Gradients */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Animated breathing radial gradients */}
         <motion.div
           animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.15, 0.25, 0.15],
+            scale: [1, 1.12, 1],
+            opacity: [0.15, 0.22, 0.15],
           }}
           transition={{
             duration: 8,
@@ -50,35 +51,34 @@ const Hero: React.FC = () => {
             ease: 'easeInOut',
           }}
           className={`absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full blur-[140px] ${
-            theme === 'dark' ? 'bg-cyan-500/20' : 'bg-cyan-500/12'
+            theme === 'dark' ? 'bg-cyan-500/20' : 'bg-cyan-500/15'
           }`}
         />
         <motion.div
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.12, 0.22, 0.12],
+            scale: [1.1, 1, 1.1],
+            opacity: [0.1, 0.18, 0.1],
           }}
           transition={{
             duration: 10,
             repeat: Infinity,
             ease: 'easeInOut',
-            delay: 1,
           }}
-          className={`absolute top-1/3 right-1/4 w-[450px] h-[450px] rounded-full blur-[130px] ${
-            theme === 'dark' ? 'bg-blue-600/20' : 'bg-blue-600/10'
+          className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[120px] ${
+            theme === 'dark' ? 'bg-blue-600/20' : 'bg-blue-600/15'
           }`}
         />
         
-        {/* Grid pattern overlay */}
+        {/* Fine technical grid pattern overlay */}
         <div 
-          className={`absolute inset-0 ${theme === 'dark' ? 'opacity-[0.03]' : 'opacity-[0.04]'}`}
+          className={`absolute inset-0 ${theme === 'dark' ? 'opacity-[0.035]' : 'opacity-[0.045]'}`}
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, ${theme === 'dark' ? 'white' : '#0f172a'} 1px, transparent 0)`,
             backgroundSize: '40px 40px'
           }}
         />
 
-        {/* Large Decorative Text Outline with continuous slow drift */}
+        {/* Large Decorative Text Outline */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: theme === 'dark' ? 0.08 : 0.12 }}
@@ -97,7 +97,7 @@ const Hero: React.FC = () => {
         animate="visible"
         className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 md:px-12 flex flex-col items-start justify-center flex-grow w-full"
       >
-        {/* Top Badges & Floating Micro-Chips */}
+        {/* Top Badges */}
         <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3 mb-6 sm:mb-8">
           {/* Badge 1: Role Badge with Pulse */}
           <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-md transition-colors ${
@@ -128,7 +128,7 @@ const Hero: React.FC = () => {
 
         {/* Hero Title & Identity with Staggered Entrance */}
         <div className="mb-8 w-full">
-          {/* Candidate Name - Large Expanded Typography */}
+          {/* Candidate Name - Large Expanded Typography with Kinetic Mask Reveal */}
           <motion.h1
             variants={itemVariants}
             className={`text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] font-black tracking-wider uppercase font-['Syne',sans-serif] mb-6 sm:mb-8 leading-none transition-colors ${
@@ -177,7 +177,7 @@ const Hero: React.FC = () => {
         {/* Contact Info Pills with Hover Spring */}
         <motion.div
           variants={itemVariants}
-          className={`flex flex-wrap gap-4 text-xs font-mono mb-10 pb-6 border-b w-full transition-colors ${
+          className={`flex flex-wrap gap-4 text-xs font-mono mb-8 pb-6 border-b w-full transition-colors ${
             theme === 'dark' ? 'text-white/70 border-white/10' : 'text-slate-700 border-slate-200'
           }`}
         >
@@ -231,7 +231,7 @@ const Hero: React.FC = () => {
         </motion.div>
 
         {/* CTA Buttons with Spring Motion */}
-        <motion.div variants={itemVariants} className="flex flex-row flex-wrap items-center gap-4">
+        <motion.div variants={itemVariants} className="flex flex-row flex-wrap items-center gap-4 mb-14">
           <motion.a
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.96 }}
@@ -262,7 +262,10 @@ const Hero: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.96 }}
-            onClick={() => downloadResumePdf('Saivinod_Kotipalli_Resume.pdf')}
+            onClick={async () => {
+              const { downloadResumePdf } = await import('../utils/generateResumePdf');
+              downloadResumePdf('Saivinod_Kotipalli_Resume.pdf');
+            }}
             className={`px-7 py-3.5 text-sm md:text-base rounded-full font-bold transition-all duration-300 backdrop-blur-md flex items-center gap-2 cursor-pointer border ${
               theme === 'dark'
                 ? 'bg-black/60 border-white/40 text-white hover:bg-white hover:text-black shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.25)]'
@@ -282,7 +285,7 @@ const Hero: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* Scroll Down Indicator with floating animation */}
+      {/* Scroll Down Indicator */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -306,3 +309,4 @@ const Hero: React.FC = () => {
 };
 
 export default Hero;
+

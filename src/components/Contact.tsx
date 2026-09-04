@@ -4,6 +4,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
+import MaskedHeading from './MaskedHeading';
 
 const Contact: React.FC = () => {
   const { data } = usePortfolio();
@@ -177,8 +178,11 @@ const Contact: React.FC = () => {
 
       {/* Form Card Container */}
       <div className="relative z-10 w-full max-w-6xl mx-auto flex justify-end items-end pt-12">
-        <div
-          data-aos="fade-up"
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="bg-gradient-to-br from-[#0b1e36] via-[#09182b] to-[#040d18] border border-cyan-500/30 w-full md:w-[90%] lg:w-[85%] p-8 md:p-14 text-white flex flex-col justify-between shadow-[0_25px_60px_rgba(6,182,212,0.2)] rounded-3xl relative overflow-hidden backdrop-blur-xl"
         >
           {/* Subtle Ambient Radial inside Card */}
@@ -191,24 +195,28 @@ const Contact: React.FC = () => {
               <span className="text-xs font-['JetBrains_Mono',monospace] font-bold tracking-[0.25em] uppercase text-cyan-300 block mb-2">
                 ✦ Reach Me Directly
               </span>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase font-['Syne',sans-serif]">
-                Let's Build Together
-              </h2>
+              <MaskedHeading
+                text="LET'S BUILD TOGETHER"
+                as="h2"
+                className="text-3xl md:text-5xl font-black tracking-tight uppercase font-['Syne',sans-serif]"
+              />
             </div>
 
             {/* Social Quick Links */}
             <div className="flex flex-wrap items-center gap-3">
-              <a
+              <motion.a
                 href={socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs font-['Space_Grotesk',sans-serif] font-bold uppercase tracking-wider bg-white text-[#0077b5] hover:bg-cyan-50 border border-white/20 px-4 py-2.5 rounded-full transition-all duration-300 shadow-md hover:scale-105"
+                whileHover={{ scale: 1.06, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                className="flex items-center gap-2 text-xs font-['Space_Grotesk',sans-serif] font-bold uppercase tracking-wider bg-white text-[#0077b5] hover:bg-cyan-50 border border-white/20 px-4 py-2.5 rounded-full transition-all duration-300 shadow-md"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                 </svg>
                 LinkedIn
-              </a>
+              </motion.a>
             </div>
           </div>
 
@@ -306,9 +314,11 @@ const Contact: React.FC = () => {
                     Direct: <a href={`mailto:${personalInfo.emails.primary}`} className="underline font-bold text-cyan-300 hover:text-cyan-200">{personalInfo.emails.primary}</a>
                   </p>
 
-                  <button
+                  <motion.button
                     type="submit"
                     disabled={status === 'sending' || !permissionAgreed}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     className={`px-8 py-3.5 rounded-full font-bold flex items-center justify-center gap-3 transition-all duration-300 group whitespace-nowrap self-start sm:self-auto cursor-pointer ${
                       status === 'sending'
                         ? 'opacity-50 cursor-not-allowed bg-cyan-600/30 text-white'
@@ -345,7 +355,7 @@ const Contact: React.FC = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     )}
-                  </button>
+                  </motion.button>
                 </div>
 
                 {feedbackMsg && (
@@ -365,7 +375,7 @@ const Contact: React.FC = () => {
               </div>
             </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
