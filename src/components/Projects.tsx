@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
 import { ProjectItem } from '../data/portfolioData';
 import { ExternalLink, X, CheckCircle2, Layers, Cpu, ShieldCheck } from 'lucide-react';
+import MotionCard from './MotionCard';
 
 export const Projects: React.FC = () => {
   const { data } = usePortfolio();
@@ -45,7 +47,7 @@ export const Projects: React.FC = () => {
           </p>
         </div>
 
-        {/* 5 Square Projects Grid */}
+        {/* 5 Square Projects Grid with Motion Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, pIndex) => {
             return (
@@ -53,108 +55,124 @@ export const Projects: React.FC = () => {
                 key={project.title}
                 data-aos="fade-up"
                 data-aos-delay={pIndex * 70}
-                onClick={() => setSelectedProject(project)}
-                className={`aspect-square backdrop-blur-md border rounded-3xl p-6 sm:p-7 transition-all duration-300 flex flex-col justify-between group cursor-pointer relative overflow-hidden ${
-                  theme === 'dark'
-                    ? 'bg-white/5 border-white/10 hover:border-cyan-400/60 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(6,182,212,0.15)]'
-                    : 'bg-white border-slate-200 hover:border-cyan-500/60 hover:shadow-[0_12px_30px_rgba(6,182,212,0.08)]'
-                }`}
+                className="aspect-square"
               >
-                {/* Subtle top corner accent */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-cyan-500/15 to-transparent pointer-events-none rounded-tr-3xl" />
+                <MotionCard
+                  onClick={() => setSelectedProject(project)}
+                  glowColor={theme === 'dark' ? 'rgba(6, 182, 212, 0.22)' : 'rgba(2, 132, 199, 0.15)'}
+                  className={`w-full h-full backdrop-blur-md border rounded-3xl p-6 sm:p-7 transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden ${
+                    theme === 'dark'
+                      ? 'bg-white/5 border-white/10 hover:border-cyan-400/60 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(6,182,212,0.15)]'
+                      : 'bg-white border-slate-200 hover:border-cyan-500/60 hover:shadow-md'
+                  }`}
+                >
+                  {/* Subtle top corner accent */}
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-cyan-500/15 to-transparent pointer-events-none rounded-tr-3xl" />
 
-                {/* Top Section: Category & Status */}
-                <div>
-                  <div className={`flex items-center justify-between gap-2 mb-3 pb-3 border-b ${
-                    theme === 'dark' ? 'border-white/10' : 'border-slate-200'
-                  }`}>
-                    <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider truncate max-w-[170px] border ${
-                      theme === 'dark'
-                        ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30'
-                        : 'bg-cyan-50 text-cyan-800 border-cyan-200'
+                  {/* Top Section: Category & Status */}
+                  <div>
+                    <div className={`flex items-center justify-between gap-2 mb-3 pb-3 border-b ${
+                      theme === 'dark' ? 'border-white/10' : 'border-slate-200'
                     }`}>
-                      {project.category}
-                    </span>
-                    <span className="flex items-center gap-1.5 text-[10px] font-['JetBrains_Mono',monospace] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      Production Ready
-                    </span>
-                  </div>
-
-                  {/* Project Title */}
-                  <h3 className={`text-base sm:text-lg font-bold group-hover:text-cyan-400 transition-colors leading-snug font-['Outfit',sans-serif] mb-1.5 line-clamp-2 ${
-                    theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
-                  }`}>
-                    {project.title}
-                  </h3>
-
-                  {/* Subtitle */}
-                  <p className={`text-[11px] font-['Plus_Jakarta_Sans',sans-serif] mb-3 line-clamp-1 ${
-                    theme === 'dark' ? 'text-white/60' : 'text-slate-500'
-                  }`}>
-                    {project.subtitle}
-                  </p>
-
-                  {/* Concise Description */}
-                  <p className={`text-xs font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed line-clamp-3 mb-3 ${
-                    theme === 'dark' ? 'text-white/75' : 'text-slate-600'
-                  }`}>
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Bottom Section: Tech Stack & Trigger Button */}
-                <div className={`pt-3 border-t ${theme === 'dark' ? 'border-white/10' : 'border-slate-200'}`}>
-                  {/* Tech stack pills */}
-                  <div className="flex flex-wrap gap-1.5 mb-3.5">
-                    {project.technologies.slice(0, 4).map((tech) => (
-                      <span
-                        key={tech}
-                        className={`px-2 py-0.5 rounded text-[10px] font-['JetBrains_Mono',monospace] transition-all border ${
-                          theme === 'dark'
-                            ? 'bg-black/60 border-white/10 text-white/90 group-hover:border-white/20'
-                            : 'bg-slate-100 border-slate-200 text-slate-800'
-                        }`}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.technologies.length > 4 && (
-                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-['JetBrains_Mono',monospace] border ${
+                      <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider truncate max-w-[170px] border ${
                         theme === 'dark'
-                          ? 'bg-white/5 border-white/10 text-white/50'
-                          : 'bg-slate-100 border-slate-200 text-slate-500'
+                          ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30'
+                          : 'bg-cyan-50 text-cyan-800 border-cyan-200'
                       }`}>
-                        +{project.technologies.length - 4}
+                        {project.category}
                       </span>
-                    )}
+                      <span className="flex items-center gap-1.5 text-[10px] font-['JetBrains_Mono',monospace] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        Production Ready
+                      </span>
+                    </div>
+
+                    {/* Project Title */}
+                    <h3 className={`text-base sm:text-lg font-bold group-hover:text-cyan-400 transition-colors leading-snug font-['Outfit',sans-serif] mb-1.5 line-clamp-2 ${
+                      theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
+                    }`}>
+                      {project.title}
+                    </h3>
+
+                    {/* Subtitle */}
+                    <p className={`text-[11px] font-['Plus_Jakarta_Sans',sans-serif] mb-3 line-clamp-1 ${
+                      theme === 'dark' ? 'text-white/60' : 'text-slate-500'
+                    }`}>
+                      {project.subtitle}
+                    </p>
+
+                    {/* Concise Description */}
+                    <p className={`text-xs font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed line-clamp-3 mb-3 ${
+                      theme === 'dark' ? 'text-white/75' : 'text-slate-600'
+                    }`}>
+                      {project.description}
+                    </p>
                   </div>
 
-                  {/* Open Details Link */}
-                  <div className="flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] font-bold text-cyan-400 dark:text-cyan-300 group-hover:text-cyan-300 dark:group-hover:text-white transition-colors">
-                    <span className={theme === 'dark' ? 'text-cyan-300' : 'text-cyan-700'}>View Architecture Details</span>
-                    <span className="w-6 h-6 rounded-full bg-white/5 border border-white/10 group-hover:bg-cyan-500 group-hover:border-cyan-500 flex items-center justify-center text-slate-900 dark:text-white transition-all text-xs group-hover:text-white">
-                      ↗
-                    </span>
+                  {/* Bottom Section: Tech Stack & Trigger Button */}
+                  <div className={`pt-3 border-t ${theme === 'dark' ? 'border-white/10' : 'border-slate-200'}`}>
+                    {/* Tech stack pills */}
+                    <div className="flex flex-wrap gap-1.5 mb-3.5">
+                      {project.technologies.slice(0, 4).map((tech) => (
+                        <span
+                          key={tech}
+                          className={`px-2 py-0.5 rounded text-[10px] font-['JetBrains_Mono',monospace] transition-all border ${
+                            theme === 'dark'
+                              ? 'bg-black/60 border-white/10 text-white/90 group-hover:border-white/20'
+                              : 'bg-slate-100 border-slate-200 text-slate-800'
+                          }`}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.technologies.length > 4 && (
+                        <span className={`px-1.5 py-0.5 rounded text-[10px] font-['JetBrains_Mono',monospace] border ${
+                          theme === 'dark'
+                            ? 'bg-white/5 border-white/10 text-white/50'
+                            : 'bg-slate-100 border-slate-200 text-slate-500'
+                        }`}>
+                          +{project.technologies.length - 4}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Open Details Link with Animated Arrow */}
+                    <div className="flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] font-bold text-cyan-400 dark:text-cyan-300 group-hover:text-cyan-300 dark:group-hover:text-white transition-colors">
+                      <span className={theme === 'dark' ? 'text-cyan-300' : 'text-cyan-700'}>View Architecture Details</span>
+                      <span className="w-6 h-6 rounded-full bg-white/5 border border-white/10 group-hover:bg-cyan-500 group-hover:border-cyan-500 flex items-center justify-center text-slate-900 dark:text-white transition-all text-xs group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                        ↗
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </MotionCard>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Interactive Project Details Modal */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div
-            className={`border rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative animate-in zoom-in-95 duration-200 ${
-              theme === 'dark'
-                ? 'bg-[#0e0e0e] border-white/15 text-white'
-                : 'bg-white border-slate-200 text-slate-900'
-            }`}
-            onClick={(e) => e.stopPropagation()}
+      {/* Interactive Project Details Modal with Framer Motion */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md"
+            onClick={() => setSelectedProject(null)}
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 20 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+              className={`border rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative ${
+                theme === 'dark'
+                  ? 'bg-[#0e0e0e] border-white/15 text-white'
+                  : 'bg-white border-slate-200 text-slate-900'
+              }`}
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Close Button */}
             <button
               onClick={() => setSelectedProject(null)}
@@ -281,9 +299,10 @@ export const Projects: React.FC = () => {
                 </a>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
+    </AnimatePresence>
     </section>
   );
 };

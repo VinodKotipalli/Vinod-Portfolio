@@ -6,6 +6,8 @@ import { PortfolioProvider } from './context/PortfolioContext';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Preloader from './components/Preloader';
+import ScrollProgress from './components/ScrollProgress';
+import MotionBackground from './components/MotionBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
@@ -33,6 +35,8 @@ function MainLayout() {
     <div className={`min-h-screen font-sans selection:bg-cyan-500 selection:text-black relative transition-colors duration-300 ${
       theme === 'dark' ? 'bg-black text-white' : 'bg-slate-50 text-slate-900'
     }`}>
+      <ScrollProgress />
+      <MotionBackground />
       <Preloader />
       <Navbar />
       <Hero />

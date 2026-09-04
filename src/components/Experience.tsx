@@ -1,6 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
+import AnimatedCounter from './AnimatedCounter';
+import MotionCard from './MotionCard';
 
 const Experience: React.FC = () => {
   const { data } = usePortfolio();
@@ -92,7 +95,7 @@ const Experience: React.FC = () => {
             </div>
           </div>
 
-          {/* 10 Responsibilities and Achievements Points */}
+          {/* 10 Responsibilities and Achievements Points with Hover Micro-Interactions */}
           <div className="space-y-4">
             <h4 className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-[0.2em] mb-4 ${
               theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'
@@ -101,15 +104,16 @@ const Experience: React.FC = () => {
             </h4>
             <div className="grid grid-cols-1 gap-3.5">
               {experience.highlights.map((point, index) => (
-                <div
+                <motion.div
                   key={index}
+                  whileHover={{ x: 6, transition: { duration: 0.2 } }}
                   className={`flex items-start gap-3.5 p-3.5 rounded-xl border transition-all group ${
                     theme === 'dark'
-                      ? 'bg-black/40 border-white/5 hover:border-cyan-500/20'
-                      : 'bg-white border-slate-200 hover:border-cyan-300 shadow-sm'
+                      ? 'bg-black/40 border-white/5 hover:border-cyan-500/30 hover:bg-white/[0.03]'
+                      : 'bg-white border-slate-200 hover:border-cyan-400 shadow-sm'
                   }`}
                 >
-                  <span className="text-xs font-['JetBrains_Mono',monospace] font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                  <span className="text-xs font-['JetBrains_Mono',monospace] font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 shadow-sm group-hover:scale-110 transition-transform">
                     {index + 1}
                   </span>
                   <p className={`text-xs sm:text-sm md:text-base font-normal font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
@@ -119,13 +123,13 @@ const Experience: React.FC = () => {
                   }`}>
                     {point}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Key Achievements Sub-Section */}
+        {/* Key Achievements Sub-Section with Animated Counters */}
         <div id="achievements" className="pt-8">
           <div data-aos="fade-up" className="mb-12 text-center md:text-left">
             <div className={`inline-block rounded-full px-5 py-1.5 text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-semibold mb-4 shadow-sm backdrop-blur-sm uppercase tracking-[0.25em] border transition-colors ${
@@ -148,38 +152,44 @@ const Experience: React.FC = () => {
                 key={item.title}
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
-                className={`backdrop-blur-md border rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 group ${
-                  theme === 'dark'
-                    ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08]'
-                    : 'bg-slate-50 border-slate-200 hover:border-cyan-500/40 hover:bg-white hover:shadow-md'
-                }`}
+                className="h-full"
               >
-                <div>
-                  <div className={`text-3xl sm:text-4xl font-black font-['Outfit',sans-serif] mb-3 ${
+                <MotionCard
+                  className={`backdrop-blur-md border rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 h-full ${
                     theme === 'dark'
-                      ? 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-300'
-                      : 'text-cyan-700'
-                  }`}>
-                    {item.metric}
+                      ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(6,182,212,0.14)]'
+                      : 'bg-slate-50 border-slate-200 hover:border-cyan-500/40 hover:bg-white hover:shadow-md'
+                  }`}
+                  glowColor={theme === 'dark' ? 'rgba(6, 182, 212, 0.2)' : 'rgba(2, 132, 199, 0.15)'}
+                >
+                  <div>
+                    {/* Animated Number Counter */}
+                    <div className={`text-3xl sm:text-4xl font-black font-['Outfit',sans-serif] mb-3 ${
+                      theme === 'dark'
+                        ? 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-300'
+                        : 'text-cyan-700'
+                    }`}>
+                      <AnimatedCounter text={item.metric} />
+                    </div>
+                    <h4 className={`font-bold text-lg mb-3 tracking-tight group-hover:text-cyan-400 transition-colors font-['Outfit',sans-serif] ${
+                      theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
+                    }`}>
+                      {item.title}
+                    </h4>
+                    <p className={`text-xs sm:text-sm leading-relaxed font-normal font-['Plus_Jakarta_Sans',sans-serif] ${
+                      theme === 'dark' ? 'text-white/70' : 'text-slate-600'
+                    }`}>
+                      {item.description}
+                    </p>
                   </div>
-                  <h4 className={`font-bold text-lg mb-3 tracking-tight group-hover:text-cyan-400 transition-colors font-['Outfit',sans-serif] ${
-                    theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
-                  }`}>
-                    {item.title}
-                  </h4>
-                  <p className={`text-xs sm:text-sm leading-relaxed font-normal font-['Plus_Jakarta_Sans',sans-serif] ${
-                    theme === 'dark' ? 'text-white/70' : 'text-slate-600'
-                  }`}>
-                    {item.description}
-                  </p>
-                </div>
 
-                <div className={`mt-6 pt-4 border-t flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] ${
-                  theme === 'dark' ? 'border-white/10 text-white/40' : 'border-slate-200 text-slate-400'
-                }`}>
-                  <span>ACHIEVEMENT 0{index + 1}</span>
-                  <span>✨</span>
-                </div>
+                  <div className={`mt-6 pt-4 border-t flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] ${
+                    theme === 'dark' ? 'border-white/10 text-white/40' : 'border-slate-200 text-slate-400'
+                  }`}>
+                    <span>ACHIEVEMENT 0{index + 1}</span>
+                    <span className="group-hover:rotate-12 transition-transform duration-300">✨</span>
+                  </div>
+                </MotionCard>
               </div>
             ))}
           </div>

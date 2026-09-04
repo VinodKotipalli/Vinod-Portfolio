@@ -1,6 +1,7 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
+import MotionCard from './MotionCard';
 
 const Education: React.FC = () => {
   const { data } = usePortfolio();
@@ -38,56 +39,60 @@ const Education: React.FC = () => {
           </p>
         </div>
 
-        {/* Education Card */}
-        <div
-          data-aos="fade-up"
-          className={`backdrop-blur-md border rounded-3xl p-6 sm:p-8 md:p-10 max-w-3xl transition-all duration-300 ${
-            theme === 'dark'
-              ? 'bg-white/5 border-white/15 hover:border-cyan-400/50 hover:shadow-[0_15px_35px_rgba(6,182,212,0.12)] shadow-xl'
-              : 'bg-white border-slate-200 hover:border-cyan-500/50 hover:shadow-md shadow-md'
-          }`}
-        >
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-            <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full border ${
+        {/* Education Card with MotionCard */}
+        <div data-aos="fade-up" className="max-w-3xl">
+          <MotionCard
+            className={`backdrop-blur-md border rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-300 ${
               theme === 'dark'
-                ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30'
-                : 'text-cyan-800 bg-cyan-50 border-cyan-200'
+                ? 'bg-white/5 border-white/15 hover:border-cyan-400/50 hover:shadow-[0_15px_35px_rgba(6,182,212,0.14)] shadow-xl'
+                : 'bg-white border-slate-200 hover:border-cyan-500/50 hover:shadow-md shadow-md'
+            }`}
+            glowColor={theme === 'dark' ? 'rgba(6, 182, 212, 0.2)' : 'rgba(2, 132, 199, 0.12)'}
+          >
+            <div>
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full border ${
+                  theme === 'dark'
+                    ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30'
+                    : 'text-cyan-800 bg-cyan-50 border-cyan-200'
+                }`}>
+                  Graduation Degree
+                </span>
+                <span className={`text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-bold px-4 py-1.5 rounded-full border ${
+                  theme === 'dark'
+                    ? 'text-white bg-white/10 border-white/20'
+                    : 'text-slate-800 bg-slate-100 border-slate-300'
+                }`}>
+                  Score: {education.percentage}
+                </span>
+              </div>
+
+              <h3 className={`text-2xl sm:text-3xl font-black mb-2 font-['Outfit',sans-serif] ${
+                theme === 'dark' ? 'text-white' : 'text-slate-950'
+              }`}>
+                {education.degree}
+              </h3>
+
+              <p className={`text-base sm:text-lg font-bold mb-2 font-['Space_Grotesk',sans-serif] ${
+                theme === 'dark' ? 'text-white/90' : 'text-slate-700'
+              }`}>
+                {education.institution} • {education.university}
+              </p>
+
+              <p className={`text-xs sm:text-sm font-['JetBrains_Mono',monospace] mb-6 ${
+                theme === 'dark' ? 'text-white/60' : 'text-slate-500'
+              }`}>
+                📍 {education.location}
+              </p>
+            </div>
+
+            <div className={`pt-6 border-t flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] ${
+              theme === 'dark' ? 'border-white/10 text-white/70' : 'border-slate-200 text-slate-600'
             }`}>
-              Graduation Degree
-            </span>
-            <span className={`text-xs sm:text-sm font-['JetBrains_Mono',monospace] font-bold px-4 py-1.5 rounded-full border ${
-              theme === 'dark'
-                ? 'text-white bg-white/10 border-white/20'
-                : 'text-slate-800 bg-slate-100 border-slate-300'
-            }`}>
-              Score: {education.percentage}
-            </span>
-          </div>
-
-          <h3 className={`text-2xl sm:text-3xl font-black mb-2 font-['Outfit',sans-serif] ${
-            theme === 'dark' ? 'text-white' : 'text-slate-950'
-          }`}>
-            {education.degree}
-          </h3>
-
-          <p className={`text-base sm:text-lg font-bold mb-2 font-['Space_Grotesk',sans-serif] ${
-            theme === 'dark' ? 'text-white/90' : 'text-slate-700'
-          }`}>
-            {education.institution} • {education.university}
-          </p>
-
-          <p className={`text-xs sm:text-sm font-['JetBrains_Mono',monospace] mb-6 ${
-            theme === 'dark' ? 'text-white/60' : 'text-slate-500'
-          }`}>
-            📍 {education.location}
-          </p>
-
-          <div className={`pt-6 border-t flex items-center justify-between text-xs font-['JetBrains_Mono',monospace] ${
-            theme === 'dark' ? 'border-white/10 text-white/70' : 'border-slate-200 text-slate-600'
-          }`}>
-            <span>Duration: {education.duration}</span>
-            <span className="text-emerald-600 dark:text-green-400 font-semibold">✓ Completed</span>
-          </div>
+              <span>Duration: {education.duration}</span>
+              <span className="text-emerald-600 dark:text-green-400 font-semibold">✓ Completed</span>
+            </div>
+          </MotionCard>
         </div>
       </div>
     </section>

@@ -37,6 +37,7 @@
     "reactflow": "^11.11.4",
     "recharts": "^3.10.1",
     "resend": "^6.20.0",
+    "three": "^0.185.1",
     "vite": "^6.2.3"
   },
   "devDependencies": {
@@ -46,6 +47,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.14.0",
     "@types/nodemailer": "^8.0.1",
+    "@types/three": "^0.185.4",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
     "tailwindcss": "^4.1.14",

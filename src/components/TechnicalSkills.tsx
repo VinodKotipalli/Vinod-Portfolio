@@ -1,15 +1,22 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
+import MotionCard from './MotionCard';
 
 const categoryIcons: Record<string, string> = {
+  'Languages': '💻',
   'Programming Languages': '💻',
+  'AWS Compute & Storage': '☁️',
   'Cloud Platforms (AWS – Compute & Storage)': '☁️',
   'AWS Networking': '🌐',
   'AWS Security': '🛡️',
+  'Containers & Orchestration': '📦',
   'Containerization & Orchestration': '📦',
+  'Infrastructure as Code': '🏗️',
   'Infrastructure as Code (IaC)': '🏗️',
   'Monitoring & Observability': '📊',
+  'CI/CD & Version Control': '🔄',
   'Configuration Management': '⚙️',
   'Version Control & CI/CD': '🔄',
   'Databases': '🗄️',
@@ -57,55 +64,64 @@ const TechnicalSkills: React.FC = () => {
           </p>
         </div>
 
-        {/* 12 Categorized Skills Grid */}
+        {/* 11-12 Categorized Skills Grid with Motion Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category, index) => (
             <div
               key={category.title}
               data-aos="fade-up"
-              data-aos-delay={index * 50}
-              className={`backdrop-blur-md border rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between ${
-                theme === 'dark'
-                  ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.07] hover:shadow-[0_15px_35px_rgba(6,182,212,0.15)]'
-                  : 'bg-white border-slate-200 hover:border-cyan-500/40 hover:bg-white hover:shadow-[0_10px_30px_rgba(6,182,212,0.08)]'
-              }`}
+              data-aos-delay={index * 40}
+              className="h-full"
             >
-              <div>
-                {/* Category Header */}
-                <div className={`flex items-start justify-between gap-3 mb-5 pb-3 border-b ${
-                  theme === 'dark' ? 'border-white/10' : 'border-slate-200'
-                }`}>
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-2xl">{categoryIcons[category.title] || '⚡'}</span>
-                    <h3 className={`font-bold text-base md:text-lg tracking-tight group-hover:text-cyan-400 transition-colors leading-snug font-['Outfit',sans-serif] ${
-                      theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-600'
-                    }`}>
-                      {category.title}
-                    </h3>
-                  </div>
-                  <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold shrink-0 ${
-                    theme === 'dark' ? 'text-white/40' : 'text-slate-400'
+              <MotionCard
+                className={`backdrop-blur-md border rounded-2xl p-6 transition-all duration-300 h-full ${
+                  theme === 'dark'
+                    ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(6,182,212,0.12)]'
+                    : 'bg-white border-slate-200 hover:border-cyan-500/40 hover:bg-white hover:shadow-md'
+                }`}
+                glowColor={theme === 'dark' ? 'rgba(6, 182, 212, 0.18)' : 'rgba(2, 132, 199, 0.14)'}
+              >
+                <div>
+                  {/* Category Header */}
+                  <div className={`flex items-start justify-between gap-3 mb-5 pb-3 border-b ${
+                    theme === 'dark' ? 'border-white/10' : 'border-slate-200'
                   }`}>
-                    #{index + 1 < 10 ? `0${index + 1}` : index + 1}
-                  </span>
-                </div>
-
-                {/* Skill Pills */}
-                <div className="flex flex-wrap gap-2 font-['Space_Grotesk',sans-serif]">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                        theme === 'dark'
-                          ? 'bg-black/60 border border-white/10 text-white/90 group-hover:border-white/20 hover:bg-cyan-500/15 hover:text-cyan-300 hover:border-cyan-500/40'
-                          : 'bg-slate-100 border border-slate-200 text-slate-800 hover:bg-cyan-50 hover:text-cyan-800 hover:border-cyan-200'
-                      }`}
-                    >
-                      {skill}
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-2xl transition-transform duration-300 group-hover:scale-110">
+                        {categoryIcons[category.title] || '⚡'}
+                      </span>
+                      <h3 className={`font-bold text-base md:text-lg tracking-tight group-hover:text-cyan-400 transition-colors leading-snug font-['Outfit',sans-serif] ${
+                        theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-600'
+                      }`}>
+                        {category.title}
+                      </h3>
+                    </div>
+                    <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold shrink-0 ${
+                      theme === 'dark' ? 'text-white/40' : 'text-slate-400'
+                    }`}>
+                      #{index + 1 < 10 ? `0${index + 1}` : index + 1}
                     </span>
-                  ))}
+                  </div>
+
+                  {/* Skill Pills with Spring Hover Motion */}
+                  <div className="flex flex-wrap gap-2 font-['Space_Grotesk',sans-serif]">
+                    {category.skills.map((skill) => (
+                      <motion.span
+                        key={skill}
+                        whileHover={{ scale: 1.06, y: -2 }}
+                        whileTap={{ scale: 0.96 }}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-default transition-colors duration-200 ${
+                          theme === 'dark'
+                            ? 'bg-black/60 border border-white/10 text-white/90 group-hover:border-white/20 hover:bg-cyan-500/15 hover:text-cyan-300 hover:border-cyan-500/40'
+                            : 'bg-slate-100 border border-slate-200 text-slate-800 hover:bg-cyan-50 hover:text-cyan-800 hover:border-cyan-200'
+                        }`}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </MotionCard>
             </div>
           ))}
         </div>

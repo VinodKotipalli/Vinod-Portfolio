@@ -2,6 +2,7 @@ import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
 import { CertificateItem } from '../data/portfolioData';
+import MotionCard from './MotionCard';
 
 // 1. AWS Logo with clear, unmistakable 'AWS' typography and vibrant orange smile arrow
 const AwsProviderLogo: React.FC = () => (
@@ -85,92 +86,97 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
     <div
       data-aos="fade-up"
       data-aos-delay={String(Math.min((index % 6) * 80, 400))}
-      className={`backdrop-blur-md border rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between ${
-        theme === 'dark'
-          ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(6,182,212,0.12)]'
-          : 'bg-slate-50 border-slate-200 hover:border-cyan-500/50 hover:bg-white hover:shadow-md'
-      }`}
+      className="h-full"
     >
-      <div>
-        {/* Top bar: Provider Logo, Code Badge & Dates */}
-        <div className="flex items-center justify-between gap-2 mb-4">
-          <div className="flex items-center gap-3">
-            <ProviderLogo issuer={cert.issuer} name={cert.name} />
-            <div>
-              <span className={`text-[11px] font-['Space_Grotesk',sans-serif] font-bold block ${
-                theme === 'dark' ? 'text-white/90' : 'text-slate-800'
-              }`}>
-                {cert.issuer}
-              </span>
-              <span className={`text-[10px] font-['JetBrains_Mono',monospace] ${
-                theme === 'dark' ? 'text-white/50' : 'text-slate-500'
-              }`}>
-                {cert.issueDate ? `Issued ${cert.issueDate}` : cert.year}
-                {cert.expiryDate ? ` · Exp ${cert.expiryDate}` : ''}
-              </span>
+      <MotionCard
+        className={`backdrop-blur-md border rounded-2xl p-6 transition-all duration-300 group flex flex-col justify-between h-full ${
+          theme === 'dark'
+            ? 'bg-white/5 border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.08] hover:shadow-[0_15px_35px_rgba(6,182,212,0.12)]'
+            : 'bg-slate-50 border-slate-200 hover:border-cyan-500/50 hover:bg-white hover:shadow-md'
+        }`}
+        glowColor={theme === 'dark' ? 'rgba(6, 182, 212, 0.18)' : 'rgba(2, 132, 199, 0.12)'}
+      >
+        <div>
+          {/* Top bar: Provider Logo, Code Badge & Dates */}
+          <div className="flex items-center justify-between gap-2 mb-4">
+            <div className="flex items-center gap-3">
+              <ProviderLogo issuer={cert.issuer} name={cert.name} />
+              <div>
+                <span className={`text-[11px] font-['Space_Grotesk',sans-serif] font-bold block ${
+                  theme === 'dark' ? 'text-white/90' : 'text-slate-800'
+                }`}>
+                  {cert.issuer}
+                </span>
+                <span className={`text-[10px] font-['JetBrains_Mono',monospace] ${
+                  theme === 'dark' ? 'text-white/50' : 'text-slate-500'
+                }`}>
+                  {cert.issueDate ? `Issued ${cert.issueDate}` : cert.year}
+                  {cert.expiryDate ? ` · Exp ${cert.expiryDate}` : ''}
+                </span>
+              </div>
             </div>
+            <span className={`px-2.5 py-1 rounded-full text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider shrink-0 border ${
+              theme === 'dark'
+                ? 'bg-cyan-500/15 border-cyan-500/30 text-cyan-300'
+                : 'bg-cyan-50 border-cyan-200 text-cyan-800'
+            }`}>
+              {cert.code}
+            </span>
           </div>
-          <span className={`px-2.5 py-1 rounded-full text-[10px] font-['JetBrains_Mono',monospace] font-bold uppercase tracking-wider shrink-0 border ${
-            theme === 'dark'
-              ? 'bg-cyan-500/15 border-cyan-500/30 text-cyan-300'
-              : 'bg-cyan-50 border-cyan-200 text-cyan-800'
+
+          {/* Certificate Title */}
+          <h3 className={`font-bold text-base sm:text-lg tracking-tight group-hover:text-cyan-400 transition-colors leading-snug mb-2 font-['Outfit',sans-serif] ${
+            theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
           }`}>
-            {cert.code}
-          </span>
+            {cert.name}
+          </h3>
+
+          {/* Description */}
+          {cert.description && (
+            <p className={`text-xs font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed mb-3 ${
+              theme === 'dark' ? 'text-white/70' : 'text-slate-600'
+            }`}>
+              {cert.description}
+            </p>
+          )}
+
+          {/* Skills Chips */}
+          {cert.skills && cert.skills.length > 0 && (
+            <div className={`flex flex-wrap gap-1 mb-4 pt-2 border-t ${
+              theme === 'dark' ? 'border-white/5' : 'border-slate-200'
+            }`}>
+              {cert.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className={`px-2 py-0.5 rounded text-[9px] font-['JetBrains_Mono',monospace] border ${
+                    theme === 'dark'
+                      ? 'bg-black/50 border-white/10 text-white/80'
+                      : 'bg-white border-slate-200 text-slate-700'
+                  }`}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Certificate Title */}
-        <h3 className={`font-bold text-base sm:text-lg tracking-tight group-hover:text-cyan-400 transition-colors leading-snug mb-2 font-['Outfit',sans-serif] ${
-          theme === 'dark' ? 'text-white' : 'text-slate-900 group-hover:text-cyan-700'
+        {/* Footer: Verification Badge */}
+        <div className={`pt-3 border-t flex items-center justify-between gap-2 text-xs font-['JetBrains_Mono',monospace] ${
+          theme === 'dark' ? 'border-white/10 text-white/50' : 'border-slate-200 text-slate-500'
         }`}>
-          {cert.name}
-        </h3>
-
-        {/* Description */}
-        {cert.description && (
-          <p className={`text-xs font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed mb-3 ${
-            theme === 'dark' ? 'text-white/70' : 'text-slate-600'
+          <span className={`flex items-center gap-1.5 text-[10px] ${
+            theme === 'dark' ? 'text-white/70' : 'text-slate-700'
           }`}>
-            {cert.description}
-          </p>
-        )}
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            Verified Credential
+          </span>
 
-        {/* Skills Chips */}
-        {cert.skills && cert.skills.length > 0 && (
-          <div className={`flex flex-wrap gap-1 mb-4 pt-2 border-t ${
-            theme === 'dark' ? 'border-white/5' : 'border-slate-200'
-          }`}>
-            {cert.skills.map((skill) => (
-              <span
-                key={skill}
-                className={`px-2 py-0.5 rounded text-[9px] font-['JetBrains_Mono',monospace] border ${
-                  theme === 'dark'
-                    ? 'bg-black/50 border-white/10 text-white/80'
-                    : 'bg-white border-slate-200 text-slate-700'
-                }`}
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Footer: Verification Badge */}
-      <div className={`pt-3 border-t flex items-center justify-between gap-2 text-xs font-['JetBrains_Mono',monospace] ${
-        theme === 'dark' ? 'border-white/10 text-white/50' : 'border-slate-200 text-slate-500'
-      }`}>
-        <span className={`flex items-center gap-1.5 text-[10px] ${
-          theme === 'dark' ? 'text-white/70' : 'text-slate-700'
-        }`}>
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          Verified Credential
-        </span>
-
-        <span className="flex items-center gap-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
-          {issuerCat}
-        </span>
-      </div>
+          <span className="flex items-center gap-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
+            {issuerCat}
+          </span>
+        </div>
+      </MotionCard>
     </div>
   );
 };
