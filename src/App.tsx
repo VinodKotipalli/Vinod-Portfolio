@@ -10,15 +10,15 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
 import Footer from './components/Footer';
-import SectionFallback from './components/SectionFallback';
 
-// Lazy loading heavy components with React.lazy to reduce initial bundle size and speed up first paint
-const TechnicalSkills = lazy(() => import('./components/TechnicalSkills'));
-const Experience = lazy(() => import('./components/Experience'));
-const Projects = lazy(() => import('./components/Projects'));
-const Certificates = lazy(() => import('./components/Certificates'));
-const Education = lazy(() => import('./components/Education'));
-const Contact = lazy(() => import('./components/Contact'));
+import TechnicalSkills from './components/TechnicalSkills';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Certificates from './components/Certificates';
+import Education from './components/Education';
+import Contact from './components/Contact';
+
+// Only the floating interactive chatbot widget is lazy loaded
 const GeminiChatbot = lazy(() => import('./components/GeminiChatbot'));
 
 function MainLayout() {
@@ -34,31 +34,12 @@ function MainLayout() {
       <Navbar />
       <Hero />
       <AboutMe />
-
-      <Suspense fallback={<SectionFallback minHeight="min-h-[500px]" title="Technical Skills" />}>
-        <TechnicalSkills />
-      </Suspense>
-
-      <Suspense fallback={<SectionFallback minHeight="min-h-[600px]" title="Professional Experience" />}>
-        <Experience />
-      </Suspense>
-
-      <Suspense fallback={<SectionFallback minHeight="min-h-[600px]" title="Featured Projects" />}>
-        <Projects />
-      </Suspense>
-
-      <Suspense fallback={<SectionFallback minHeight="min-h-[500px]" title="Certifications" />}>
-        <Certificates />
-      </Suspense>
-
-      <Suspense fallback={<SectionFallback minHeight="min-h-[400px]" title="Education" />}>
-        <Education />
-      </Suspense>
-
-      <Suspense fallback={<SectionFallback minHeight="min-h-[600px]" title="Contact Section" />}>
-        <Contact />
-      </Suspense>
-
+      <TechnicalSkills />
+      <Experience />
+      <Projects />
+      <Certificates />
+      <Education />
+      <Contact />
       <Footer />
 
       <Suspense fallback={null}>

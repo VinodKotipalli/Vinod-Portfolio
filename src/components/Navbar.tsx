@@ -12,12 +12,30 @@ const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 40;
+          setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   const navLinks = [
     { name: 'About', href: '#about' },
@@ -32,6 +50,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
+      style={{ transform: 'translateZ(0)' }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? theme === 'dark'
@@ -44,6 +63,10 @@ const Navbar: React.FC = () => {
         {/* Brand Name */}
         <a
           href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
           className={`text-sm sm:text-base xl:text-lg font-black tracking-wider uppercase flex items-center gap-2.5 group transition-colors whitespace-nowrap shrink-0 ${
             theme === 'dark' ? 'text-white' : 'text-slate-900'
           }`}
@@ -60,6 +83,7 @@ const Navbar: React.FC = () => {
             <a
               key={link.name}
               href={link.href}
+              onClick={(e) => handleLinkClick(e, link.href)}
               className={`text-xs uppercase tracking-wider font-medium transition-colors whitespace-nowrap ${
                 theme === 'dark'
                   ? 'text-white/70 hover:text-cyan-400'
@@ -185,7 +209,10 @@ const Navbar: React.FC = () => {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  handleLinkClick(e, link.href);
+                  setMobileMenuOpen(false);
+                }}
                 className={`text-base font-bold uppercase tracking-wider py-1 transition-colors ${
                   theme === 'dark'
                     ? 'text-white/80 hover:text-cyan-400'

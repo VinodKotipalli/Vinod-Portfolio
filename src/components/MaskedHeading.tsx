@@ -8,7 +8,7 @@ export interface MaskedHeadingProps {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'span' | 'div' | React.ElementType;
   /** Additional CSS classes for styling */
   className?: string;
-  /** Split strategy: 'characters' gives smooth wave across letters; 'words' animates word by word */
+  /** Split strategy: 'words' (recommended for 60fps performance) or 'characters' */
   splitBy?: 'characters' | 'words';
   /** Initial delay before starting the animation in seconds */
   delay?: number;
@@ -16,10 +16,8 @@ export interface MaskedHeadingProps {
   staggerDelay?: number;
   /** Duration of each item's transition in seconds */
   duration?: number;
-  /** Starting blur radius in pixels (default: 12) */
-  initialBlur?: number;
-  /** Viewport amount required to trigger (default: 0.25) */
-  viewportAmount?: number;
+  /** Viewport amount required to trigger */
+  viewportAmount?: number | 'some';
   /** Optional custom id for the heading element */
   id?: string;
 }
@@ -28,34 +26,29 @@ export const MaskedHeading: React.FC<MaskedHeadingProps> = ({
   text,
   as = 'h2',
   className = '',
-  splitBy = 'characters',
-  delay = 0.1,
+  splitBy = 'words',
+  delay = 0.05,
   staggerDelay,
-  duration = 0.7,
-  initialBlur = 12,
-  viewportAmount = 0.25,
+  duration = 0.5,
+  viewportAmount = 'some',
   id,
 }) => {
   const Component: React.ElementType = as;
   const words = text.trim().split(/\s+/);
-  const stepStagger = staggerDelay ?? (splitBy === 'characters' ? 0.026 : 0.08);
+  const stepStagger = staggerDelay ?? (splitBy === 'characters' ? 0.02 : 0.06);
 
   const itemVariants: Variants = {
     hidden: {
-      y: '120%',
+      y: '100%',
       opacity: 0,
-      filter: `blur(${initialBlur}px)`,
-      scale: 0.95,
     },
     visible: (customIndex: number) => ({
       y: '0%',
       opacity: 1,
-      filter: 'blur(0px)',
-      scale: 1,
       transition: {
         duration,
         delay: delay + customIndex * stepStagger,
-        ease: [0.16, 1, 0.3, 1], // Cinematic cubic-bezier for snappy, sharp focus
+        ease: [0.16, 1, 0.3, 1],
       },
     }),
   };
@@ -67,12 +60,12 @@ export const MaskedHeading: React.FC<MaskedHeadingProps> = ({
       {/* Screen-reader accessible full text */}
       <span className="sr-only">{text}</span>
 
-      {/* Visual staggered masked blurred-to-sharp presentation */}
+      {/* Visual staggered masked presentation */}
       <motion.span
         aria-hidden="true"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: viewportAmount }}
+        viewport={{ once: true, amount: viewportAmount, margin: '0px 0px 40px 0px' }}
         className="inline-block max-w-full"
       >
         {words.map((word, wordIdx) => {
@@ -89,7 +82,8 @@ export const MaskedHeading: React.FC<MaskedHeadingProps> = ({
                       key={charIdx}
                       custom={currentIndex}
                       variants={itemVariants}
-                      className="inline-block will-change-[transform,filter,opacity]"
+                      className="inline-block"
+                      style={{ willChange: 'transform, opacity' }}
                     >
                       {char}
                     </motion.span>
@@ -99,7 +93,8 @@ export const MaskedHeading: React.FC<MaskedHeadingProps> = ({
                 <motion.span
                   custom={wordIdx}
                   variants={itemVariants}
-                  className="inline-block will-change-[transform,filter,opacity]"
+                  className="inline-block"
+                  style={{ willChange: 'transform, opacity' }}
                 >
                   {word}
                 </motion.span>

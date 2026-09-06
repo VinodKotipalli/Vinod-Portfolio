@@ -39,34 +39,18 @@ const Hero: React.FC = () => {
     >
       {/* Dynamic Background with Ambient Gradients */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Animated breathing radial gradients */}
-        <motion.div
-          animate={{
-            scale: [1, 1.12, 1],
-            opacity: [0.15, 0.22, 0.15],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className={`absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full blur-[140px] ${
-            theme === 'dark' ? 'bg-cyan-500/20' : 'bg-cyan-500/15'
+        {/* Smooth hardware-accelerated ambient glows */}
+        <div
+          className={`absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-[100px] pointer-events-none transition-colors duration-700 ${
+            theme === 'dark' ? 'bg-cyan-500/15' : 'bg-cyan-500/10'
           }`}
+          style={{ transform: 'translate3d(-50%, 0, 0)', willChange: 'auto' }}
         />
-        <motion.div
-          animate={{
-            scale: [1.1, 1, 1.1],
-            opacity: [0.1, 0.18, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[120px] ${
-            theme === 'dark' ? 'bg-blue-600/20' : 'bg-blue-600/15'
+        <div
+          className={`absolute bottom-1/4 right-1/4 w-[450px] h-[450px] rounded-full blur-[90px] pointer-events-none transition-colors duration-700 ${
+            theme === 'dark' ? 'bg-blue-600/15' : 'bg-blue-600/10'
           }`}
+          style={{ willChange: 'auto' }}
         />
         
         {/* Fine technical grid pattern overlay */}

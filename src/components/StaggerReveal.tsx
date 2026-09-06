@@ -71,24 +71,22 @@ export const createStaggerItemVariants = (
   return {
     hidden: {
       opacity: 0,
-      scale: 0.98,
       ...coords,
     },
     visible: {
       opacity: 1,
-      scale: 1,
       x: 0,
       y: 0,
       transition: {
-        duration: 0.45,
+        duration: 0.4,
         ease: [0.16, 1, 0.3, 1], // Cubic-bezier for smooth deceleration
       },
     },
   };
 };
 
-export const defaultStaggerItemVariants = createStaggerItemVariants('up', 24);
-export const listStaggerItemVariants = createStaggerItemVariants('right', 18);
+export const defaultStaggerItemVariants = createStaggerItemVariants('up', 20);
+export const listStaggerItemVariants = createStaggerItemVariants('right', 16);
 
 /**
  * StaggerContainer orchestrates child entrances sequentially via an Intersection Observer.
@@ -97,10 +95,10 @@ export const listStaggerItemVariants = createStaggerItemVariants('right', 18);
 export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   children,
   className = '',
-  staggerDelay = 0.08,
-  delayChildren = 0.05,
+  staggerDelay = 0.06,
+  delayChildren = 0.04,
   viewportAmount = 'some',
-  viewportMargin = '0px 0px 60px 0px',
+  viewportMargin = '0px 0px 80px 0px',
   once = true,
   as: Component = 'div',
   id,
@@ -124,14 +122,14 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
 
 /**
  * StaggerItem represents an individual item (card, list item, badge) within a StaggerContainer.
- * Inherits the parent container's sequence timing and enters with a blurred-to-sharp fluid slide.
+ * Inherits the parent container's sequence timing with GPU-accelerated translate.
  */
 export const StaggerItem: React.FC<StaggerItemProps> = ({
   children,
   className = '',
   as: Component = 'div',
   direction = 'up' as StaggerDirection,
-  customDistance = 28,
+  customDistance = 20,
   whileHover,
   whileTap,
   onClick,
@@ -148,6 +146,10 @@ export const StaggerItem: React.FC<StaggerItemProps> = ({
       whileTap={whileTap}
       onClick={onClick}
       className={className}
+      style={{
+        transform: 'translateZ(0)',
+        willChange: 'transform, opacity',
+      }}
     >
       {children}
     </MotionComponent>

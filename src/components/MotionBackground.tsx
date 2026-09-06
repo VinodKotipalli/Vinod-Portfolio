@@ -60,6 +60,17 @@ export const MotionBackground: React.FC = () => {
     let fallbackCtx: CanvasRenderingContext2D | null = null;
     let fallbackAnimationFrameId: number | null = null;
 
+    let isScrolling = false;
+    let scrollTimeout: number | null = null;
+    const handleScroll = () => {
+      isScrolling = true;
+      if (scrollTimeout !== null) window.clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        isScrolling = false;
+      }, 120);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     // Attempt to initialize the Web Worker to offload all physics and distance calculations
     try {
       worker = new Worker(
@@ -124,9 +135,17 @@ export const MotionBackground: React.FC = () => {
         };
 
         let currentColors = getColors(theme);
+        let skipFrame = false;
 
         worker.onmessage = (e: MessageEvent<FrameCalculatedEvent>) => {
           if (!fallbackCtx || e.data.type !== 'frameCalculated') return;
+
+          // During rapid scrolling, skip every other frame to prioritize smooth 60/120fps compositor scrolling
+          if (isScrolling) {
+            skipFrame = !skipFrame;
+            if (skipFrame) return;
+          }
+
           const { particleData, particleCount, lineData, lineCount, tetherData, tetherCount, pulseData, pulseCount } = e.data;
 
           fallbackCtx.clearRect(0, 0, displayWidth, displayHeight);
@@ -274,8 +293,10 @@ export const MotionBackground: React.FC = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('scroll', handleScroll);
       resizeObserver.disconnect();
       window.clearTimeout(resizeTimeout);
+      if (scrollTimeout !== null) window.clearTimeout(scrollTimeout);
 
       if (mouseFrameId !== null) {
         cancelAnimationFrame(mouseFrameId);
@@ -291,7 +312,14 @@ export const MotionBackground: React.FC = () => {
   }, []); // Mounts once and handles theme via the specialized theme effect
 
   return (
-    <div ref={containerRef} className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div
+      ref={containerRef}
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+      style={{
+        transform: 'translateZ(0)',
+        contain: 'paint layout',
+      }}
+    >
       {/* Subtle ambient atmospheric gradient zones */}
       <div
         className={`absolute top-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full blur-[140px] opacity-30 transition-colors duration-700 ${
