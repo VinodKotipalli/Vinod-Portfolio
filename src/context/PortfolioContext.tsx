@@ -44,7 +44,7 @@ const defaultFullData: PortfolioFullData = {
   socialLinks: initialSocialLinks,
 };
 
-const STORAGE_KEY = 'saivinod_portfolio_data_v15';
+const STORAGE_KEY = 'saivinod_portfolio_data_v16';
 
 interface PortfolioContextType {
   data: PortfolioFullData;
@@ -55,10 +55,19 @@ const PortfolioContext = createContext<PortfolioContextType | null>(null);
 export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [data] = useState<PortfolioFullData>(() => {
     try {
+      // Clean up previous stale storage keys
+      localStorage.removeItem('saivinod_portfolio_data_v15');
+      localStorage.removeItem('saivinod_portfolio_data_v14');
+
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        return { ...defaultFullData, ...parsed };
+        return {
+          ...defaultFullData,
+          ...parsed,
+          // Always ensure the 9 official credentials from initialCertificationsList are present
+          certificates: initialCertificationsList,
+        };
       }
     } catch (e) {
       console.error('Failed to load portfolio data from localStorage', e);

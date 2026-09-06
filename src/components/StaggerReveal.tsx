@@ -71,26 +71,24 @@ export const createStaggerItemVariants = (
   return {
     hidden: {
       opacity: 0,
-      filter: 'blur(6px)',
-      scale: 0.97,
+      scale: 0.98,
       ...coords,
     },
     visible: {
       opacity: 1,
-      filter: 'blur(0px)',
       scale: 1,
       x: 0,
       y: 0,
       transition: {
-        duration: 0.55,
+        duration: 0.45,
         ease: [0.16, 1, 0.3, 1], // Cubic-bezier for smooth deceleration
       },
     },
   };
 };
 
-export const defaultStaggerItemVariants = createStaggerItemVariants('up', 28);
-export const listStaggerItemVariants = createStaggerItemVariants('right', 20);
+export const defaultStaggerItemVariants = createStaggerItemVariants('up', 24);
+export const listStaggerItemVariants = createStaggerItemVariants('right', 18);
 
 /**
  * StaggerContainer orchestrates child entrances sequentially via an Intersection Observer.
@@ -101,8 +99,8 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   className = '',
   staggerDelay = 0.08,
   delayChildren = 0.05,
-  viewportAmount = 0.15,
-  viewportMargin = '0px 0px -40px 0px',
+  viewportAmount = 'some',
+  viewportMargin = '0px 0px 60px 0px',
   once = true,
   as: Component = 'div',
   id,

@@ -75,9 +75,8 @@ const ProviderLogo: React.FC<{ issuer: string; name: string }> = ({ issuer, name
 const getIssuerCategory = (issuer: string) => {
   const lower = issuer.toLowerCase();
   if (lower.includes('amazon') || lower.includes('aws')) return 'AWS';
-  if (lower.includes('microsoft')) return 'Microsoft Azure';
   if (lower.includes('anthropic') || lower.includes('claude')) return 'Anthropic Claude';
-  if (lower.includes('github')) return 'GitHub';
+  if (lower.includes('microsoft') || lower.includes('github')) return 'Microsoft Azure';
   return 'Cloud & AI';
 };
 
@@ -88,7 +87,7 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
   return (
     <StaggerItem
       direction="up"
-      customDistance={32}
+      customDistance={24}
       whileHover={{ y: -6 }}
       className="h-full"
     >
@@ -115,7 +114,7 @@ const CertificateCard: React.FC<{ cert: CertificateItem; index: number }> = ({ c
                   theme === 'dark' ? 'text-white/50' : 'text-slate-500'
                 }`}>
                   {cert.issueDate ? `Issued ${cert.issueDate}` : cert.year}
-                  {cert.expiryDate ? ` · Exp ${cert.expiryDate}` : ''}
+                  {cert.expiryDate ? ` - Exp ${cert.expiryDate}` : ''}
                 </span>
               </div>
             </div>
@@ -207,7 +206,7 @@ export const Certificates: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 'some' }}
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-12 text-center md:text-left"
         >
@@ -228,15 +227,16 @@ export const Certificates: React.FC = () => {
           <p className={`text-sm sm:text-base md:text-lg max-w-2xl font-light font-['Plus_Jakarta_Sans',sans-serif] leading-relaxed transition-colors ${
             theme === 'dark' ? 'text-white/70' : 'text-slate-600'
           }`}>
-            Official certifications from Amazon Web Services (AWS) validating solutions architecture and cloud operations expertise.
+            Official certifications validating solutions architecture, cloud operations, data engineering, and generative AI systems.
           </p>
         </motion.div>
 
         {/* Certificate Cards Grid with Sequential Staggered Entrance */}
         <StaggerContainer
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          staggerDelay={0.09}
-          viewportAmount={0.12}
+          staggerDelay={0.07}
+          viewportAmount="some"
+          viewportMargin="0px 0px 80px 0px"
         >
           {certs.map((cert, index) => (
             <CertificateCard key={cert.name + cert.code} cert={cert} index={index} />
