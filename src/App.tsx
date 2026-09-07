@@ -18,8 +18,8 @@ import Certificates from './components/Certificates';
 import Education from './components/Education';
 import Contact from './components/Contact';
 
-// Only the floating interactive chatbot widget is lazy loaded
-const GeminiChatbot = lazy(() => import('./components/GeminiChatbot'));
+// Floating interactive WhatsApp chatbot widget is lazy loaded
+const WhatsAppChatbot = lazy(() => import('./components/WhatsAppChatbot'));
 
 function MainLayout() {
   const { theme } = useTheme();
@@ -43,7 +43,7 @@ function MainLayout() {
       <Footer />
 
       <Suspense fallback={null}>
-        <GeminiChatbot />
+        <WhatsAppChatbot />
       </Suspense>
     </div>
   );

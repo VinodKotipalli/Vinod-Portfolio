@@ -14,6 +14,10 @@ service cloud.firestore {
     function isValidId(id) {
       return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
     }
+
+    function isOwner() {
+      return isSignedIn() && request.auth.token.email == 'saivinodkotipalli2003@gmail.com';
+    }
     
     function incoming() {
       return request.resource.data;
@@ -35,7 +39,7 @@ service cloud.firestore {
 
     // --- Messages Collection: Contact Form Inquiries ---
     match /messages/{messageId} {
-      allow read: if isSignedIn() && (resource.data.sender_uid == request.auth.uid || request.auth.token.email == 'saivinodkotipalli2003@gmail.com');
+      allow read: if isSignedIn() && (resource.data.sender_uid == request.auth.uid || isOwner());
       allow create: if isValidId(messageId) && isValidMessage(incoming());
       allow update, delete: if false;
     }
