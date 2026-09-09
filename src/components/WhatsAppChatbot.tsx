@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   X,
   Send,
@@ -39,6 +39,7 @@ export const WhatsAppChatbot: React.FC = () => {
   const { theme } = useTheme();
   const { personalInfo } = data;
 
+  const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
@@ -65,6 +66,15 @@ export const WhatsAppChatbot: React.FC = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    // Gracefully reveal the WhatsApp chatbot a few seconds after initial page load
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 2800);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -167,14 +177,26 @@ export const WhatsAppChatbot: React.FC = () => {
     <aside aria-label="WhatsApp Assistant" className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 font-sans">
       {/* Floating WhatsApp Trigger Button */}
       <AnimatePresence>
-        {!isOpen && (
-          <div className="relative flex items-center group">
+        {isVisible && !isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 35, x: 20, scale: 0.75 }}
+            animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.8 }}
+            transition={{
+              type: 'spring',
+              damping: 22,
+              stiffness: 240,
+              mass: 0.8,
+            }}
+            className="relative flex items-center group"
+          >
             {/* Tooltip Badge */}
             {showTooltip && (
               <motion.div
-                initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                initial={{ opacity: 0, x: 25, scale: 0.9 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ delay: 0.45, duration: 0.4, ease: 'easeOut' }}
                 className="absolute right-16 sm:right-18 bg-white dark:bg-[#1f2c34] text-slate-800 dark:text-slate-100 text-xs py-2 px-3.5 rounded-2xl shadow-xl border border-emerald-500/30 whitespace-nowrap flex items-center gap-2 cursor-pointer backdrop-blur-md"
                 onClick={() => setIsOpen(true)}
               >
@@ -196,9 +218,6 @@ export const WhatsAppChatbot: React.FC = () => {
             <motion.button
               id="whatsapp-chatbot-launcher-btn"
               onClick={() => setIsOpen(true)}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0, opacity: 0 }}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.92 }}
               aria-label="Open WhatsApp Chatbot"
@@ -220,7 +239,7 @@ export const WhatsAppChatbot: React.FC = () => {
                 </span>
               )}
             </motion.button>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
