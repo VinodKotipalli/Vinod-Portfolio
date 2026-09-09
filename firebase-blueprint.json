@@ -16,12 +16,40 @@
         "createdAt": { "type": "timestamp", "description": "The server timestamp when the message was created" }
       },
       "required": ["first_name", "user_email", "message", "createdAt"]
+    },
+    "VisitorStats": {
+      "title": "Visitor Statistics",
+      "description": "Aggregate tracking metrics for total unique portfolio visitors.",
+      "type": "object",
+      "properties": {
+        "totalViews": { "type": "number", "description": "Total unique visitor count" },
+        "updatedAt": { "type": "timestamp", "description": "Server timestamp of the latest recorded unique view" }
+      },
+      "required": ["totalViews", "updatedAt"]
+    },
+    "UniqueVisitor": {
+      "title": "Unique Visitor Record",
+      "description": "Individual record of a unique visitor session based on anonymous client identity.",
+      "type": "object",
+      "properties": {
+        "visitorId": { "type": "string", "maxLength": 128 },
+        "firstVisitedAt": { "type": "timestamp", "description": "Timestamp when this visitor first visited" }
+      },
+      "required": ["visitorId", "firstVisitedAt"]
     }
   },
   "firestore": {
     "/messages/{messageId}": {
       "schema": { "$ref": "#/entities/Message" },
       "description": "Stores contact messages and inquiries."
+    },
+    "/stats/visitors": {
+      "schema": { "$ref": "#/entities/VisitorStats" },
+      "description": "Global visitor metrics and unique view counters."
+    },
+    "/visitors/{visitorId}": {
+      "schema": { "$ref": "#/entities/UniqueVisitor" },
+      "description": "Registry of unique client visitor identifiers."
     }
   }
 }

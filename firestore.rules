@@ -37,10 +37,42 @@ service cloud.firestore {
         && data.createdAt == request.time;
     }
 
+    function isValidVisitorStats(data) {
+      return data.keys().hasAll(['totalViews', 'updatedAt'])
+        && data.keys().size() == 2
+        && data.totalViews is number
+        && data.totalViews >= 0
+        && data.updatedAt == request.time;
+    }
+
+    function isValidUniqueVisitor(data) {
+      return data.keys().hasAll(['visitorId', 'firstVisitedAt'])
+        && data.keys().size() == 2
+        && data.visitorId is string && data.visitorId.size() > 0 && data.visitorId.size() <= 128
+        && data.firstVisitedAt == request.time;
+    }
+
     // --- Messages Collection: Contact Form Inquiries ---
     match /messages/{messageId} {
       allow read: if isSignedIn() && (resource.data.sender_uid == request.auth.uid || isOwner());
       allow create: if isValidId(messageId) && isValidMessage(incoming());
+      allow update, delete: if false;
+    }
+
+    // --- Visitor Stats: Total Unique Views for Footer (Owner Only Read) ---
+    match /stats/visitors {
+      allow read: if isOwner();
+      allow create: if isValidVisitorStats(incoming());
+      allow update: if isValidVisitorStats(incoming())
+        && incoming().diff(resource.data).affectedKeys().hasOnly(['totalViews', 'updatedAt'])
+        && incoming().totalViews >= resource.data.totalViews;
+      allow delete: if false;
+    }
+
+    // --- Unique Visitors Registry ---
+    match /visitors/{visitorId} {
+      allow read: if isOwner();
+      allow create: if isValidId(visitorId) && isValidUniqueVisitor(incoming()) && incoming().visitorId == visitorId;
       allow update, delete: if false;
     }
   }

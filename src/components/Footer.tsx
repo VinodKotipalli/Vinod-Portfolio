@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Lock } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../context/AuthContext';
+import { VisitorCount } from './VisitorCount';
+import { trackUniqueVisitor } from '../lib/visitorTracker';
+
+const OWNER_EMAIL = 'saivinodkotipalli2003@gmail.com';
 
 const Footer: React.FC = () => {
   const { data } = usePortfolio();
   const { theme } = useTheme();
+  const { user, signInWithGoogle } = useAuth();
   const { personalInfo, socialLinks, footerContent } = data;
+
+  const isOwner = user?.email?.toLowerCase() === OWNER_EMAIL.toLowerCase();
+
+  useEffect(() => {
+    // Anonymously track unique portfolio visitors
+    trackUniqueVisitor().catch((err) => {
+      console.warn('Visitor tracking error:', err);
+    });
+  }, []);
 
   return (
     <footer className={`py-16 px-6 md:px-12 w-full font-mono text-[10px] md:text-xs tracking-widest flex flex-col justify-between min-h-[45vh] border-t transition-colors duration-300 ${
@@ -91,6 +107,18 @@ const Footer: React.FC = () => {
         </h2>
       </motion.div>
 
+      {/* Unique Portfolio Views Counter Display (Visible Only to Owner) */}
+      {isOwner && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="w-full flex justify-center items-center py-4 mb-4"
+        >
+          <VisitorCount />
+        </motion.div>
+      )}
+
       {/* Bottom Row */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -109,11 +137,25 @@ const Footer: React.FC = () => {
           >
             Get In Touch
           </motion.a>
-          <p className={`font-mono text-[9px] md:text-[10px] ${
-            theme === 'dark' ? 'text-white/50' : 'text-slate-500'
-          }`}>
-            {footerContent.copyright}
-          </p>
+          <div className="flex items-center gap-2">
+            <p className={`font-mono text-[9px] md:text-[10px] ${
+              theme === 'dark' ? 'text-white/50' : 'text-slate-500'
+            }`}>
+              {footerContent.copyright}
+            </p>
+            {!user && (
+              <button
+                onClick={() => signInWithGoogle()}
+                title="Owner Login (Analytics)"
+                className={`opacity-20 hover:opacity-100 transition-opacity p-0.5 rounded cursor-pointer ${
+                  theme === 'dark' ? 'text-white/60 hover:text-cyan-400' : 'text-slate-400 hover:text-cyan-600'
+                }`}
+                aria-label="Owner sign in"
+              >
+                <Lock className="w-2.5 h-2.5" />
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-col gap-3 md:items-center">
