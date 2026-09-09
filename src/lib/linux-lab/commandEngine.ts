@@ -1,4 +1,5 @@
 import { VirtualFileSystem, VFSNode } from './vfs';
+import { KubernetesCluster } from './k8sEngine';
 
 export interface CommandOutput {
   stdout: string;
@@ -10,9 +11,11 @@ export class LinuxCommandEngine {
   vfs: VirtualFileSystem;
   history: string[] = [];
   lastDir: string = '/home/sai';
+  k8s: KubernetesCluster;
 
   constructor(vfs: VirtualFileSystem) {
     this.vfs = vfs;
+    this.k8s = new KubernetesCluster();
   }
 
   // Execute full command line string (with support for pipes and redirection)
@@ -1024,6 +1027,9 @@ MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   5860.1 avail Mem
           ps: '/bin/ps',
           top: '/usr/bin/top',
           tree: '/usr/bin/tree',
+          kubectl: '/usr/local/bin/kubectl',
+          k: '/usr/local/bin/kubectl',
+          minikube: '/usr/local/bin/minikube',
         };
         if (binaries[bin]) {
           return { stdout: binaries[bin] + '\n', stderr: '', exitCode: 0 };
@@ -1176,10 +1182,68 @@ DESCRIPTION
         };
       }
 
+      case 'kubectl':
+      case 'k': {
+        return this.k8s.executeKubectl(rawArgs, this.vfs);
+      }
+
+      case 'minikube': {
+        const sub = rawArgs[0] || 'status';
+        if (sub === 'status') {
+          return {
+            stdout: `minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+`,
+            stderr: '',
+            exitCode: 0,
+          };
+        }
+        if (sub === 'ip') {
+          return {
+            stdout: '192.168.1.10\n',
+            stderr: '',
+            exitCode: 0,
+          };
+        }
+        if (sub === 'service' && rawArgs[1] === 'list') {
+          return {
+            stdout: `|-------------|------------------|--------------|-----------------------------|
+|  NAMESPACE  |       NAME       | TARGET PORT  |             URL             |
+|-------------|------------------|--------------|-----------------------------|
+| default     | frontend-svc     | 80           | http://192.168.1.10:30080   |
+| default     | api-gateway-svc  | No node port |                             |
+| kube-system | kube-dns         | No node port |                             |
+|-------------|------------------|--------------|-----------------------------|
+`,
+            stderr: '',
+            exitCode: 0,
+          };
+        }
+        return {
+          stdout: `minikube is a tool for running Kubernetes locally.
+Usage: minikube [command]
+
+Available Commands:
+  start          Starts a local Kubernetes cluster
+  status         Gets the status of the local Kubernetes cluster
+  stop           Stops a running local Kubernetes cluster
+  ip             Retrieves the IP address of the running cluster
+  service        Returns URL to connect to a service
+`,
+          stderr: '',
+          exitCode: 0,
+        };
+      }
+
       case 'help': {
         const helpText = `Linux Practice Lab - Supported Built-in & Unix Commands:
   Filesystem:     pwd, ls, cd, mkdir, touch, cp, mv, rm, cat, head, tail, find, tree, chmod, chown, stat
   Processes:      ps, kill, top, uptime
+  Kubernetes:     kubectl, k (alias), minikube (get nodes, pods, svc, deploy, logs, scale, describe, top, rollout, apply -f)
   Diagnostics:    df, du, free, ip, ping, curl, ss, netstat, systemctl, tar, gzip, uname, date, whoami, which, man
   Text Streams:   echo, printf, sort, uniq, cut, wc, sed, awk, grep
   Shell Features: pipes (|), output redirects (>, >>), environment variables, history, clear

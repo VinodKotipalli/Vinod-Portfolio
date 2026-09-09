@@ -128,13 +128,25 @@ export class VirtualFileSystem {
     addDir('/home/sai', 'logs', 0o755, 'sai', 'sai');
     addDir('/home/sai', 'scripts', 0o755, 'sai', 'sai');
     addDir('/etc', 'nginx', 0o755, 'root', 'root');
+    addDir('/etc', 'kubernetes', 0o755, 'root', 'root');
     addDir('/var', 'log', 0o755, 'root', 'root');
     addDir('/var/log', 'nginx', 0o755, 'www-data', 'www-data');
+    addDir('/home/sai', 'k8s', 0o755, 'sai', 'sai');
+    addDir('/home/sai', '.kube', 0o700, 'sai', 'sai');
 
     // /home/sai files
-    addFile('/home/sai', 'README.md', `# Linux Practice Lab Workspace\n\nWelcome to your interactive Linux environment!\nThis workspace is equipped with realistic DevOps project files, logs, and automation scripts.\n\nPractice commands freely or complete the 53 hands-on challenges!\n`, 0o644);
+    addFile('/home/sai', 'README.md', `# DevOps & Kubernetes Practice Lab\n\nWelcome to your interactive Linux & Kubernetes environment!\nThis workspace is equipped with realistic DevOps project files, logs, automation scripts, and an active Kubernetes v1.30.2 cluster sandbox.\n\nPractice commands freely with 'kubectl' or complete the hands-on challenges!\n`, 0o644);
     addFile('/home/sai', 'config.txt', `ENVIRONMENT=staging\nREGION=us-east-1\nPORT=8080\nDEBUG=false\nMAX_CONNECTIONS=100\nDATABASE_URL=postgres://db.internal:5432/app\n`, 0o640);
     addFile('/home/sai', 'users.txt', `root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin\nsys:x:3:3:sys:/dev:/usr/sbin/nologin\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\nsai:x:1000:1000:Saivinod Kotipalli,,,:/home/sai:/bin/bash\ndevops:x:1001:1001:DevOps Engineer,,,:/home/devops:/bin/bash\n`, 0o644);
+
+    // /home/sai/.kube
+    addFile('/home/sai/.kube', 'config', `apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data: LS0tLS1CRUdJTi...REDACTED\n    server: https://192.168.1.10:6443\n  name: devops-cluster-01\ncontexts:\n- context:\n    cluster: devops-cluster-01\n    user: kubernetes-admin\n    namespace: default\n  name: kubernetes-admin@devops-cluster-01\ncurrent-context: kubernetes-admin@devops-cluster-01\nkind: Config\nusers:\n- name: kubernetes-admin\n  user:\n    client-certificate-data: LS0tLS1CRUdJTi...REDACTED\n`, 0o600, 'sai', 'sai');
+
+    // /home/sai/k8s manifests
+    addFile('/home/sai/k8s', 'nginx-deployment.yaml', `apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: nginx-web\n  namespace: default\n  labels:\n    app: nginx-web\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: nginx-web\n  template:\n    metadata:\n      labels:\n        app: nginx-web\n    spec:\n      containers:\n      - name: nginx\n        image: nginx:1.27-alpine\n        ports:\n        - containerPort: 80\n        resources:\n          requests:\n            memory: "64Mi"\n            cpu: "100m"\n          limits:\n            memory: "128Mi"\n            cpu: "250m"\n`, 0o644, 'sai', 'sai');
+    addFile('/home/sai/k8s', 'frontend-service.yaml', `apiVersion: v1\nkind: Service\nmetadata:\n  name: frontend-svc\n  namespace: default\nspec:\n  type: NodePort\n  selector:\n    app: frontend\n  ports:\n  - port: 80\n    targetPort: 80\n    nodePort: 30080\n`, 0o644, 'sai', 'sai');
+    addFile('/home/sai/k8s', 'ingress.yaml', `apiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: main-ingress\n  namespace: default\nspec:\n  rules:\n  - host: app.cloudops.internal\n    http:\n      paths:\n      - path: /\n        pathType: Prefix\n        backend:\n          service:\n            name: frontend-svc\n            port:\n              number: 80\n`, 0o644, 'sai', 'sai');
+    addFile('/home/sai/k8s', 'configmap.yaml', `apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: app-env-config\n  namespace: default\ndata:\n  API_URL: "https://api.cloudops.internal"\n  CACHE_ENABLED: "true"\n  LOG_LEVEL: "info"\n`, 0o644, 'sai', 'sai');
 
     // /home/sai/projects/app
     addFile('/home/sai/projects/app', 'server.js', `const express = require('express');\nconst app = express();\nconst PORT = process.env.PORT || 8080;\n\napp.get('/health', (req, res) => res.json({ status: 'healthy', uptime: process.uptime() }));\napp.get('/api/data', (req, res) => res.json({ message: 'Hello from CloudOps!' }));\n\napp.listen(PORT, () => console.log('App running on port ' + PORT));\n`, 0o644);

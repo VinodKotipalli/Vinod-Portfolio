@@ -22,6 +22,7 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
   const [vfs, setVfs] = useState<VirtualFileSystem>(() => new VirtualFileSystem());
   const [commandsRunCount, setCommandsRunCount] = useState<number>(0);
   const [showRoadmapModal, setShowRoadmapModal] = useState<boolean>(false);
+  const [labMode, setLabMode] = useState<'linux' | 'k8s'>('k8s');
 
   // Engine instance bound to current VFS
   const engine = useMemo(() => new LinuxCommandEngine(vfs), [vfs]);
@@ -36,6 +37,7 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
   const handleResetEnvironment = () => {
     const fresh = new VirtualFileSystem();
     setVfs(fresh);
+    engine.k8s.resetToDefaultState();
     setCommandsRunCount(0);
   };
 
@@ -68,30 +70,68 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
           <div className="h-5 w-px bg-neutral-800 hidden sm:block" />
 
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-              <Terminal className="w-4 h-4" />
+            <div className={`w-7 h-7 rounded-lg border flex items-center justify-center transition-colors ${
+              labMode === 'k8s'
+                ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400'
+                : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+            }`}>
+              {labMode === 'k8s' ? <Cloud className="w-4 h-4" /> : <Terminal className="w-4 h-4" />}
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
-                  Linux Practice Lab
-                  <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    UNLIMITED
+                  {labMode === 'k8s' ? 'Kubernetes Sandbox Lab' : 'Linux Practice Lab'}
+                  <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded border ${
+                    labMode === 'k8s'
+                      ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'
+                      : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                  }`}>
+                    ACTIVE
                   </span>
                 </h1>
               </div>
               <p className="text-[10px] text-neutral-400 hidden md:block">
-                Interactive DevOps Sandbox & Shell
+                {labMode === 'k8s'
+                  ? 'Active v1.30.2 Cluster • kubectl, Pods, Deployments & YAML'
+                  : 'Interactive DevOps Sandbox & Shell'}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Center: Quick Stats Banner */}
-        <div className="hidden lg:flex items-center gap-4 text-xs font-mono">
-          <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-[#0d1117] border border-neutral-800 text-neutral-300">
+        {/* Center: Lab Mode Toggle & Quick Stats */}
+        <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center bg-neutral-900 border border-neutral-800 p-0.5 rounded-lg text-xs font-mono">
+            <button
+              onClick={() => setLabMode('linux')}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all ${
+                labMode === 'linux'
+                  ? 'bg-neutral-800 text-white font-semibold border border-neutral-700/60 shadow-xs'
+                  : 'text-neutral-400 hover:text-neutral-200'
+              }`}
+            >
+              <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Linux Workstation</span>
+            </button>
+            <button
+              onClick={() => setLabMode('k8s')}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all ${
+                labMode === 'k8s'
+                  ? 'bg-indigo-600/30 text-indigo-200 font-semibold border border-indigo-500/40 shadow-xs'
+                  : 'text-neutral-400 hover:text-neutral-200'
+              }`}
+            >
+              <Cloud className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Kubernetes Lab</span>
+              <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-indigo-500/30 text-indigo-300 font-bold">
+                ACTIVE
+              </span>
+            </button>
+          </div>
+
+          <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-lg bg-[#0d1117] border border-neutral-800 text-neutral-300 text-xs font-mono">
             <Activity className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Commands Executed:</span>
+            <span>Commands:</span>
             <span className="font-bold text-emerald-400">{commandsRunCount}</span>
           </div>
         </div>
@@ -102,17 +142,17 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
           <button
             onClick={() => setShowRoadmapModal(true)}
             className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 text-xs text-neutral-300 hover:text-white bg-neutral-800/80 hover:bg-neutral-800 rounded-lg border border-neutral-700/60 transition-colors"
-            title="View upcoming DevOps modules (Docker, Kubernetes, CI/CD)"
+            title="View DevOps modules (Linux, Kubernetes, Docker, CI/CD)"
           >
             <Layers className="w-3.5 h-3.5 text-blue-400" />
-            <span>Roadmap</span>
+            <span>DevOps Labs</span>
           </button>
 
           {/* Reset Sandbox */}
           <button
             onClick={handleResetEnvironment}
             className="flex items-center gap-1.5 px-2.5 py-1 text-xs text-neutral-300 hover:text-amber-400 bg-neutral-800/80 hover:bg-neutral-800 rounded-lg border border-neutral-700/60 transition-colors"
-            title="Reset sandbox virtual filesystem & processes"
+            title="Reset sandbox virtual filesystem & cluster"
           >
             <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
             <span className="hidden md:inline">Reset Sandbox</span>
@@ -128,6 +168,8 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
             onCommandExecuted={handleCommandExecuted}
             onResetEnvironment={handleResetEnvironment}
             runCommandRef={runCommandRef}
+            labMode={labMode}
+            onToggleLabMode={setLabMode}
           />
         </div>
       </main>
@@ -144,18 +186,22 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
             </button>
 
             <div className="space-y-1">
-              <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono uppercase tracking-wider">
+              <div className="flex items-center gap-2 text-indigo-400 text-xs font-mono uppercase tracking-wider">
                 <Layers className="w-4 h-4" />
-                <span>DevOps Learning Track & Roadmap</span>
+                <span>DevOps Practice Lab Track</span>
               </div>
               <h3 className="text-xl font-bold text-white">Interactive DevOps Practice Labs</h3>
               <p className="text-xs text-neutral-400">
-                The Linux Practice Lab provides unlimited hands-on command execution across system administration, cloud networking, and log filtering.
+                Execute hands-on Linux system administration and Kubernetes cluster commands directly in this interactive sandbox.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl border border-emerald-500/40 bg-emerald-950/20 space-y-1.5">
+              {/* Linux Lab - Active */}
+              <div
+                onClick={() => { setLabMode('linux'); setShowRoadmapModal(false); }}
+                className="p-3.5 rounded-xl border border-emerald-500/40 bg-emerald-950/20 space-y-1.5 cursor-pointer hover:border-emerald-400/60 transition-colors"
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-emerald-300 font-semibold">
                     <Terminal className="w-4 h-4 text-emerald-400" />
@@ -166,10 +212,30 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
                   </span>
                 </div>
                 <p className="text-neutral-400 text-[11px]">
-                  Unlimited practice commands: VFS, bash scripting, file permissions, process inspection, sockets, and network diagnostics.
+                  VFS filesystem, bash scripting, permissions, process inspection (ps, top), networking (curl, ss), and text streams.
                 </p>
               </div>
 
+              {/* Kubernetes Lab - Active */}
+              <div
+                onClick={() => { setLabMode('k8s'); setShowRoadmapModal(false); }}
+                className="p-3.5 rounded-xl border border-indigo-500/40 bg-indigo-950/20 space-y-1.5 cursor-pointer hover:border-indigo-400/60 transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-indigo-300 font-semibold">
+                    <Cloud className="w-4 h-4 text-indigo-400" />
+                    <span>Kubernetes Lab</span>
+                  </div>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono font-bold">
+                    ACTIVE LAB
+                  </span>
+                </div>
+                <p className="text-neutral-300 text-[11px]">
+                  kubectl mastery: Nodes, Pods, Deployments, Services, ConfigMaps, Ingress, `kubectl apply -f`, scaling, logs & metrics.
+                </p>
+              </div>
+
+              {/* Docker Lab */}
               <div className="p-3.5 rounded-xl border border-neutral-800 bg-[#0d1117] space-y-1.5 opacity-90">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-blue-300 font-semibold">
@@ -185,21 +251,7 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl border border-neutral-800 bg-[#0d1117] space-y-1.5 opacity-90">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-indigo-300 font-semibold">
-                    <Cloud className="w-4 h-4 text-indigo-400" />
-                    <span>Kubernetes Lab</span>
-                  </div>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-400 font-mono">
-                    IN QUEUE
-                  </span>
-                </div>
-                <p className="text-neutral-400 text-[11px]">
-                  kubectl mastery, Pods, Deployments, Services, ConfigMaps, Ingress, and Rolling updates.
-                </p>
-              </div>
-
+              {/* Git & CI/CD */}
               <div className="p-3.5 rounded-xl border border-neutral-800 bg-[#0d1117] space-y-1.5 opacity-90">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-orange-300 font-semibold">
@@ -216,12 +268,15 @@ export const LinuxLabPage: React.FC<LinuxLabPageProps> = ({ onBackToPortfolio })
               </div>
             </div>
 
-            <div className="pt-2 flex justify-end">
+            <div className="pt-2 flex justify-between items-center">
+              <div className="text-[11px] text-neutral-400">
+                Active Mode: <span className="text-white font-mono">{labMode === 'k8s' ? 'Kubernetes Lab' : 'Linux Workstation'}</span>
+              </div>
               <button
                 onClick={() => setShowRoadmapModal(false)}
-                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold transition-colors"
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition-colors"
               >
-                Continue Linux Practice
+                Close Roadmap
               </button>
             </div>
           </div>
