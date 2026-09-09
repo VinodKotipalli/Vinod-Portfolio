@@ -18,6 +18,7 @@ import Certificates from './components/Certificates';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import { LinuxLabCard } from './components/LinuxLabCard';
+import { trackUniqueVisitor } from './lib/visitorTracker';
 
 // Standalone Linux Practice Lab Page & WhatsApp Chatbot
 const LinuxLabPage = lazy(() =>
@@ -62,6 +63,13 @@ function MainLayout() {
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  useEffect(() => {
+    // Record visitor and send notification to owner
+    trackUniqueVisitor().catch((err) => {
+      console.warn('Visitor tracking error:', err);
+    });
   }, []);
 
   const handleLaunchLab = () => {

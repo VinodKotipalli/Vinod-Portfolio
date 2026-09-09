@@ -604,6 +604,262 @@ async function startServer() {
     }
   });
 
+  // API 4.5: Visitor View Notification to saivinodkotipalli2003@gmail.com
+  app.post("/api/notify-visit", async (req, res) => {
+    try {
+      const {
+        visitorId = "Anonymous",
+        isUnique = true,
+        page = "/",
+        referrer = "Direct / Bookmark",
+        userAgent = req.headers["user-agent"] || "Unknown",
+        timeZone = "UTC",
+        screenResolution = "Unknown",
+        language = "en",
+      } = req.body;
+
+      const clientIp =
+        (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+        req.socket.remoteAddress ||
+        "Unknown IP";
+
+      const recipientEmail = process.env.VISITOR_NOTIFICATION_EMAIL || "saivinodkotipalli2003@gmail.com";
+      const visitType = isUnique ? "Unique First-Time Visitor" : "Returning Visitor Session";
+      const subject = `[Portfolio View Alert] 🚀 ${visitType} on Saivinod's Portfolio`;
+      const formattedTime = new Date().toUTCString();
+
+      const htmlBody = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111; margin: 0; padding: 20px; background-color: #0d0d0d; }
+    .card { max-width: 600px; margin: 0 auto; background: #141414; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #2a2a2a; color: #fff; }
+    .header { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #ffffff; padding: 26px 32px; }
+    .badge { display: inline-block; padding: 4px 10px; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .header h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
+    .header p { margin: 6px 0 0; font-size: 13px; opacity: 0.95; }
+    .content { padding: 28px 32px; }
+    .field { margin-bottom: 16px; }
+    .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #888; margin-bottom: 4px; font-family: monospace; }
+    .value { font-size: 14px; color: #f1f5f9; font-weight: 500; word-break: break-word; }
+    .highlight-box { background: #1e293b; border-left: 4px solid #0ea5e9; padding: 14px 18px; border-radius: 8px; margin-bottom: 20px; }
+    .footer { background: #0a0a0a; color: #64748b; font-size: 11px; text-align: center; padding: 18px; font-family: monospace; border-top: 1px solid #1e293b; }
+    .btn { display: inline-block; padding: 10px 22px; background: #0ea5e9; color: #fff; text-decoration: none; font-weight: bold; border-radius: 6px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="badge">Live Traffic Alert</div>
+      <h1>New Portfolio Visitor View</h1>
+      <p>Someone is currently viewing your portfolio website</p>
+    </div>
+    <div class="content">
+      <div class="highlight-box">
+        <div style="font-size: 15px; font-weight: 700; color: #38bdf8; margin-bottom: 4px;">${visitType}</div>
+        <div style="font-size: 13px; color: #94a3b8;">Recorded on ${formattedTime}</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Visited URL / Page</div>
+        <div class="value">${page}</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Referrer (Traffic Source)</div>
+        <div class="value">${referrer}</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Visitor Identifier</div>
+        <div class="value" style="font-family: monospace; font-size: 13px; color: #38bdf8;">${visitorId}</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Timezone & Locale</div>
+        <div class="value">${timeZone} (${language})</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Screen Resolution & Device</div>
+        <div class="value">${screenResolution} &bull; ${userAgent}</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Client IP (Proxied)</div>
+        <div class="value" style="font-family: monospace;">${clientIp}</div>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <a href="${process.env.APP_URL || 'https://ais-dev-qbo6lftww2vlrvusnvqmza-837140640323.asia-east1.run.app'}" class="btn">Open Portfolio &rarr;</a>
+      </div>
+    </div>
+    <div class="footer">
+      Automated alert dispatched to ${recipientEmail} • Saivinod Kotipalli Portfolio Analytics
+    </div>
+  </div>
+</body>
+</html>
+      `.trim();
+
+      const textBody = `[Portfolio View Alert] New Visitor on Your Portfolio\n\nType: ${visitType}\nDate: ${formattedTime}\nPage: ${page}\nReferrer: ${referrer}\nVisitor ID: ${visitorId}\nTimezone: ${timeZone}\nScreen: ${screenResolution}\nDevice: ${userAgent}\nIP: ${clientIp}\n\nDelivered to ${recipientEmail}`;
+
+      let dispatched = false;
+      let dispatchProvider = "";
+
+      // 1. Dispatch via Gmail SMTP (Nodemailer)
+      const gmailPass = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
+      const gmailUser = process.env.GMAIL_USER || process.env.SMTP_USER || "saivinodkotipalli2003@gmail.com";
+
+      if (gmailPass) {
+        try {
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: gmailUser,
+              pass: gmailPass,
+            },
+          });
+
+          const info = await transporter.sendMail({
+            from: `"Portfolio View Alert" <${gmailUser}>`,
+            to: recipientEmail,
+            subject,
+            text: textBody,
+            html: htmlBody,
+          });
+
+          console.log(`[VISITOR ALERT GMAIL SUCCESS] Dispatched to ${recipientEmail}, MessageId: ${info.messageId}`);
+          dispatched = true;
+          dispatchProvider = "GMAIL_SMTP";
+        } catch (gmailErr: any) {
+          console.warn(`[VISITOR ALERT GMAIL NOTICE] ${gmailErr?.message}`);
+        }
+      }
+
+      // 2. Dispatch via Resend
+      if (!dispatched && process.env.RESEND_API_KEY) {
+        try {
+          const resend = getResendClient();
+          if (resend) {
+            const { data, error } = await resend.emails.send({
+              from: process.env.RESEND_FROM_EMAIL || "Portfolio Views <onboarding@resend.dev>",
+              to: [recipientEmail],
+              subject,
+              html: htmlBody,
+              text: textBody,
+            });
+
+            if (!error && data) {
+              console.log(`[VISITOR ALERT RESEND SUCCESS] Dispatched to ${recipientEmail}, Id: ${data.id}`);
+              dispatched = true;
+              dispatchProvider = "RESEND";
+            }
+          }
+        } catch (resendErr: any) {
+          console.warn("[VISITOR ALERT RESEND ERROR]", resendErr?.message);
+        }
+      }
+
+      // 3. Dispatch via AWS SES
+      if (!dispatched && (awsCredentials || process.env.AWS_SES_SENDER_EMAIL)) {
+        try {
+          const senderEmail = process.env.AWS_SES_SENDER_EMAIL || "security@admin-portfolio.com";
+          const sesCommand = new SendEmailCommand({
+            Source: senderEmail,
+            Destination: { ToAddresses: [recipientEmail] },
+            Message: {
+              Subject: { Data: subject, Charset: "UTF-8" },
+              Body: {
+                Html: { Data: htmlBody, Charset: "UTF-8" },
+                Text: { Data: textBody, Charset: "UTF-8" },
+              },
+            },
+          });
+          const sesRes = await sesClient.send(sesCommand);
+          console.log(`[VISITOR ALERT SES SUCCESS] Dispatched to ${recipientEmail}, MessageId: ${sesRes.MessageId}`);
+          dispatched = true;
+          dispatchProvider = "AWS_SES";
+        } catch (sesErr: any) {
+          console.warn("[VISITOR ALERT SES NOTICE]", sesErr?.message);
+        }
+      }
+
+      // 4. Custom SMTP
+      if (!dispatched && process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+        try {
+          const transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT) || 587,
+            secure: Number(process.env.SMTP_PORT) === 465,
+            auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+          });
+          await transporter.sendMail({
+            from: `"Portfolio Alerts" <${process.env.SMTP_USER}>`,
+            to: recipientEmail,
+            subject,
+            text: textBody,
+            html: htmlBody,
+          });
+          dispatched = true;
+          dispatchProvider = "SMTP";
+        } catch (smtpErr: any) {
+          console.warn("[VISITOR ALERT SMTP NOTICE]", smtpErr?.message);
+        }
+      }
+
+      // 5. Zero-config direct web relay via FormSubmit
+      if (!dispatched) {
+        try {
+          const formSubmitRes = await axios.post(
+            `https://formsubmit.co/ajax/${recipientEmail}`,
+            {
+              _subject: subject,
+              _template: "table",
+              _captcha: "false",
+              alert_type: "Portfolio Visitor View Notification",
+              visitor_type: visitType,
+              visitor_id: visitorId,
+              page_visited: page,
+              traffic_source_referrer: referrer,
+              client_timezone: timeZone,
+              screen_resolution: screenResolution,
+              device_and_browser: userAgent,
+              client_ip: clientIp,
+              timestamp: formattedTime,
+            },
+            {
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              timeout: 8000,
+            }
+          );
+          if (formSubmitRes.status >= 200 && formSubmitRes.status < 300) {
+            console.log(`[VISITOR ALERT FORMSUBMIT SUCCESS] Dispatched to ${recipientEmail}`);
+            dispatched = true;
+            dispatchProvider = "FORMSUBMIT_RELAY";
+          }
+        } catch (relayErr: any) {
+          console.warn("[VISITOR ALERT FORMSUBMIT NOTICE]", relayErr?.message);
+        }
+      }
+
+      console.log(`[VISITOR NOTIFICATION LOG] Target: ${recipientEmail} | Dispatched: ${dispatched} via ${dispatchProvider || "LOG_QUEUE"}`);
+
+      return res.json({
+        success: true,
+        dispatched,
+        provider: dispatchProvider || "LOGGED",
+        recipient: recipientEmail,
+        timestamp: formattedTime,
+      });
+    } catch (err: any) {
+      console.error("Error in /api/notify-visit:", err);
+      return res.status(500).json({ success: false, error: err?.message || "Internal server error" });
+    }
+  });
+
   // API 5: Multi-Turn Gemini AI Chat Assistant
   app.post("/api/chat", async (req, res) => {
     try {
